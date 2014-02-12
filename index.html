@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ufinder demo</title>
+</head>
+<body>
+    <script></script>
+    <script type="text/javascript">
+        var paths  = [
+                    'core/datatree.js',
+                    'core/event.js',
+                    'core/proxy.js',
+                    'core/request.js',
+                    'core/selection.js',
+                    'core/ufinder.js',
+                    'core/utils.js'
+                ],
+                baseURL = '_src/';
+        for (var i=0,pi;pi = paths[i++];) {
+            document.write('<script type="text/javascript" src="'+ baseURL + pi +'"><\/script>');
+        }
+    </script>
+</body>
+</html>
