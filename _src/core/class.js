@@ -176,7 +176,7 @@
         return BaseClass;
     }
 
-    exports.createClass = function ( classname, defines ) {
+    UF.createClass = function ( classname, defines ) {
         var constructor, NewClass, BaseClass;
 
         if ( arguments.length === 1 ) {
@@ -217,6 +217,6 @@
         return NewClass;
     };
 
-    exports.extendClass = extend;
+    UF.extendClass = extend;
 
 })();

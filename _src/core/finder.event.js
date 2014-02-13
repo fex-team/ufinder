@@ -1,4 +1,4 @@
-kity.extendClass(Finder, {
+UF.extendClass(Finder, {
     _initEvents: function () {
         this._eventCallbacks = {};
     },
