@@ -5,21 +5,32 @@
     <title>ufinder demo</title>
 </head>
 <body>
-    <script></script>
+    <div id="container"></div>
+    <script src="jquery-1.11.0.min.js"></script>
     <script type="text/javascript">
         var paths  = [
-                    'core/datatree.js',
-                    'core/event.js',
-                    'core/proxy.js',
+                    'core/ufinder.js',
+                    'core/utils.js',
+                    'core/class.js',
+                    'core/file.js',
+                    'core/finder.js',
+                    'core/finder.event.js',
+                    'core/finder.module.js',
+                    'core/finder.select.js',
+                    'core/finder.tree.js',
                     'core/request.js',
                     'core/selection.js',
-                    'core/ufinder.js',
-                    'core/utils.js'
+                    'core/datatree.js',
+                    'core/proxy.js'
                 ],
                 baseURL = '_src/';
         for (var i=0,pi;pi = paths[i++];) {
             document.write('<script type="text/javascript" src="'+ baseURL + pi +'"><\/script>');
         }
+
+        $(function(){
+            var uf = UF.getFinder('container');
+        });
     </script>
 </body>
 </html>

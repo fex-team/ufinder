@@ -1,3 +1,3 @@
-var utils = UFinder.utils = {
+var utils = UF.utils = {
 
 };

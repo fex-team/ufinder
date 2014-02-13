@@ -1,4 +1,4 @@
-var UF =
+var UFinder =
     window.UF =
     window.UFinder = function(){
         var instanceMap = {}, instanceId = 0;

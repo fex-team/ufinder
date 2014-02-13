@@ -1,4 +1,4 @@
-var File = UFinder.File = UF.createClass( "File", {
+var File = UF.File = UF.createClass( "File", {
     constructor: function(){
         this._info = {};
     },

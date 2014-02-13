@@ -1,4 +1,4 @@
-var DataTree = UFinder.DataTree = UF.createClass( "DataTree", {
+var DataTree = UF.DataTree = UF.createClass( "DataTree", {
     constructor: function(){
         this.data = {};
     },
