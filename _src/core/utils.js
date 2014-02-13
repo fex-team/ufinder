@@ -1,0 +1,3 @@
+var utils = UFinder.utils = {
+
+};
