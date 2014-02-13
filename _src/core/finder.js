@@ -1,13 +1,13 @@
 var Finder = UF.Finder = UF.createClass('Finder', {
-    constructor: function(options){
+    constructor: function (options) {
         this._initEvents();
         this._initFinder();
         this._initSelection();
         this._initModules();
 
-        this.fire( 'ready' );
+        this.fire('ready');
     },
-    _initFinder: function(){
+    _initFinder: function () {
         this.dataTree = new DataTree(this);
         this.selection = new Selection(this);
     }

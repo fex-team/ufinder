@@ -1,24 +1,24 @@
-var DataTree = UF.DataTree = UF.createClass( "DataTree", {
-    constructor: function(finder){
+var DataTree = UF.DataTree = UF.createClass("DataTree", {
+    constructor: function (finder) {
         this.finder = finder;
         this.root = new File();
     },
-    updateFiles: function(files){
+    updateFiles: function (files) {
 
     },
-    removeFiles: function(files){
+    removeFiles: function (files) {
 
     },
-    addFile: function(file){
+    addFile: function (file) {
 
     },
-    removeFile: function(path){
+    removeFile: function (path) {
 
     },
-    updateFile: function(path){
+    updateFile: function (path) {
 
     },
-    getFile: function(path){
+    getFile: function (path) {
 
     }
 });

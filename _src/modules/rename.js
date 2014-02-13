@@ -1,6 +1,8 @@
 Ufinder.registerModule("renamemodule", function () {
     var uf = this;
     return {
+        "defaultOptions": {
+        },
         "commands": {
             "rename": UF.createClass("renameCommand", {
                 base: Command,
@@ -11,7 +13,7 @@ Ufinder.registerModule("renamemodule", function () {
                 }
             })
         },
-        "shortcutkeys": {
+        "shortcutKeys": {
             "rename": "113" //rename F2
         },
         "events": {

@@ -1,29 +1,29 @@
-var File = UF.File = UF.createClass( "File", {
-    constructor: function(){
+var File = UF.File = UF.createClass("File", {
+    constructor: function () {
         this._info = {};
     },
-    setData: function(){
+    setData: function () {
         this._info = {};
     },
-    getData: function(info){
+    getData: function (info) {
         return this._info;
     },
-    setAttribute: function(key, value){
+    setAttribute: function (key, value) {
         this._info[key] = value;
     },
-    getAttribute: function(key){
+    getAttribute: function (key) {
         return this._info[key];
     },
-    lock: function(){
+    lock: function () {
 
     },
-    unlock: function(){
+    unlock: function () {
 
     },
-    setDisable: function(){
+    setDisable: function () {
 
     },
-    setEnable: function(){
+    setEnable: function () {
 
     }
 });

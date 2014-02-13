@@ -1,5 +1,5 @@
-var Selection = UF.Selection = UF.createClass( "Selection", {
-    constructor: function(finder){
+var Selection = UF.Selection = UF.createClass("Selection", {
+    constructor: function (finder) {
         this.finder = finder;
         this._selectedFiles = [];
     },
@@ -12,13 +12,13 @@ var Selection = UF.Selection = UF.createClass( "Selection", {
     removeAllSelectedFiles: function () {
 
     },
-    removeSelectedFiles: function ( files ) {
+    removeSelectedFiles: function (files) {
 
     },
-    select: function ( files, isToggleSelect ) {
+    select: function (files, isToggleSelect) {
 
     },
-    isFileSelected: function ( file ) {
+    isFileSelected: function (file) {
 
     }
 });
