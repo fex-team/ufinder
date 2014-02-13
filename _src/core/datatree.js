@@ -1,11 +1,11 @@
 var DataTree = UF.DataTree = UF.createClass( "DataTree", {
     constructor: function(){
-        this.data = {};
+        this.root = new File();
     },
-    setData: function(){
-        return new File();
+    updateFiles: function(files){
+
     },
-    getData: function(){
+    removeFiles: function(files){
 
     },
     addFile: function(file){
@@ -18,6 +18,6 @@ var DataTree = UF.DataTree = UF.createClass( "DataTree", {
 
     },
     getFile: function(path){
-        return new File();
+
     }
 });
