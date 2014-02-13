@@ -11,7 +11,7 @@ Ufinder.registerModule("renamemodule", function () {
                 }
             })
         },
-        "addShortcutKeys": {
+        "shortcutkeys": {
             "rename": "113" //rename F2
         },
         "events": {

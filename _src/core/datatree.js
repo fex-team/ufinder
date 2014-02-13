@@ -1,5 +1,6 @@
 var DataTree = UF.DataTree = UF.createClass( "DataTree", {
-    constructor: function(){
+    constructor: function(finder){
+        this.finder = finder;
         this.root = new File();
     },
     updateFiles: function(files){

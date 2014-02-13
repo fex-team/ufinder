@@ -8,7 +8,7 @@ var Finder = UF.Finder = UF.createClass('Finder', {
         this.fire( 'ready' );
     },
     _initFinder: function(){
-        this.dataTree = new DataTree();
-        this.selection = new Selection();
+        this.dataTree = new DataTree(this);
+        this.selection = new Selection(this);
     }
 });
