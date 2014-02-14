@@ -15,7 +15,7 @@ var Selection = UF.Selection = UF.createClass("Selection", {
     removeSelectedFiles: function (files) {
 
     },
-    select: function (files, isToggleSelect) {
+    select: function (files) {
 
     },
     isFileSelected: function (file) {

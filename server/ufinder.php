@@ -2,10 +2,10 @@
 
 $PATH = './files/';
 
-$action = $_GET['a'];
+$cmd = $_GET['cmd'];
 $target = $_GET['target'];
 
-switch($action){
+switch($cmd){
     case 'ls':
         if(isset($_GET['target'])) $target = $_GET['target'];
         else $target = '';
@@ -13,9 +13,47 @@ switch($action){
         echo getJson('0', 'success', array('files' => $list));
         break;
     case 'rename':
-        $newname = $_GET['newname'];
-        $res = rename($PATH.$target, $PATH.$newname);
-        echo getJson('0', 'success', array('newname' => $newname, 'list' => listFile($PATH)));
+        $name = $_GET['name'];
+        $res = rename($PATH.$target, $PATH.$name);
+        if($res) {
+            echo getJson('0', 'success', array('file' => getFileInfo($name, $PATH)));
+        } else {
+            echo getJson('1', 'error', array('file' => getFileInfo($target, $PATH)));
+        }
+        break;
+    case 'rm':
+        $name = $_GET['name'];
+        if(is_dir($PATH.$target)) {
+            $res = rmdir($PATH.$target);
+        } else {
+            $res = unlink($PATH.$target);
+        }
+        if($res) {
+            echo getJson('0', 'success');
+        } else {
+            echo getJson('1', 'error', array('file' => getFileInfo($target, $PATH)));
+        }
+        break;
+    case 'touch':
+        sleep(3);
+        if(!file_exists($PATH.$target)) {
+            $res = file_put_contents($PATH.$target, '');
+        } else {
+            $res = true;
+        }
+        if($res) {
+            echo getJson('0', 'success', array('file' => getFileInfo($target, $PATH)));
+        } else {
+            echo getJson('1', 'error', array('file' => getFileInfo($target, $PATH)));
+        }
+        break;
+    case 'mkdir':
+        $res = mkdir($PATH.$target);
+        if($res) {
+            echo getJson('0', 'success', array('file' => getFileInfo($target, $PATH)));
+        } else {
+            echo getJson('1', 'error', array('file' => getFileInfo($target, $PATH)));
+        }
         break;
     default:
         echo 'unknow action';
@@ -65,11 +103,11 @@ function getFileInfo($filename, $PATH){
     return $info;
 }
 
-function getJson($state, $message, $data){
+function getJson($state, $message, $data = null){
     $output = array();
     $output['state'] = $state;
     $output['message'] = $message;
-    $output['data'] = $data;
+    if($data) $output['data'] = $data;
     return json_encode($output);
 }
 

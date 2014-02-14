@@ -9,5 +9,6 @@ var Finder = UF.Finder = UF.createClass('Finder', {
     _initFinder: function () {
         this.dataTree = new DataTree(this);
         this.selection = new Selection(this);
+        this.proxy = new Proxy(this);
     }
 });

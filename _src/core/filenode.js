@@ -1,36 +1,38 @@
-var File = UF.File = UF.createClass("File", {
+var FileNode = UF.FileNode = UF.createClass("FileNode", {
     constructor: function (data) {
         this.data = {};
         this.parent = null;
-        this.root = null;
         this.locked = false;
         this.children = [];
         this.setData(data);
     },
     setData: function (data) {
-        this.data = $.extend(this.data, data);
+        $.extend(this.data, data);
     },
     getData: function () {
         return this.data;
     },
-    setAttribute: function (key, value) {
+    setAttr: function (key, value) {
         this.data[key] = value;
     },
-    getAttribute: function (key) {
+    getAttr: function (key) {
         return this.data[key];
-    },
-    remove: function(){
-        this.parent.removeChild(this);
     },
     addChild: function (file) {
         file.parent = this;
-        file.root = parent.root;
         this.children.push(file);
     },
     removeChild: function (file) {
         file.parent = this;
-        file.root = parent.root;
         this.children.push(file);
+    },
+    getChild: function (filename) {
+        for (var key in this.children) {
+            if (this.children[key].name == filename) {
+                return this.children[key];
+            }
+        }
+        return null;
     },
     lock: function () {
         this.locked = true;

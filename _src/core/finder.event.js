@@ -2,9 +2,6 @@ UF.extendClass(Finder, {
     _initEvents: function () {
         this._eventCallbacks = {};
     },
-    _resetEvents: function () {
-        this._initEvents();
-    },
     _listen: function (type, callback) {
         var callbacks = this._eventCallbacks[ type ] || ( this._eventCallbacks[ type ] = [] );
         callbacks.push(callback);
@@ -48,8 +45,7 @@ UF.extendClass(Finder, {
         }
     },
     fire: function (type, params) {
-        var e = new FinderEvent(type, params);
-        this._fire(e);
+//        this._fire(type, params);
         return this;
     }
 });
