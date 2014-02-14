@@ -35,7 +35,7 @@ switch($cmd){
         }
         break;
     case 'touch':
-        sleep(3);
+//        sleep(3);
         if(!file_exists($PATH.$target)) {
             $res = file_put_contents($PATH.$target, '');
         } else {
