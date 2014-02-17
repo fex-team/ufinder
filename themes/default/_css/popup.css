@@ -1,0 +1,20 @@
+.ufui-popup{
+    display: none;
+    background: url('../images/pop-bg.png') repeat #fff;
+    padding: 2px;
+}
+.ufui-popup .ufui-popup-body{
+    border: 1px solid #bfbfbf;
+    background-color: #fff;
+}
+.ufui-popup .ufui-popup-caret{
+    width: 21px;
+    height: 11px;
+}
+.ufui-popup .ufui-popup-caret.up{
+    background:url('../images/caret.png') no-repeat 0 0;
+}
+.ufui-popup .ufui-popup-caret.down{
+    background:url('../images/caret.png') no-repeat 0 0;
+}
+

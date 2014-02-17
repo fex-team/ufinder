@@ -28,6 +28,8 @@ var UFinder =
                         id = target.id || ( "UF_INSTANCE_" + instanceId++ );
                     }
                     return instanceMap[ id ] || this.createFinder(target, options);
-                }
+                },
+                //挂接多语言
+                LANG:{}
             }
         }();

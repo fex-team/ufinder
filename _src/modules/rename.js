@@ -6,7 +6,7 @@ UF.registerModule("renamemodule", function () {
         "commands": {
             "rename": {
                 execute: function (name) {
-                    var file = selection.getSelectedFile();
+//                    var file = selection.getSelectedFile();
                     uf.proxy.rename(name, function(){
                     });
                 },

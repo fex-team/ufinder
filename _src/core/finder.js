@@ -23,6 +23,21 @@ var Finder = UF.Finder = UF.createClass('Finder', {
         }
         $.extend(this._options, obj, true);
     },
+    getOption: function (key) {
+        return this._options[ key ];
+    },
+    getLang:function(path){
+        var lang = UF.LANG[this.getOption('lang')];
+        if (!lang) {
+            throw Error("not import language file");
+        }
+        path = (path || "").split(".");
+        for (var i = 0, ci; ci = path[i++];) {
+            lang = lang[ci];
+            if (!lang)break;
+        }
+        return lang;
+    },
     _initShortcutKey: function () {
         this._shortcutkeys = {};
         this._bindshortcutKeys();
