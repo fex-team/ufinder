@@ -11,23 +11,18 @@ $.extend(UFinder, (function(){
                 _ufinderUI[ name ] = fn;
             })
         },
-        _createUI: function (id) {
-            var $container = $( '<div class="ufui-container"></div>' ),
-                $toolbar = $.ufuitoolbar(),
-                $tree = $.ufuitree(),
-                $list = $.ufuilist();
-
-            $container.append( $toolbar ).append( $tree ).append( $list );
+        _createContainer: function (id) {
+            var $container = $( '<div class="ufui-container"></div>' );
             $(Utils.isString( id ) ? '#' + id : id ).append( $container );
-            return {
-                '$container': $container,
-                '$toolbar': $toolbar,
-                '$tree': $tree,
-                '$list': $list
-            };
+            return $container;
         },
-        _createToolbar: function($toolbar, uf){
+        _createToolbar: function(uf){
             var toolbars = uf.getOption( 'toolbars' );
+
+            var $toolbar = $.ufuitoolbar();
+            uf.$container.append($toolbar);
+            uf.$toolbar = $toolbar;
+
             if ( toolbars && toolbars.length ) {
                 var btns = [];
                 $.each( toolbars, function ( i, uiNames ) {
@@ -48,20 +43,28 @@ $.extend(UFinder, (function(){
             }
             $toolbar.append( $( '<div class="ufui-dialog-container"></div>' ) );
         },
+        _createtree: function(uf){
+            var $tree = _ufinderUI['tree'].call( uf, 'list' );
+            uf.$container.append($tree);
+            uf.$tree = $tree;
+        },
+        _createlist: function(uf){
+            var $list = _ufinderUI['list'].call( uf, 'list' );
+            uf.$container.append($list);
+            uf.$list = $list;
+        },
         _loadData: function(uf){
-            uf.execCommand('open', '/', function(data){
-                uf.$tree.ufui().setData(data);
-                uf.$list.ufui().setData(data);
-            })
+            uf.execCommand('open', '/');
         },
         getUFinder: function (id, options) {
-            var uis = this._createUI(id),
-                uf = this.getFinder( uis.$container, options );
+            var $container = this._createContainer(id),
+                uf = this.getFinder( $container, options );
 
-            this._createToolbar( uis.$toolbar, uf );
-            uf.$container = uis.$container;
-            uf.$tree = uis.$tree;
-            uf.$list = uis.$list;
+            uf.$container = $container;
+
+            this._createToolbar(uf);
+            this._createtree(uf);
+            this._createlist(uf);
 
             this._loadData(uf);
             return uf;

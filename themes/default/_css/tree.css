@@ -8,11 +8,15 @@
     height: 100%;
     /*border: 1px solid #eeeeee;*/
     border-right-width: 0px;
-    margin-right: 10px;
-}
-.ufui-tree-container,
-.ufui-tree-container li{
-    margin: 0px;
-    padding: 0px;
+    margin: 10px;
+    padding: 0;
     list-style: none;
+    overflow-y: scroll;
+}
+.ufui-tree-container li{
+    margin: 4px 0;
+    padding: 0;
+    list-style: none;
+    font-size: 14px;
+    color: #ff6a00;
 }

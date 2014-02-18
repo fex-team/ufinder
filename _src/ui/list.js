@@ -1,45 +1,24 @@
-//button 类
 UF.ui.define('list', {
-    tpl: '<div class="ufui-list"  ></div>',
+    tpl: '<div class="ufui-list">' +
+        '<div class="ufui-list-container"></div>' +
+        '</div>',
     defaultOpt: {
     },
     init: function (options) {
         var me = this;
-        me.root( $($.parseTmpl(me.tpl, options)) );
+
+        me.root( $($.parseTmpl(me.tpl, options)) ).append( me.$list );
+        me.$list = me.root().find('.ufui-list-container');
+
         return me;
     },
-    disabled: function (state) {
-        if (state === undefined) {
-            return this.root().hasClass('ufui-disabled')
-        }
-        this.root().toggleClass('ufui-disabled', state);
-        if(this.root().hasClass('ufui-disabled')){
-            this.root().removeClass('ufui-hover')
-        }
-        return this;
+    addItem: function($item){
+        this.$list.append($item);
     },
-    active: function (state) {
-        if (state === undefined) {
-            return this.root().hasClass('ufui-active')
-        }
-        this.root().toggleClass('ufui-active', state)
-
-        return this;
+    removeItem: function($item){
+        $item.remove();
     },
-    setData: function(filelist){
-        var $ul = $('<ul class="ufui-list-container"></ul>');
-        for(var i in filelist) {
-            var filetitle = filelist[i].name,
-                filetype = filelist[i].type;
-            $ul.append($('<li class="ufui-list-item">' +
-                '<div class="ufui-list-icon"><i class="ufui-list-' + filetype + '"></i></div>' +
-                '<div class="ufui-list-title">' + filetitle + '</div>' +
-                '</li>'));
-        }
-        this.root().html('').append($ul);
-    },
-    addItem: function(){},
-    updateItem: function(){},
-    clearItems: function(){},
-    itemClick: function(){}
+    clearItems: function(){
+        this.$list.html('');
+    }
 });

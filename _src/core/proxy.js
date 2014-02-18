@@ -78,6 +78,5 @@ var Proxy = UF.Proxy = UF.createClass("Proxy", {
     },
     _afterRequestComplete: function(d, request){
         this.finder.fire('afterRequestComplete', d, request);
-        console.log(d);
     }
 });

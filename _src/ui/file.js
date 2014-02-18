@@ -1,7 +1,12 @@
-//button 类
-UF.ui.define('list', {
-    tpl: '<div class="ufui-list"  ></div>',
+UF.ui.define('file', {
+    tpl: '<div class="ufui-file" data-path="<%=path%>">' +
+        '<div class="ufui-file-icon"><i class="ufui-file-icon-<%=type%>"></i></div>' +
+        '<div class="ufui-file-title"><%=title%></div>' +
+        '</div>',
     defaultOpt: {
+        type: '',
+        title: '',
+        path: ''
     },
     init: function (options) {
         var me = this;
@@ -22,24 +27,28 @@ UF.ui.define('list', {
         if (state === undefined) {
             return this.root().hasClass('ufui-active')
         }
-        this.root().toggleClass('ufui-active', state)
+        this.root().toggleClass('ufui-active', state);
 
         return this;
     },
-    setData: function(filelist){
-        var $ul = $('<ul class="ufui-list-container"></ul>');
-        for(var i in filelist) {
-            var filetitle = filelist[i].name,
-                filetype = filelist[i].type;
-            $ul.append($('<li class="ufui-list-item">' +
-                '<div class="ufui-list-icon"><i class="ufui-list-' + filetype + '"></i></div>' +
-                '<div class="ufui-list-title">' + filetitle + '</div>' +
-                '</li>'));
-        }
-        this.root().html('').append($ul);
+    setTitle: function(title){
+        this.root().find('.ufui-file-title').text(title);
     },
-    addItem: function(){},
-    updateItem: function(){},
-    clearItems: function(){},
-    itemClick: function(){}
+    getTitle: function(){
+        this.root().find('.ufui-file-title').text(title);
+    },
+    setType: function(type){
+        this.root().find('.ufui-file-icon i').removeClass().addClass('ufui-file-icon-' + type);
+    },
+    getType: function(){
+        var c = this.root().find('.ufui-file-icon i'),
+            m = c.match(/ufui-file-icon-([\w]+)(\s|$)/);
+        return m ? m[1]:null;
+    },
+    setPath: function(path){
+        this.root().attr('data-path', path);
+    },
+    getPath: function(){
+        return this.root().attr('data-path');
+    }
 });

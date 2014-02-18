@@ -1,4 +1,3 @@
-//button 类
 UF.ui.define('tree', {
     tpl: '<div class="ufui-tree"  ></div>',
     defaultOpt: {
@@ -29,7 +28,9 @@ UF.ui.define('tree', {
     setData: function(filelist){
         var $ul = $('<ul class="ufui-tree-container"></ul>');
         for(var i in filelist) {
-            $ul.append($('<li class="ufui-tree-item">').text(filelist[i].type+':'+filelist[i].name));
+            if(filelist[i].type == 'dir') {
+                $ul.append($('<li data-path="' + filelist[i].path + '" class="ufui-tree-item">').text(filelist[i].path));
+            }
         }
         this.root().html('').append($ul);
     }

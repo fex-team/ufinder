@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<changelog xmlns="http://www.omnigroup.com/namespace/OmniPlan/v2">
+  <version>2.1</version>
+  <task-change-set user="Jinqn" date="2014-02-18T02:39:18.770Z" timestamp="2014-02-18T02:39:18.770Z">
+    <change idref="t2" to="t-1" to-position="1" resolved="yes">
+      <change idref="t2" attribute="internalAssignments" type="string" from="" to="1"/>
+      <change idref="t2" attribute="resourceLeveledDate" type="date" to="2014-02-20T00:00:00.000Z"/>
+      <change idref="t2" attribute="title" type="string" to="事件响应"/>
+    </change>
+    <change idref="t3" to="t-1" to-position="2" resolved="yes">
+      <change idref="t3" attribute="noEarlierThanConstraintDate" type="date" to="2014-02-21T00:00:00.000Z"/>
+      <change idref="t3" attribute="title" type="string" to="删除模块"/>
+    </change>
+    <change idref="t4" to="t-1" to-position="3" resolved="yes">
+      <change idref="t4" attribute="noEarlierThanConstraintDate" type="date" to="2014-02-24T00:00:00.000Z"/>
+      <change idref="t4" attribute="title" type="string" to="新建文件/文件夹模块"/>
+    </change>
+    <change idref="t5" to="t-1" to-position="4" resolved="yes">
+      <change idref="t5" attribute="effort" type="real" from="28800" to="14400"/>
+      <change idref="t5" attribute="title" type="string" to="打开文件模块"/>
+    </change>
+    <change idref="t1" attribute="title" type="string" from="任务 1" to="选区" resolved="yes"/>
+    <change idref="t1" attribute="noLaterThanConstrainedTaskEnd" type="real" from="1" to="0" resolved="yes"/>
+    <change idref="t1" attribute="internalAssignments" type="string" from="" to="1" resolved="yes"/>
+    <change idref="t1" attribute="resourceLeveledDate" type="date" to="2014-02-19T00:00:00.000Z" resolved="yes"/>
+  </task-change-set>
+  <task-change-set user="Jinqn" date="2014-02-18T02:47:41.162Z" timestamp="2014-02-18T02:47:41.162Z">
+    <change idref="t5" from="t-1" from-position="4" to="t-1" to-position="3" resolved="yes"/>
+    <change idref="t1" attribute="resourceLeveledDate" type="date" from="2014-02-19T00:00:00.000Z" to="2014-02-18T00:00:00.000Z" resolved="yes"/>
+    <change idref="t1" attribute="noEarlierThanConstraintDate" type="date" to="2014-02-18T00:00:00.000Z" resolved="yes"/>
+    <change idref="t2" attribute="resourceLeveledDate" type="date" from="2014-02-20T00:00:00.000Z" to="2014-02-19T00:00:00.000Z" resolved="yes"/>
+    <change idref="t2" attribute="noEarlierThanConstraintDate" type="date" to="2014-02-19T00:00:00.000Z" resolved="yes"/>
+    <change idref="t3" attribute="noLaterThanConstrainedTaskEnd" type="real" from="1" to="0" resolved="yes"/>
+    <change idref="t3" attribute="noEarlierThanConstraintDate" type="date" from="2014-02-21T00:00:00.000Z" to="2014-02-20T00:00:00.000Z" resolved="yes"/>
+    <change idref="t3" attribute="internalAssignments" type="string" from="" to="1" resolved="yes"/>
+    <change idref="t3" attribute="resourceLeveledDate" type="date" to="2014-02-20T00:00:00.000Z" resolved="yes"/>
+    <change idref="t4" attribute="effort" type="real" from="28800" to="43200" resolved="yes"/>
+    <change idref="t4" attribute="noEarlierThanConstraintDate" type="date" from="2014-02-24T00:00:00.000Z" to="2014-02-21T05:00:00.000Z" resolved="yes"/>
+    <change idref="t4" attribute="internalAssignments" type="string" from="" to="1" resolved="yes"/>
+    <change idref="t4" attribute="resourceLeveledDate" type="date" to="2014-02-21T05:00:00.000Z" resolved="yes"/>
+    <change idref="t5" attribute="title" type="string" from="打开文件模块" to="打开文件夹模块" resolved="yes"/>
+    <change idref="t5" attribute="internalAssignments" type="string" from="" to="1" resolved="yes"/>
+    <change idref="t5" attribute="noEarlierThanConstraintDate" type="date" to="2014-02-21T00:00:00.000Z" resolved="yes"/>
+    <change idref="t5" attribute="resourceLeveledDate" type="date" to="2014-02-21T00:00:00.000Z" resolved="yes"/>
+  </task-change-set>
+  <task-change-set user="Jinqn" date="2014-02-18T02:48:41.746Z" timestamp="2014-02-18T02:48:41.746Z">
+    <change idref="t9" to="t-1" to-position="5" resolved="yes">
+      <change idref="t9" attribute="effort" type="real" from="28800" to="57600"/>
+      <change idref="t9" attribute="internalAssignments" type="string" from="" to="1"/>
+      <change idref="t9" attribute="noEarlierThanConstraintDate" type="date" to="2014-02-25T00:00:00.000Z"/>
+      <change idref="t9" attribute="resourceLeveledDate" type="date" to="2014-02-25T00:00:00.000Z"/>
+      <change idref="t9" attribute="title" type="string" to="目录树"/>
+    </change>
+  </task-change-set>
+  <task-change-set user="Jinqn" date="2014-02-18T02:49:47.689Z" timestamp="2014-02-18T02:49:47.689Z">
+    <change idref="t10" to="t-1" to-position="6" resolved="yes">
+      <change idref="t10" attribute="effort" type="real" from="28800" to="0"/>
+      <change idref="t10" attribute="isSplittableTask" type="real" from="1" to="0"/>
+      <change idref="t10" attribute="noEarlierThanConstraintDate" type="date" to="2014-03-03T00:45:00.000Z"/>
+      <change idref="t10" attribute="percentCompleteForMilestone" type="real" to="0"/>
+      <change idref="t10" attribute="taskType" type="real" from="0" to="1"/>
+      <change idref="t10" attribute="title" type="string" to="第一阶段完成"/>
+    </change>
+  </task-change-set>
+  <task-change-set user="Jinqn" date="2014-02-18T02:50:08.100Z" timestamp="2014-02-18T02:50:08.100Z">
+    <change idref="t10" attribute="noEarlierThanConstraintDate" type="date" from="2014-03-03T00:45:00.000Z" to="2014-03-03T00:00:00.000Z" resolved="yes"/>
+  </task-change-set>
+  <task-change-set user="Jinqn" date="2014-02-18T02:50:18.148Z" timestamp="2014-02-18T02:50:18.148Z">
+    <change idref="t10" attribute="noEarlierThanConstraintDate" type="date" from="2014-03-03T00:00:00.000Z" to="2014-02-28T08:45:00.000Z" resolved="yes"/>
+  </task-change-set>
+  <task-change-set user="Jinqn" date="2014-02-18T02:51:33.276Z" timestamp="2014-02-18T02:51:33.276Z">
+    <change idref="t4" attribute="noLaterThanConstrainedTaskEnd" type="real" from="1" to="0" resolved="yes"/>
+    <change idref="t10" attribute="noLaterThanConstrainedTaskEnd" type="real" from="1" to="0" resolved="yes"/>
+    <change idref="t10" attribute="noEarlierThanConstraintDate" type="date" from="2014-02-28T08:45:00.000Z" to="2014-02-28T08:30:00.000Z" resolved="yes"/>
+  </task-change-set>
+  <task-change-set user="Jinqn" date="2014-02-18T02:51:43.429Z" timestamp="2014-02-18T02:51:43.429Z">
+    <change idref="t2" attribute="title" type="string" from="事件响应" to="事件响应,更新界面" resolved="yes"/>
+  </task-change-set>
+  <task-change-set user="Jinqn" date="2014-02-18T02:52:51.351Z" timestamp="2014-02-18T02:52:51.351Z">
+    <change idref="t1" attribute="effort" type="real" from="28800" to="43200" resolved="yes"/>
+    <change idref="t2" attribute="effort" type="real" from="28800" to="14400" resolved="yes"/>
+    <change idref="t2" attribute="noEarlierThanConstraintDate" type="date" from="2014-02-19T00:00:00.000Z" to="2014-02-19T05:00:00.000Z" resolved="yes"/>
+    <change idref="t2" attribute="resourceLeveledDate" type="date" from="2014-02-19T00:00:00.000Z" to="2014-02-19T05:00:00.000Z" resolved="yes"/>
+  </task-change-set>
+  <task-change-set user="Jinqn" date="2014-02-18T03:05:06.552Z" timestamp="2014-02-18T03:05:06.552Z">
+    <change idref="t1" attribute="effort" type="real" from="43200" to="28800" resolved="yes"/>
+    <change idref="t2" attribute="title" type="string" from="事件响应,更新界面" to="事件响应" resolved="yes"/>
+    <change idref="t2" attribute="noLaterThanConstrainedTaskEnd" type="real" from="1" to="0" resolved="yes"/>
+    <change idref="t2" attribute="effort" type="real" from="14400" to="28800" resolved="yes"/>
+    <change idref="t2" attribute="noEarlierThanConstraintDate" type="date" from="2014-02-19T05:00:00.000Z" to="2014-02-19T00:00:00.000Z" resolved="yes"/>
+    <change idref="t2" attribute="resourceLeveledDate" type="date" from="2014-02-19T05:00:00.000Z" to="2014-02-19T00:00:00.000Z" resolved="yes"/>
+    <change idref="t5" attribute="noLaterThanConstrainedTaskEnd" type="real" from="1" to="0" resolved="yes"/>
+  </task-change-set>
+  <task-change-set user="Jinqn" date="2014-02-18T03:05:23.080Z" timestamp="2014-02-18T03:05:23.080Z">
+    <change idref="t5" attribute="title" type="string" from="打开文件夹模块" to="打开模块" resolved="yes"/>
+  </task-change-set>
+  <task-change-set user="Jinqn" date="2014-02-18T03:06:33.512Z" timestamp="2014-02-18T03:06:33.512Z">
+    <change idref="t1" attribute="noLaterThanConstrainedTaskEnd" type="real" from="1" to="0" resolved="yes"/>
+    <change idref="t1" attribute="effort" type="real" from="28800" to="43200" resolved="yes"/>
+    <change idref="t2" attribute="effort" type="real" from="28800" to="14400" resolved="yes"/>
+    <change idref="t2" attribute="noEarlierThanConstraintDate" type="date" from="2014-02-19T00:00:00.000Z" to="2014-02-19T05:00:00.000Z" resolved="yes"/>
+    <change idref="t2" attribute="resourceLeveledDate" type="date" from="2014-02-19T00:00:00.000Z" to="2014-02-19T05:00:00.000Z" resolved="yes"/>
+  </task-change-set>
+  <task-change-set user="Jinqn" date="2014-02-18T03:06:57.922Z" timestamp="2014-02-18T03:06:57.922Z">
+    <change idref="t2" attribute="effort" type="real" from="14400" to="28800" resolved="yes"/>
+    <change idref="t3" attribute="effort" type="real" from="28800" to="14400" resolved="yes"/>
+    <change idref="t3" attribute="noEarlierThanConstraintDate" type="date" from="2014-02-20T00:00:00.000Z" to="2014-02-20T05:00:00.000Z" resolved="yes"/>
+    <change idref="t3" attribute="resourceLeveledDate" type="date" from="2014-02-20T00:00:00.000Z" to="2014-02-20T05:00:00.000Z" resolved="yes"/>
+  </task-change-set>
+  <task-change-set user="Jinqn" date="2014-02-18T03:08:32.592Z" timestamp="2014-02-18T03:08:32.592Z">
+    <change idref="t11" to="t-1" to-position="6" resolved="yes">
+      <change idref="t11" attribute="effort" type="real" from="28800" to="57600"/>
+      <change idref="t11" attribute="noEarlierThanConstraintDate" type="date" to="2014-02-27T00:00:00.000Z"/>
+      <change idref="t11" attribute="title" type="string" to="测试"/>
+    </change>
+  </task-change-set>
+  <task-change-set user="Jinqn" date="2014-02-18T03:08:42.755Z" timestamp="2014-02-18T03:08:42.755Z">
+    <change idref="t10" attribute="noEarlierThanConstraintDate" type="date" from="2014-02-28T08:30:00.000Z" to="2014-03-03T00:00:00.000Z" resolved="yes"/>
+  </task-change-set>
+  <task-change-set user="Jinqn" date="2014-02-18T03:08:45.683Z" timestamp="2014-02-18T03:08:45.683Z">
+    <change idref="t10" attribute="noEarlierThanConstraintDate" type="date" from="2014-03-03T00:00:00.000Z" to="2014-02-28T08:30:00.000Z" resolved="yes"/>
+  </task-change-set>
+  <task-change-set user="Jinqn" date="2014-02-18T03:11:17.527Z" timestamp="2014-02-18T03:11:17.527Z">
+    <change idref="t13" to="t-1" to-position="6">
+      <change idref="t13" attribute="noEarlierThanConstraintDate" type="date" to="2014-02-18T00:00:00.000Z"/>
+      <change idref="t13" attribute="title" type="string" to="查看文件模块"/>
+    </change>
+    <change idref="t14" to="t-1" to-position="7">
+      <change idref="t14" attribute="noEarlierThanConstraintDate" type="date" to="2014-02-18T00:00:00.000Z"/>
+      <change idref="t14" attribute="title" type="string" to="任务 1"/>
+    </change>
+    <change idref="t11" attribute="internalAssignments" type="string" from="" to="3"/>
+    <change idref="t11" attribute="resourceLeveledDate" type="date" to="2014-02-27T00:00:00.000Z"/>
+  </task-change-set>
+  <task-change-set user="Jinqn" date="2014-02-18T03:12:18.068Z" timestamp="2014-02-18T03:12:18.068Z">
+    <change idref="t14" from="t-1" from-position="7" resolved="yes">
+      <change idref="t14" attribute="noEarlierThanConstraintDate" type="date" to="2014-02-18T00:00:00.000Z"/>
+      <change idref="t14" attribute="title" type="string" to="任务 1"/>
+    </change>
+  </task-change-set>
+  <task-change-set user="Jinqn" date="2014-02-18T03:12:22.932Z" timestamp="2014-02-18T03:12:22.932Z">
+    <change idref="t13" attribute="title" type="string" from="查看文件模块" to="查看/下载文件模块" resolved="yes"/>
+  </task-change-set>
+  <task-change-set user="Jinqn" date="2014-02-18T03:12:27.221Z" timestamp="2014-02-18T03:12:27.221Z">
+    <change idref="t13" attribute="effort" type="real" from="28800" to="57600" resolved="yes"/>
+  </task-change-set>
+  <task-change-set user="Jinqn" date="2014-02-18T03:12:34.769Z" timestamp="2014-02-18T03:12:34.769Z">
+    <change idref="t13" attribute="noEarlierThanConstraintDate" type="date" from="2014-02-18T00:00:00.000Z" to="2014-02-27T00:00:00.000Z" resolved="yes"/>
+  </task-change-set>
+  <task-change-set user="Jinqn" date="2014-02-18T03:12:46.243Z" timestamp="2014-02-18T03:12:46.243Z">
+    <change idref="t10" attribute="noEarlierThanConstraintDate" type="date" from="2014-02-28T08:30:00.000Z" to="2014-03-03T00:00:00.000Z" resolved="yes"/>
+    <change idref="t13" attribute="internalAssignments" type="string" from="" to="1" resolved="yes"/>
+    <change idref="t13" attribute="resourceLeveledDate" type="date" to="2014-02-27T00:00:00.000Z" resolved="yes"/>
+  </task-change-set>
+  <resource-change-set user="Jinqn" date="2014-02-18T02:39:18.770Z" timestamp="2014-02-18T02:39:18.770Z">
+    <change idref="r1" attribute="name" type="string" from="资源 1" to="许" resolved="yes"/>
+  </resource-change-set>
+  <resource-change-set user="Jinqn" date="2014-02-18T03:10:53.462Z" timestamp="2014-02-18T03:10:53.462Z">
+    <change idref="r3" to="r-1" to-position="1" resolved="yes">
+      <change idref="r3" attribute="name" type="string" to="董"/>
+    </change>
+  </resource-change-set>
+  <metadata-change-set user="Jinqn" date="2014-02-18T02:39:18.770Z" timestamp="2014-02-18T02:39:18.770Z">
+    <change idref="m1" attribute="fixedDate" type="date" from="2007-01-01T20:00:00.000Z" to="2014-02-19T00:00:00.000Z" resolved="yes"/>
+  </metadata-change-set>
+  <metadata-change-set user="Jinqn" date="2014-02-18T02:47:41.161Z" timestamp="2014-02-18T02:47:41.161Z">
+    <change idref="m1" attribute="fixedDate" type="date" from="2014-02-19T00:00:00.000Z" to="2014-02-17T16:00:00.000Z" resolved="yes"/>
+  </metadata-change-set>
+</changelog>

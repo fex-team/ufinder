@@ -11,6 +11,7 @@
     margin: 0;
     padding: 0;
     list-style: none;
+    overflow-y: scroll;
 }
 .ufui-list-container li{
     margin: 5px;
@@ -23,28 +24,4 @@
     float: left;
     width: 80px;
     height: 80px;
-}
-.ufui-list-icon {
-    width: 60px;
-    height: 60px;
-    margin: 0 auto;
-}
-.ufui-list-icon i{
-    display: block;
-    width: 100%;
-    height: 100%;
-}
-/* filetype style */
-.ufui-list-icon .ufui-list-file{
-    background-color: #e0d2a4;
-}
-.ufui-list-icon .ufui-list-dir{
-    background-color: #82bacf;
-}
-
-.ufui-list-title{
-    padding: 3px;
-    font-size: 12px;
-    color: dodgerblue;
-    text-align: center;
 }

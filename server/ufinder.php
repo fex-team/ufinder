@@ -1,6 +1,6 @@
 <?php
 
-$PATH = './files/';
+$ROOT = './files';
 
 $cmd = $_GET['cmd'];
 $target = $_GET['target'];
@@ -9,50 +9,50 @@ switch($cmd){
     case 'ls':
         if(isset($_GET['target'])) $target = $_GET['target'];
         else $target = '';
-        $list = listFile($target, $PATH);
+        $list = listFile($target, $ROOT);
         echo getJson('0', 'success', array('files' => $list));
         break;
     case 'rename':
         $name = $_GET['name'];
-        $res = rename($PATH.$target, $PATH.$name);
+        $res = rename($ROOT.$target, $ROOT.$name);
         if($res) {
-            echo getJson('0', 'success', array('file' => getFileInfo($name, $PATH)));
+            echo getJson('0', 'success', array('file' => getFileInfo($name, $ROOT)));
         } else {
-            echo getJson('1', 'error', array('file' => getFileInfo($target, $PATH)));
+            echo getJson('1', 'error', array('file' => getFileInfo($target, $ROOT)));
         }
         break;
     case 'rm':
         $name = $_GET['name'];
-        if(is_dir($PATH.$target)) {
-            $res = rmdir($PATH.$target);
+        if(is_dir($ROOT.$target)) {
+            $res = rmdir($ROOT.$target);
         } else {
-            $res = unlink($PATH.$target);
+            $res = unlink($ROOT.$target);
         }
         if($res) {
             echo getJson('0', 'success');
         } else {
-            echo getJson('1', 'error', array('file' => getFileInfo($target, $PATH)));
+            echo getJson('1', 'error', array('file' => getFileInfo($target, $ROOT)));
         }
         break;
     case 'touch':
 //        sleep(3);
-        if(!file_exists($PATH.$target)) {
-            $res = file_put_contents($PATH.$target, '');
+        if(!file_exists($ROOT.$target)) {
+            $res = file_put_contents($ROOT.$target, '');
         } else {
             $res = true;
         }
         if($res) {
-            echo getJson('0', 'success', array('file' => getFileInfo($target, $PATH)));
+            echo getJson('0', 'success', array('file' => getFileInfo($target, $ROOT)));
         } else {
-            echo getJson('1', 'error', array('file' => getFileInfo($target, $PATH)));
+            echo getJson('1', 'error', array('file' => getFileInfo($target, $ROOT)));
         }
         break;
     case 'mkdir':
-        $res = mkdir($PATH.$target);
+        $res = mkdir($ROOT.$target);
         if($res) {
-            echo getJson('0', 'success', array('file' => getFileInfo($target, $PATH)));
+            echo getJson('0', 'success', array('file' => getFileInfo($target, $ROOT)));
         } else {
-            echo getJson('1', 'error', array('file' => getFileInfo($target, $PATH)));
+            echo getJson('1', 'error', array('file' => getFileInfo($target, $ROOT)));
         }
         break;
     default:
@@ -60,27 +60,38 @@ switch($cmd){
         break;
 }
 
-function listFile($dir, $PATH){
-    if ($handle = opendir($PATH.$dir)){
+function listFile($dir, $ROOT){
+    if ($handle = opendir($ROOT.$dir)){
         $output = array();
+        $dir = $dir[strlen($dir) - 1] == '/' ? $dir:$dir.'/';
         while (false !== ($item = readdir($handle))){
             if ($item != "." && $item != ".."){
-                $output[] = getFileInfo($item, $PATH);
+                $output[] = getFileInfo($dir.$item, $ROOT);
             }
         }
         closedir($handle);
-        return arraySort($output, 'type');
+        return $output;
     }else{
         return false;
     }
 }
 
-function getFileInfo($filename, $PATH){
-    $filepath = $PATH.$filename;
+function getFileName($path){
+    $index = strrpos($path, '/');
+    if($index || $index === 0) {
+        return substr($path, $index + 1);
+    } else {
+        return $path;
+    }
+}
+
+function getFileInfo($path, $ROOT){
+    $filepath = $ROOT.$path;
     $stat = stat($filepath);
     $info = array(
 //        'hash' => substr(md5($filepath),8,16),
-        'name' => $filename,
+        'path' => $path,
+        'name' => getFileName($path),
 //        'isdir' => is_dir($filename),
         'type' => filetype($filepath),
         'read' => is_readable($filepath),
@@ -111,7 +122,7 @@ function getJson($state, $message, $data = null){
     return json_encode($output);
 }
 
-function arraySort($arr,$keys,$type='asc'){
+function array_sort($arr,$keys,$type='asc'){
     $keysvalue = $new_array = array();
     foreach ($arr as $k=>$v){
         $keysvalue[$k] = $v[$keys];

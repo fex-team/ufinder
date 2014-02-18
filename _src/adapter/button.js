@@ -1,4 +1,4 @@
-UF.registerUI('list rename newfile mkdir remove',
+UF.registerUI('open rename newfile mkdir remove',
     function(name) {
         var me = this;
         var $btn = $.ufuibutton({

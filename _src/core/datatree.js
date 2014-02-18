@@ -1,18 +1,22 @@
 var DataTree = UF.DataTree = UF.createClass("DataTree", {
     constructor: function (finder) {
         this.finder = finder;
-        this.root = null;
+        this.root = new FileNode({
+            'path': '/',
+            'name': 'root'
+        });
     },
     addFile: function (data) {
-        var file = this.root,
+        var current = this.root,
             pathArr = this._getPathArr(data.path);
 
         for (var i = 0; i < pathArr.length - 1; i++) {
             var name = pathArr[i];
-            file = file.getChild(name);
-            if (file == null) break;
+            if(name != '') {
+                current = current.getChild(name);
+            }
         }
-        file && file.addChild(new FileNode(data));
+        current && current.addChild(new FileNode(data));
     },
     updateFile: function (data) {
         var file = this.getFileByPath(data.path);
@@ -27,9 +31,11 @@ var DataTree = UF.DataTree = UF.createClass("DataTree", {
         file && file.remove();
     },
     addFiles: function (datas) {
+        var me = this;
         $.each(datas, function (key, data) {
-            this.addFile(data);
+            me.addFile(data);
         });
+
     },
     updateFiles: function (datas) {
         $.each(datas, function (key, data) {
@@ -42,15 +48,24 @@ var DataTree = UF.DataTree = UF.createClass("DataTree", {
         });
     },
     getFileByPath: function (path) {
-        var file = this.root,
-            pathArr = this._getPathArr(path);
+        var current = this.root,
+            pathArr = path.split('/');
 
         for (var i = 0; i < pathArr.length; i++) {
             var name = pathArr[i];
-            file = file.getChild(name);
-            if (file == null) break;
+            if(name != '') {
+                current = current.getChild(name);
+            }
         }
-        return file;
+        return current;
+    },
+    listDirFile: function(path){
+        var filelist = [],
+            dir = this.getFileByPath(path);
+        $.each(dir.children, function(k, v){
+            filelist.push(v.getData());
+        });
+        return filelist;
     },
     _getPathArr: function (path) {
         return $.trim(path).replace(/(^\/)|(\/$)/g, '').split('/');

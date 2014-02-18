@@ -8,12 +8,14 @@ UF.registerModule("openmodule", function () {
         },
         "commands": {
             "open": {
-                execute: function (path, callback) {
+                execute: function (path) {
+
                     uf.proxy.ls(path, function(r){
                         var json = JSON.parse(r),
-                            files = (json && json.data && json.data.files) || [];
+                            filelist = (json && json.data && json.data.files) || [];
 
-                        callback(files);
+                        uf.dataTree.addFiles(filelist);
+                        uf.fire('listfile', uf.dataTree.listDirFile(path));
                     });
                 },
                 queryState: function () {

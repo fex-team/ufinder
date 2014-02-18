@@ -11,6 +11,7 @@ var Request = UF.Request = UF.createClass("Request", (function () {
         send: function () {
             var me = this;
             me.jqXhr = $.ajax(me.data).always(function (r) {
+                console.log(r);
                 me.callback && me.callback(r);
             });
         },

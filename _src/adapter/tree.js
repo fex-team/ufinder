@@ -3,8 +3,12 @@ UF.registerUI('tree',
         var me = this;
         var $tree = $.ufuitree();
 
-        $tree.delegate('.ufui-list-item', 'click', function(){
+        me.on('listfile', function(type, filelist){
+            $tree.ufui().setData(filelist);
+        });
 
+        $tree.delegate('.ufui-tree-item', 'dblclick', function(){
+            me.execCommand('open', $(this).attr('data-path'));
         });
 
         return $tree;

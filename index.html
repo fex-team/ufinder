@@ -26,6 +26,7 @@
                     'core/proxy.js',
                     'modules/open.js',
                     'modules/newfile.js',
+                    'modules/mkdir.js',
                     'modules/remove.js',
                     'modules/rename.js',
                     'ui/widget.js',
@@ -44,6 +45,8 @@
                     'ui/separator.js',
                     'ui/toolbar.js',
                     'ui/tree.js',
+                    'ui/file.js',
+                    'ui/panel.js',
                     'adapter/adapter.js',
                     'adapter/button.js',
                     'adapter/list.js',
@@ -56,7 +59,7 @@
         }
 
         $(function(){
-            var uf = UF.getUFinder('container');
+            var uf = window.uf = UF.getUFinder('container');
         });
     </script>
     <script src="lang/zh-cn/zh-cn.js"></script>

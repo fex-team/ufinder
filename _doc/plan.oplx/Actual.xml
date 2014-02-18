@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<scenario xmlns="http://www.omnigroup.com/namespace/OmniPlan/v2" id="lkJfYLGsc3p">
+  <start-date>2014-02-17T16:00:00.000Z</start-date>
+  <prototype-task>
+    <task id="t4294967294">
+      <title>任务 1</title>
+      <effort>28800</effort>
+    </task>
+  </prototype-task>
+  <prototype-task>
+    <task id="t4294967293">
+      <title>里程碑 1</title>
+      <type>milestone</type>
+    </task>
+  </prototype-task>
+  <prototype-task>
+    <task id="t4294967292">
+      <title>群组 1</title>
+      <type>group</type>
+    </task>
+  </prototype-task>
+  <prototype-resource>
+    <resource id="r4294967294">
+      <name>资源 1</name>
+      <type>Staff</type>
+    </resource>
+  </prototype-resource>
+  <prototype-resource>
+    <resource id="r4294967293">
+      <name>设备 1</name>
+      <type>Equipment</type>
+    </resource>
+  </prototype-resource>
+  <prototype-resource>
+    <resource id="r4294967292">
+      <name>素材 1</name>
+      <type>Material</type>
+      <units-available>0</units-available>
+      <efficiency>0</efficiency>
+    </resource>
+  </prototype-resource>
+  <prototype-resource>
+    <resource id="r4294967291">
+      <name>群组 1</name>
+      <type>Group</type>
+    </resource>
+  </prototype-resource>
+  <top-resource idref="r-1"/>
+  <resource id="r-1">
+    <type>Group</type>
+    <child-resource idref="r1"/>
+    <child-resource idref="r3"/>
+  </resource>
+  <resource id="r1">
+    <name>许</name>
+    <type>Staff</type>
+  </resource>
+  <resource id="r3">
+    <name>董</name>
+    <type>Staff</type>
+  </resource>
+  <top-task idref="t-1"/>
+  <task id="t-1">
+    <type>group</type>
+    <child-task idref="t1"/>
+    <child-task idref="t2"/>
+    <child-task idref="t3"/>
+    <child-task idref="t5"/>
+    <child-task idref="t4"/>
+    <child-task idref="t9"/>
+    <child-task idref="t13"/>
+    <child-task idref="t11"/>
+    <child-task idref="t10"/>
+  </task>
+  <task id="t1">
+    <title>选区</title>
+    <leveled-start>2014-02-18T00:00:00.000Z</leveled-start>
+    <effort>43200</effort>
+    <start-constraint-date>2014-02-18T00:00:00.000Z</start-constraint-date>
+    <assignment idref="r1"/>
+    <start-no-earlier-than>2014-02-18T00:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t2">
+    <title>事件响应</title>
+    <leveled-start>2014-02-19T05:00:00.000Z</leveled-start>
+    <effort>28800</effort>
+    <start-constraint-date>2014-02-19T05:00:00.000Z</start-constraint-date>
+    <assignment idref="r1"/>
+    <start-no-earlier-than>2014-02-19T05:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t3">
+    <title>删除模块</title>
+    <leveled-start>2014-02-20T05:00:00.000Z</leveled-start>
+    <effort>14400</effort>
+    <start-constraint-date>2014-02-20T05:00:00.000Z</start-constraint-date>
+    <assignment idref="r1"/>
+    <start-no-earlier-than>2014-02-20T05:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t4">
+    <title>新建文件/文件夹模块</title>
+    <leveled-start>2014-02-21T05:00:00.000Z</leveled-start>
+    <effort>43200</effort>
+    <start-constraint-date>2014-02-21T05:00:00.000Z</start-constraint-date>
+    <assignment idref="r1"/>
+    <start-no-earlier-than>2014-02-21T05:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t5">
+    <title>打开模块</title>
+    <leveled-start>2014-02-21T00:00:00.000Z</leveled-start>
+    <effort>14400</effort>
+    <start-constraint-date>2014-02-21T00:00:00.000Z</start-constraint-date>
+    <assignment idref="r1"/>
+    <start-no-earlier-than>2014-02-21T00:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t9">
+    <title>目录树</title>
+    <leveled-start>2014-02-25T00:00:00.000Z</leveled-start>
+    <effort>57600</effort>
+    <start-constraint-date>2014-02-25T00:00:00.000Z</start-constraint-date>
+    <assignment idref="r1"/>
+    <start-no-earlier-than>2014-02-25T00:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t10">
+    <title>第一阶段完成</title>
+    <type>milestone</type>
+    <start-constraint-date>2014-03-03T00:00:00.000Z</start-constraint-date>
+    <start-no-earlier-than>2014-03-03T00:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t11">
+    <title>测试</title>
+    <leveled-start>2014-02-27T00:00:00.000Z</leveled-start>
+    <effort>57600</effort>
+    <start-constraint-date>2014-02-27T00:00:00.000Z</start-constraint-date>
+    <assignment idref="r3"/>
+    <start-no-earlier-than>2014-02-27T00:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t13">
+    <title>查看/下载文件模块</title>
+    <leveled-start>2014-02-27T00:00:00.000Z</leveled-start>
+    <effort>57600</effort>
+    <start-constraint-date>2014-02-27T00:00:00.000Z</start-constraint-date>
+    <assignment idref="r1"/>
+    <start-no-earlier-than>2014-02-27T00:00:00.000Z</start-no-earlier-than>
+  </task>
+  <critical-path root="-1" enabled="false" resources="false">
+    <color r="1" g="0.5" b="0.5"/>
+  </critical-path>
+</scenario>

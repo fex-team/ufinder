@@ -7,7 +7,13 @@ var FileNode = UF.FileNode = UF.createClass("FileNode", {
         this.setData(data);
     },
     setData: function (data) {
-        $.extend(this.data, data);
+        var me = this,
+            attrs = [
+                'path', 'name', 'type', 'read', 'write', 'time', 'mode', 'size'
+            ];
+        $.each(attrs, function(i, attr){
+            data[attr] && me.setAttr(attr, data[attr]);
+        });
     },
     getData: function () {
         return this.data;
@@ -28,7 +34,7 @@ var FileNode = UF.FileNode = UF.createClass("FileNode", {
     },
     getChild: function (filename) {
         for (var key in this.children) {
-            if (this.children[key].name == filename) {
+            if (this.children[key].getAttr('name') == filename) {
                 return this.children[key];
             }
         }
