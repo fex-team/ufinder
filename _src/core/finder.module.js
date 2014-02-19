@@ -40,8 +40,8 @@ UF.extendClass(Finder, {
             }
 
             //添加模块的快捷键
-            if (moduleDeals.addShortcutKeys) {
-                me.addShortcutKeys(moduleDeals.addShortcutKeys)
+            if (moduleDeals.shortcutKeys) {
+                me.addShortcutKeys(moduleDeals.shortcutKeys)
             }
 
         }

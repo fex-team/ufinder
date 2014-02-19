@@ -1,24 +1,29 @@
 var Selection = UF.Selection = UF.createClass("Selection", {
     constructor: function (finder) {
         this.finder = finder;
-        this._selectedFiles = [];
+        this._selectedFiles = finder._selectedFiles || [];
+    },
+    getSelectedFile: function (lastFile) {
+        return this._selectedFiles[0];
     },
     getSelectedFiles: function () {
-
+        return this._selectedFiles;
     },
-    getFilectedFile: function () {
-
+    removeSelectedFiles: function (paths) {
+        var uf = this.ufinder;
+        $.each($.isArray(paths) ? paths : [paths], function (i, p) {
+            var index;
+            if (( index = me._selectedFiles.indexOf(p) ) === -1) return;
+            me._selectedFiles.splice(index, 1);
+        });
     },
     removeAllSelectedFiles: function () {
-
+        this._selectedFiles = [];
     },
-    removeSelectedFiles: function (files) {
-
+    isFileSelected: function (path) {
+        return this._selectedFiles.indexOf(path) !== -1;
     },
-    select: function (files) {
-
-    },
-    isFileSelected: function (file) {
-
+    select: function () {
+        this.finder.fire('selectfiles', this._selectedFiles);
     }
 });

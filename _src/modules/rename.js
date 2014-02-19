@@ -6,9 +6,10 @@ UF.registerModule("renamemodule", function () {
         "commands": {
             "rename": {
                 execute: function (name) {
+                    if(!name) return;
 //                    var file = selection.getSelectedFile();
-                    uf.proxy.rename(name, function(){
-                    });
+//                    uf.proxy.rename(target, name, function(){
+//                    });
                 },
                 queryState: function () {
                     return 0;

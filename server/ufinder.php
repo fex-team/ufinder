@@ -23,28 +23,29 @@ switch($cmd){
         break;
     case 'rm':
         $name = $_GET['name'];
-        if(is_dir($ROOT.$target)) {
-            $res = rmdir($ROOT.$target);
-        } else {
-            $res = unlink($ROOT.$target);
+        foreach($target as $key => $path) {
+            if(is_dir($ROOT.$path)) {
+                $res = removeDir($ROOT.$path);
+            } else {
+                $res = unlink($ROOT.$path);
+            }
+            if($res == false) break;
         }
         if($res) {
             echo getJson('0', 'success');
         } else {
-            echo getJson('1', 'error', array('file' => getFileInfo($target, $ROOT)));
+            echo getJson('1', 'error');
         }
         break;
     case 'touch':
 //        sleep(3);
         if(!file_exists($ROOT.$target)) {
             $res = file_put_contents($ROOT.$target, '');
-        } else {
-            $res = true;
         }
-        if($res) {
+        if(file_exists($ROOT.$target)) {
             echo getJson('0', 'success', array('file' => getFileInfo($target, $ROOT)));
         } else {
-            echo getJson('1', 'error', array('file' => getFileInfo($target, $ROOT)));
+            echo getJson('1', 'error');
         }
         break;
     case 'mkdir':
@@ -139,5 +140,17 @@ function array_sort($arr,$keys,$type='asc'){
     return $new_array;
 }
 
+function removeDir($dirName) {
+    if(! is_dir($dirName)) return false;
+    $handle = @opendir($dirName);
+    while(($file = @readdir($handle)) !== false) {
+        if($file != '.' && $file != '..') {
+            $dir = $dirName . '/' . $file;
+            is_dir($dir) ? removeDir($dir) : @unlink($dir);
+        }
+    }
+    closedir($handle);
+    return rmdir($dirName) ;
+}
 
 ?>

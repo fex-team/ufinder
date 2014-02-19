@@ -12,7 +12,13 @@ var Request = UF.Request = UF.createClass("Request", (function () {
             var me = this;
             me.jqXhr = $.ajax(me.data).always(function (r) {
                 console.log(r);
-                me.callback && me.callback(r);
+                var data;
+                try{
+                    data = JSON ? JSON.parse(r):eval(r);
+                } catch(e) {
+                    data = r;
+                }
+                me.callback && me.callback(data);
             });
         },
         abort: function(){

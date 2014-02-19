@@ -8,10 +8,13 @@
     list-style: none;
     border: 1px dotted #eeeeee;
 }
+.ufui-file.ufui-active{
+    background-color: #e0e0e0;
+}
 .ufui-file-icon {
     width: 60px;
     height: 60px;
-    margin: 0 auto;
+    margin: 3px auto;
 }
 .ufui-file-icon i{
     display: block;

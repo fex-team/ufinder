@@ -12,6 +12,9 @@ UF.ui.define('list', {
 
         return me;
     },
+    getItems: function(){
+        return this.$list.children();
+    },
     addItem: function($item){
         this.$list.append($item);
     },
