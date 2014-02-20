@@ -10,7 +10,7 @@ UF.registerModule("newfilemodule", function () {
             "newfile": {
                 execute: function (name) {
                     if(name === undefined) {
-                        name = prompt('新建文件', '新建文件')
+                        name = prompt('新建文件', '新建文件');
                     } else if (name == '') {
                         name = '新建文件';
                     }

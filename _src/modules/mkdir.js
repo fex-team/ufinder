@@ -10,7 +10,7 @@ UF.registerModule("mkdirmodule", function () {
             "mkdir": {
                 execute: function (name) {
                     if(name === undefined) {
-                        name = prompt('新建文件夹', '新建文件夹')
+                        name = prompt('新建文件夹', '新建文件夹');
                     } else if (name == '') {
                         name = '新建文件夹';
                     }

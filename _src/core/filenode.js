@@ -28,9 +28,12 @@ var FileNode = UF.FileNode = UF.createClass("FileNode", {
         file.parent = this;
         this.children.push(file);
     },
+    remove: function () {
+        this.parent && this.parent.removeChild(this);
+    },
     removeChild: function (file) {
         file.parent = this;
-        this.children.push(file);
+        this.children.pop(file);
     },
     getChild: function (filename) {
         for (var key in this.children) {

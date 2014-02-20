@@ -1,14 +1,14 @@
 .ufui-list{
     float: right;
     width: 80%;
-    height: 100%;
+    height: 400px;
     overflow-y: scroll;
 }
 .ufui-list-container{
     height: 100%;
     /*border: 1px solid #eeeeee;*/
     border-left: 1px solid #eeeeee;
-    padding: 5px;
+    padding: 0;
     list-style: none;
     overflow-y: scroll;
     -webkit-tap-highlight-color: rgba(0,0,0,0);

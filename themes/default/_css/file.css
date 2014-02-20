@@ -3,7 +3,7 @@
     float: left;
     width: 80px;
     height: 80px;
-    margin: 5px;
+    margin: 10px 0 0 10px;
     padding: 5px;
     list-style: none;
     border: 1px dotted #eeeeee;
@@ -14,7 +14,7 @@
 .ufui-file-icon {
     width: 60px;
     height: 60px;
-    margin: 3px auto;
+    margin: 3px auto 0 auto;
 }
 .ufui-file-icon i{
     display: block;

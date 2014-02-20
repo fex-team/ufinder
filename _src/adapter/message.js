@@ -3,11 +3,11 @@ UF.registerUI('message',
         var me = this;
         var $message = $.ufuimessage();
 
-        me.on('showmessage', function(type, filelist){
+        me.on('showmessage', function(type, options){
             $message.show();
         });
 
-        me.on('hidemessage', function(type, filelist){
+        me.on('hidemessage', function(type, options){
             $message.hide();
         });
 

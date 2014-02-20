@@ -33,12 +33,14 @@ UF.ui.define('file', {
     },
     setTitle: function(title){
         this.root().find('.ufui-file-title').text(title);
+        return this;
     },
     getTitle: function(){
-        this.root().find('.ufui-file-title').text(title);
+        return this.root().find('.ufui-file-title').text();
     },
     setType: function(type){
         this.root().find('.ufui-file-icon i').removeClass().addClass('ufui-file-icon-' + type);
+        return this;
     },
     getType: function(){
         var c = this.root().find('.ufui-file-icon i'),
@@ -47,6 +49,7 @@ UF.ui.define('file', {
     },
     setPath: function(path){
         this.root().attr('data-path', path);
+        return this;
     },
     getPath: function(){
         return this.root().attr('data-path');

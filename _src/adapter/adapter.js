@@ -61,6 +61,7 @@ $.extend(UFinder, (function(){
                 uf = this.getFinder( $container, options );
 
             uf.$container = $container;
+            uf._bindshortcutKeys();
 
             this._createToolbar(uf);
             this._createtree(uf);

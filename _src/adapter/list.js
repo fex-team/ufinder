@@ -112,6 +112,12 @@ UF.registerUI('list',
             uflist.addItem($file);
         });
 
+        /* 重命名文件 */
+        me.on('renamefile', function(type, path, file){
+            $list.find('.ufui-file[data-path="' + path + '"]').ufui()
+                .setPath(file.path).setType(file.type).setTitle(file.name);
+        });
+
         /* 删除文件 */
         me.on('removefiles', function(type, paths){
             $.each(paths, function(i, path){

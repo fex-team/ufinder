@@ -6,32 +6,32 @@ var Proxy = UF.Proxy = UF.createClass("Proxy", {
         this.nextSendIndex = 0;
         this._url = 'http://localhost/ufinder/server/ufinder.php';
     },
-    ls: function (target, callback) {
+    'ls': function (target, callback) {
         return this._get({
             'cmd': 'ls',
             'target': target
         }, callback);
     },
-    rename: function (target, name, callback) {
+    'rename': function (target, name, callback) {
         return this._get({
             'cmd': 'rename',
             'target': target,
             'name': name
         }, callback);
     },
-    touch: function (target, callback) {
+    'touch': function (target, callback) {
         return this._get({
             'cmd': 'touch',
             'target': target
         }, callback);
     },
-    mkdir: function (target, callback) {
+    'mkdir': function (target, callback) {
         return this._get({
             'cmd': 'mkdir',
             'target': target
         }, callback);
     },
-    rm: function (target, callback) {
+    'rm': function (target, callback) {
         return this._get({
             'cmd': 'rm',
             'target': target

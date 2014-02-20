@@ -12,7 +12,6 @@ var Finder = UF.Finder = UF.createClass('Finder', {
     },
     _initFinder: function () {
         this.dataTree = new DataTree(this);
-        this.selection = new Selection(this);
         this.proxy = new Proxy(this);
         this.setCurrentPath('/');
     },
@@ -47,7 +46,6 @@ var Finder = UF.Finder = UF.createClass('Finder', {
     },
     _initShortcutKey: function () {
         this._shortcutkeys = {};
-        this._bindshortcutKeys();
     },
     addShortcutKeys: function (cmd, keys) {
         var obj = {};
@@ -60,29 +58,33 @@ var Finder = UF.Finder = UF.createClass('Finder', {
     },
     _bindshortcutKeys: function () {
         var me = this,
-            shortcutkeys = this._shortcutkeys;
+            shortcutkeys = me._shortcutkeys,
+            container = me.$container[0],
+            doc = container && container.ownerDocument;
 
-        $(document.body).on('keydown', function (e) {
-            var keyCode = e.keyCode || e.which;
+        if (doc) {
+            $(doc.body).on('keydown', function (e) {
+                var keyCode = e.keyCode || e.which;
 
-            for (var i in shortcutkeys) {
-                var tmp = shortcutkeys[ i ].split(',');
-                for (var t = 0, ti; ti = tmp[ t++ ];) {
-                    ti = ti.split(':');
-                    var key = ti[ 0 ],
-                        param = ti[ 1 ];
-                    if (/^(ctrl)(\+shift)?\+(\d+)$/.test(key.toLowerCase()) || /^(\d+)$/.test(key)) {
-                        if (( ( RegExp.$1 == 'ctrl' ? ( e.ctrlKey || e.metaKey ) : 0 ) && ( RegExp.$2 != "" ? e[ RegExp.$2.slice(1) + "Key" ] : 1 ) && keyCode == RegExp.$3 ) ||
-                            keyCode == RegExp.$1
-                            ) {
+                for (var i in shortcutkeys) {
+                    var tmp = shortcutkeys[ i ].split(',');
+                    for (var t = 0, ti; ti = tmp[ t++ ];) {
+                        ti = ti.split(':');
+                        var key = ti[ 0 ],
+                            param = ti[ 1 ];
+                        if (/^(ctrl)(\+shift)?\+(\d+)$/.test(key.toLowerCase()) || /^(\d+)$/.test(key)) {
+                            if (( ( RegExp.$1 == 'ctrl' ? ( e.ctrlKey || e.metaKey ) : 0 ) && ( RegExp.$2 != "" ? e[ RegExp.$2.slice(1) + "Key" ] : 1 ) && keyCode == RegExp.$3 ) ||
+                                keyCode == RegExp.$1
+                                ) {
 
-                            if (me.queryCommandState(i, param) != -1)
-                                me.execCommand(i, param);
-                            e.preventDefault();
+                                if (me.queryCommandState(i, param) != -1)
+                                    me.execCommand(i, param);
+                                e.preventDefault();
+                            }
                         }
                     }
                 }
-            }
-        });
+            });
+        }
     }
 });

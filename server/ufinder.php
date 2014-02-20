@@ -18,7 +18,7 @@ switch($cmd){
         if($res) {
             echo getJson('0', 'success', array('file' => getFileInfo($name, $ROOT)));
         } else {
-            echo getJson('1', 'error', array('file' => getFileInfo($target, $ROOT)));
+            echo getJson('1', 'error');
         }
         break;
     case 'rm':
@@ -40,9 +40,12 @@ switch($cmd){
     case 'touch':
 //        sleep(3);
         if(!file_exists($ROOT.$target)) {
-            $res = file_put_contents($ROOT.$target, '');
+            file_put_contents($ROOT.$target, '');
+            $res = file_exists($ROOT.$target);
+        } else {
+            $res = false;
         }
-        if(file_exists($ROOT.$target)) {
+        if($res) {
             echo getJson('0', 'success', array('file' => getFileInfo($target, $ROOT)));
         } else {
             echo getJson('1', 'error');
