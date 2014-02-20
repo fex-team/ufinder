@@ -3,7 +3,9 @@ var DataTree = UF.DataTree = UF.createClass("DataTree", {
         this.finder = finder;
         this.root = new FileNode({
             'path': '/',
-            'name': 'root'
+            'name': 'root',
+            'write': true,
+            'read': true
         });
     },
     addFile: function (data) {
@@ -45,6 +47,32 @@ var DataTree = UF.DataTree = UF.createClass("DataTree", {
     removeFiles: function (paths) {
         $.each(paths, function (key, path) {
             this.removeFile(path);
+        });
+    },
+    lockFile: function (path) {
+        var file = this.getFileByPath(path);
+        file && file.lock();
+        this.finder.fire('lockfile', file.getData());
+    },
+    unlockFile: function (paths) {
+        var file = this.getFileByPath(paths);
+        file && file.unlock();
+        this.finder.fire('unlockfile', file.getData());
+    },
+    lockFiles: function (paths) {
+        var me = this;
+        $.each(paths, function (key, path) {
+            var file = me.getFileByPath(path);
+            file && file.lock();
+            me.finder.fire('lockfile', file.getData());
+        });
+    },
+    unlockFiles: function (paths) {
+        var me = this;
+        $.each(paths, function (key, path) {
+            var file = me.getFileByPath(path);
+            file && file.unlock();
+            me.finder.fire('unlockfile', file.getData());
         });
     },
     getFileByPath: function (path) {

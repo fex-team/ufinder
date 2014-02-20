@@ -17,8 +17,9 @@
     margin: 0;
     padding:0;
     background-repeat: no-repeat;
-    background-image: url(../images/icons.png);
-    background-image: url(../images/icons.gif) \9;
+    background-image: url("../images/toolbar-icons.png");
+    background-image: url("../images/toolbar-icons.gif") \9;
+    background-size: auto 100%;
 }
 
 /*状态反射*/

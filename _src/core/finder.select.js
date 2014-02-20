@@ -9,5 +9,6 @@ UF.extendClass(Finder, {
     //提供接口给adapter获取选区实例
     setSelectedFiles: function(paths){
         this._selectedFiles = $.isArray(paths) ? paths:[paths];
+        this.fire('selectionchange');
     }
 });

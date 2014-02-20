@@ -47,6 +47,7 @@ var Proxy = UF.Proxy = UF.createClass("Proxy", {
         //TODO 上传文件
     },
     _ajax: function(type, data, callback){
+
         var me = this,
             request = new Request({
             url: this._url,
@@ -59,6 +60,14 @@ var Proxy = UF.Proxy = UF.createClass("Proxy", {
         });
 
         this._pushRequest(request);
+        this.finder.fire('showmessage', {
+            icon: 'loading',
+            title: data.cmd + ' loading...',
+            loadedPercent: 100,
+            timeout: 0,
+            request: request
+        });
+
         return request;
     },
     _pushRequest: function (request) {
@@ -73,6 +82,7 @@ var Proxy = UF.Proxy = UF.createClass("Proxy", {
     },
     _beforeRequestComplete: function(d, request){
         this.finder.fire('beforeRequestComplete', d, request);
+        this.finder.fire('hidemessage', {request: request});
         this.active = false;
         this._sendRequest();
     },

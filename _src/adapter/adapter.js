@@ -53,6 +53,39 @@ $.extend(UFinder, (function(){
             uf.$container.append($list);
             uf.$list = $list;
         },
+        _CreateMessageHolder: function(uf){
+            var $messageHolder = $('<div class="ufui-message-list"></div>');
+            uf.$container.append($messageHolder);
+            uf.$messageHolder = $messageHolder;
+
+            var _messages = {};
+
+            uf.on('showmessage', function(type, p){
+                var $message = _ufinderUI['message'].call( uf, 'message', {
+                    icon: p.icon || 'warning',
+                    title: p.title || '',
+                    loadedPercent: p.loadedPercent || 100,
+                    timeout: p.timeout !== undefined ? p.timeout:3000
+                });
+                if(p.request) {
+                    _messages[p.request.id] = $message;
+                }
+                $messageHolder.prepend($message);
+                $message.ufui().show();
+            });
+            uf.on('updatemessage', function(type, p){
+                var $message;
+                if(p.request && ($message = _messages[p.request.id])) {
+                    $message.ufui().setIcon(p.icon).setTitle(p.title).setLoadedPercent(p.loadedPercent);
+                }
+            });
+            uf.on('hidemessage', function(type, p){
+                var $message;
+                if(p.request && ($message = _messages[p.request.id])) {
+                    $message.ufui().hide();
+                }
+            });
+        },
         _loadData: function(uf){
             uf.execCommand('open', '/');
         },
@@ -66,8 +99,10 @@ $.extend(UFinder, (function(){
             this._createToolbar(uf);
             this._createtree(uf);
             this._createlist(uf);
+            this._CreateMessageHolder(uf);
 
             this._loadData(uf);
+            uf.fire('ready');
             return uf;
         },
         delUFinder: function (id) {

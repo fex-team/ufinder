@@ -30,7 +30,15 @@ UF.registerModule("openmodule", function () {
                     }
                 },
                 queryState: function () {
-                    return 0;
+                    var paths, file;
+                    paths = uf.getSelection().getSelectedFiles();
+
+                    if(paths.length == 1) {
+                        file = uf.dataTree.getFileByPath(paths[0]);
+                        return file && file.getAttr('read') && !file.locked ? 0:-1;
+                    } else {
+                        return -1;
+                    }
                 }
             }
         },

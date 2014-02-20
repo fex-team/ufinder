@@ -9,7 +9,7 @@ UF.registerUI('open newfile mkdir rename remove',
             title: this.getLang('labelMap')[name] || ''
         });
 
-        this.on('selectionchange',function(){
+        this.on('selectionchange ready',function(){
             var state = this.queryCommandState(name);
             $btn.ufui().disabled(state == -1).active(state == 1)
         });

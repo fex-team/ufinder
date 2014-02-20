@@ -11,6 +11,7 @@ UF.ui.define('file', {
     init: function (options) {
         var me = this;
         me.root( $($.parseTmpl(me.tpl, options)) );
+
         return me;
     },
     disabled: function (state) {
@@ -39,7 +40,7 @@ UF.ui.define('file', {
         return this.root().find('.ufui-file-title').text();
     },
     setType: function(type){
-        this.root().find('.ufui-file-icon i').removeClass().addClass('ufui-file-icon-' + type);
+        this.root().find('.ufui-file-icon i').attr('class', 'ufui-file-icon-' + type);
         return this;
     },
     getType: function(){

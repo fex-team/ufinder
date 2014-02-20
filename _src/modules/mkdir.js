@@ -14,16 +14,23 @@ UF.registerModule("mkdirmodule", function () {
                     } else if (name == '') {
                         name = '新建文件夹';
                     }
-                    uf.proxy.mkdir(uf.currentPath + name, function(d){
-                        if(d.state == 0) {
-                            var file = (d && d.data && d.data.file);
-                            uf.dataTree.addFile(file);
-                            uf.fire('mkdir', file);
-                        }
-                    });
+
+                    if(name) {
+                        uf.proxy.mkdir(uf.getCurrentPath() + name, function(d){
+                            if(d.state == 0) {
+                                var file = (d && d.data && d.data.file);
+                                uf.dataTree.addFile(file);
+                                uf.fire('mkdir', file);
+                            } else {
+                                uf.fire('showmessage', {title: d.message});
+                            }
+                        });
+                    }
                 },
                 queryState: function () {
-                    return 0;
+                    var file, path = uf.getCurrentPath();
+                    file = uf.dataTree.getFileByPath(path);
+                    return file && file.getAttr('write') && !file.locked ? 0:-1;
                 }
             }
         },

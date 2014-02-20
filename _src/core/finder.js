@@ -15,10 +15,13 @@ var Finder = UF.Finder = UF.createClass('Finder', {
         this.proxy = new Proxy(this);
         this.setCurrentPath('/');
     },
+    getCurrentPath: function () {
+        return this._currentPath;
+    },
     setCurrentPath: function (path) {
         path.charAt(0) != '/' && (path = '/' + path);
         path.charAt(path.length - 1) != '/' && (path = path + '/');
-        this.currentPath = path;
+        this._currentPath = path;
     },
     setDefaultOptions: function (key, val) {
         var obj = {};

@@ -51,7 +51,6 @@ UF.registerUI('list',
                 updateSelection();
             } else if(e.ctrlKey || e.metaKey) {
                 //按住ctrl,直点击文件
-                console.log('ctrl');
                 uffile.active(!state);
 
                 !state && ($preCliskFile = $file);
@@ -67,6 +66,14 @@ UF.registerUI('list',
                 }
 
                 uffile.active() && ($preCliskFile = $file);
+                updateSelection();
+            }
+        });
+
+        $list.on('click', function(e){
+            var target = e.target || e.srcElement;
+            if(target && target == $list.children()[0]) {
+                clearAllSelectedFiles();
                 updateSelection();
             }
         });

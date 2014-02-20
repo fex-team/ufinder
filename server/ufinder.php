@@ -5,6 +5,7 @@ $ROOT = './files';
 $cmd = $_GET['cmd'];
 $target = $_GET['target'];
 
+sleep(1);
 switch($cmd){
     case 'ls':
         if(isset($_GET['target'])) $target = $_GET['target'];
@@ -14,11 +15,16 @@ switch($cmd){
         break;
     case 'rename':
         $name = $_GET['name'];
-        $res = rename($ROOT.$target, $ROOT.$name);
+        if( file_exists($ROOT.$name) ) {
+            $res = false;
+            $msg = 'file exist';
+        } else {
+            $res = rename($ROOT.$target, $ROOT.$name);
+        }
         if($res) {
             echo getJson('0', 'success', array('file' => getFileInfo($name, $ROOT)));
         } else {
-            echo getJson('1', 'error');
+            echo getJson('1', $msg ? $msg:'rename error');
         }
         break;
     case 'rm':
@@ -34,7 +40,7 @@ switch($cmd){
         if($res) {
             echo getJson('0', 'success');
         } else {
-            echo getJson('1', 'error');
+            echo getJson('1', 'romove error');
         }
         break;
     case 'touch':
@@ -44,23 +50,29 @@ switch($cmd){
             $res = file_exists($ROOT.$target);
         } else {
             $res = false;
+            $msg = 'file exist';
         }
         if($res) {
             echo getJson('0', 'success', array('file' => getFileInfo($target, $ROOT)));
         } else {
-            echo getJson('1', 'error');
+            echo getJson('1', $msg ? $msg:'newfile error');
         }
         break;
     case 'mkdir':
-        $res = mkdir($ROOT.$target);
+        if(!file_exists($ROOT.$target)) {
+            $res = mkdir($ROOT.$target);
+        } else {
+            $res = false;
+            $msg = 'file exist';
+        }
         if($res) {
             echo getJson('0', 'success', array('file' => getFileInfo($target, $ROOT)));
         } else {
-            echo getJson('1', 'error', array('file' => getFileInfo($target, $ROOT)));
+            echo getJson('1', $msg ? $msg:'mkdir error', array('file' => getFileInfo($target, $ROOT)));
         }
         break;
     default:
-        echo 'unknow action';
+        echo 'unknow command';
         break;
 }
 

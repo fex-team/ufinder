@@ -1,146 +1,15 @@
-.ufui-btn-toolbar .ufui-btn .ufui-icon-source {
-    background-position:-260px -0px;
-}
-.ufui-btn-toolbar .ufui-btn .ufui-icon-undo {
-    background-position: -160px 0;
-}
-.ufui-btn-toolbar .ufui-btn .ufui-icon-redo {
-    background-position: -100px 0;
-}
-.ufui-btn-toolbar  .ufui-btn .ufui-icon-bold{
+.ufui-btn-toolbar .ufui-btn .ufui-icon-open {
     background-position: 0 0;
 }
-.ufui-btn-toolbar  .ufui-btn .ufui-icon-italic {
-    background-position: -60px 0;
-}
-.ufui-btn-toolbar  .ufui-btn .ufui-icon-underline  {
-    background-position: -140px 0
-}
-.ufui-btn-toolbar .ufui-btn .ufui-icon-strikethrough {
-    background-position: -120px 0;
-}
-
-.ufui-btn-toolbar .ufui-btn .ufui-icon-superscript {
-    background-position: -620px 0;
-}
-.ufui-btn-toolbar .ufui-btn .ufui-icon-subscript {
-    background-position:  -600px 0;
-}
-.ufui-btn-toolbar .ufui-btn .ufui-icon-font, .ufui-btn-toolbar .ufui-btn .ufui-icon-forecolor {
-    background-position: -720px 0;
-}
-
-.ufui-btn-toolbar .ufui-btn .ufui-icon-backcolor {
-    background-position: -760px 0;
-}
-
-.ufui-btn-toolbar .ufui-btn .ufui-icon-insertorderedlist {
-    background-position: -80px 0;
-}
-.ufui-btn-toolbar .ufui-btn .ufui-icon-insertunorderedlist {
-    background-position:   -20px 0;
-}
-.ufui-btn-toolbar .ufui-btn .ufui-icon-selectall {
-    background-position: -400px -20px;
-}
-.ufui-btn-toolbar .ufui-btn .ufui-icon-cleardoc {
-    background-position: -520px 0;
-}
-.ufui-btn-toolbar .ufui-btn .ufui-icon-paragraph {
-    background-position: -140px 0;
-}
-
-.ufui-btn-toolbar .ufui-btn .ufui-icon-fontfamily {
-    background-position: -140px 0;
-}
-
-.ufui-btn-toolbar .ufui-btn .ufui-icon-fontsize {
-    background-position: -140px 0;
-}
-
-.ufui-btn-toolbar .ufui-btn .ufui-icon-justifyleft {
-    background-position: -460px 0;
-}
-
-.ufui-btn-toolbar .ufui-btn .ufui-icon-justifycenter {
-    background-position: -420px 0;
-}
-
-.ufui-btn-toolbar .ufui-btn .ufui-icon-justifyright {
-    background-position:-480px 0;
-}
-
-.ufui-btn-toolbar .ufui-btn .ufui-icon-justifyjustify {
-    background-position: -440px 0;
-}
-
-.ufui-btn-toolbar .ufui-btn .ufui-icon-link {
-    background-position: -500px 0;
-}
-
-.ufui-btn-toolbar .ufui-btn .ufui-icon-unlink {
-    background-position: -640px 0;
-}
-
-.ufui-btn-toolbar .ufui-btn .ufui-icon-image {
-    background-position: -380px 0;
-}
-
-.ufui-btn-toolbar .ufui-btn .ufui-icon-emotion {
-    background-position: -60px -20px;
-}
-.ufui-btn-toolbar .ufui-btn .ufui-icon-video {
-    background-position: -320px -20px;
-}
-
-.ufui-btn-toolbar .ufui-btn .ufui-icon-map {
-    background-position:  -40px -40px;
-}
-
-.ufui-btn-toolbar .ufui-btn .ufui-icon-gmap {
-    background-position:  -260px -40px;
-}
-.ufui-btn-toolbar .ufui-btn .ufui-icon-horizontal {
-    background-position: -360px 0;
-}
-
-.ufui-btn-toolbar .ufui-btn .ufui-icon-print {
-    background-position: -440px -20px;
-}
-.ufui-btn-toolbar .ufui-btn .ufui-icon-preview {
-    background-position: -420px -20px;
-}
-
-.ufui-btn-toolbar .ufui-btn-fullscreen{
-    float:right;
-}
-.ufui-btn-toolbar .ufui-btn .ufui-icon-fullscreen {
-    background-position: -100px -20px;
-}
-
-.ufui-btn-toolbar .ufui-btn .ufui-icon-removeformat {
-    background-position: -580px 0;
-}
-.ufui-btn-toolbar .ufui-btn .ufui-icon-drafts {
-    background-position: -560px 0;
-}
-.ufui-btn-toolbar .ufui-btn .ufui-icon-formula {
-    background-position: -80px -20px;
-}
-
-
-.ufui-btn-toolbar .ufui-btn .ufui-icon-open {
-    background-position: -640px -40px;
-}
 .ufui-btn-toolbar .ufui-btn .ufui-icon-newfile {
-    background-position: -640px -40px;
+    background-position: -118px 0;
 }
 .ufui-btn-toolbar .ufui-btn .ufui-icon-mkdir {
-    background-position: -640px -40px;
+    background-position: -138px 0;
 }
 .ufui-btn-toolbar .ufui-btn .ufui-icon-rename {
-    background-position: -640px -40px;
+    background-position: -60px 0;
 }
 .ufui-btn-toolbar .ufui-btn .ufui-icon-remove {
-    background-position: -640px -40px;
+    background-position: -79px 0;
 }
