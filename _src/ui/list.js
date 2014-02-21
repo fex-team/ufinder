@@ -12,16 +12,21 @@ UF.ui.define('list', {
 
         return me;
     },
+    getItem: function(path){
+        return this.root().find('[data-path="' + path + '"]');
+    },
     getItems: function(){
         return this.$list.children();
     },
     addItem: function($item){
         this.$list.append($item);
+        return this;
     },
-    removeItem: function($item){
-        $item.remove();
+    removeItem: function(path){
+        this.getItem(path).remove();
     },
     clearItems: function(){
         this.$list.html('');
+        return this;
     }
 });

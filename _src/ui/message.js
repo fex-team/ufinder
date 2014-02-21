@@ -16,6 +16,7 @@ UF.ui.define('message', {
     init: function (options) {
         var me = this;
         me.root( $($.parseTmpl(me.tpl, options)) );
+        me.root().hide();
 
         me.$title = me.root().find('.ufui-message-title');
         me.$loadbar = me.root().find('.ufui-message-loadbar');
@@ -39,10 +40,10 @@ UF.ui.define('message', {
         return me;
     },
     show: function(){
-        return this.root().fadeIn(300);
+        return this.root().fadeIn(500);
     },
     hide: function(){
-        return this.root().fadeOut(300).remove();
+        return this.root().fadeOut(500);
     },
     setIcon: function(icon){
         this.root().find('.ufui-message-icon i').attr('class', 'ufui-message-icon-' + icon);

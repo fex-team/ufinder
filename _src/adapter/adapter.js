@@ -70,7 +70,7 @@ $.extend(UFinder, (function(){
                 if(p.request) {
                     _messages[p.request.id] = $message;
                 }
-                $messageHolder.prepend($message);
+                $messageHolder.append($message);
                 $message.ufui().show();
             });
             uf.on('updatemessage', function(type, p){

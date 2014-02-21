@@ -3,10 +3,11 @@
     width: 20%;
     height: 400px;
     overflow: scroll;
+    background-color: #f7f7f7;
 }
 .ufui-tree-container{
     /*border: 1px solid #eeeeee;*/
-    border-right-width: 0px;
+    border-right-width: 0;
     margin: 10px;
     padding: 0;
     list-style: none;

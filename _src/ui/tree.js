@@ -1,5 +1,7 @@
 UF.ui.define('tree', {
-    tpl: '<div class="ufui-tree"  ></div>',
+    tpl: '<div class="ufui-tree">' +
+        '<ul class="ufui-tree-branch ufui-tree-branch-closed"></ul>' +
+        '</div>',
     defaultOpt: {
     },
     init: function (options) {
@@ -33,5 +35,20 @@ UF.ui.define('tree', {
             }
         }
         this.root().html('').append($ul);
+    },
+    addLeaf: function($leaf){
+        var path = $leaf.ufui().getPath(),
+            $parent = this.getLeaf(path.replace(/\/[^\/]+\/?$/, ''));
+        if($parent && $parent.length > 0) {
+            $parent.ufui().addChild($leaf);
+        } else {
+            this.root().children().eq(0).append($leaf);
+        }
+    },
+    removeLeaf: function(path){
+        this.getLeaf(path).remove();
+    },
+    getLeaf: function(path){
+        return this.root().find('[data-path="' + path + '"]');
     }
 });

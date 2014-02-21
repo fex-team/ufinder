@@ -1,32 +1,28 @@
 .ufui-file{
     display: block;
     float: left;
-    width: 80px;
-    height: 80px;
+    width: 90px;
+    height: 90px;
     margin: 10px 0 0 10px;
-    padding: 5px;
+    padding: 0;
     list-style: none;
     border: 1px dotted #eeeeee;
 }
 .ufui-file.ufui-active{
-    background-color: #e0e0e0;
+    /*background-color: #e0e0e0;*/
+    border: 2px solid #2e80dc;
+    width: 88px;
+    height: 88px;
 }
 .ufui-file-icon {
-    width: 60px;
-    height: 60px;
-    margin: 3px auto 0 auto;
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 0 auto;
 }
 .ufui-file-icon i{
     display: block;
     width: 100%;
     height: 100%;
-}
-/* filetype style */
-.ufui-file-icon .ufui-file-icon-file{
-    background-color: #e0d2a4;
-}
-.ufui-file-icon .ufui-file-icon-dir{
-    background-color: #82bacf;
 }
 
 .ufui-file-title{
@@ -34,4 +30,65 @@
     font-size: 12px;
     color: dodgerblue;
     text-align: center;
+}
+
+/* filetype style */
+.ufui-file-icon i{
+    background-image: url("../images/file-icons.png");
+    background-position: -215px center;
+}
+.ufui-file-icon .ufui-file-icon-dir{
+    background-position: -15px center;
+}
+.ufui-file-icon .ufui-file-icon-file{
+    background-position: -1015px center;
+}
+.ufui-file-icon .ufui-file-icon-filelist{
+    background-position: -315px center;
+}
+.ufui-file-icon .ufui-file-icon-zip{
+    background-position: -415px center;
+}
+.ufui-file-icon .ufui-file-icon-rar{
+    background-position: -515px center;
+}
+.ufui-file-icon .ufui-file-icon-xls{
+    background-position: -615px center;
+}
+.ufui-file-icon .ufui-file-icon-doc{
+    background-position: -715px center;
+}
+.ufui-file-icon .ufui-file-icon-ppt{
+    background-position: -815px center;
+}
+.ufui-file-icon .ufui-file-icon-vso{
+    background-position: -915px center;
+}
+.ufui-file-icon .ufui-file-icon-pdf{
+    background-position: -1015px center;
+}
+.ufui-file-icon .ufui-file-icon-txt{
+    background-position: -1115px center;
+}
+.ufui-file-icon .ufui-file-icon-apk{
+    background-position: -1215px center;
+}
+.ufui-file-icon .ufui-file-icon-exe{
+    background-position: -1315px center;
+}
+.ufui-file-icon .ufui-file-icon-ipa{
+    background-position: -1415px center;
+}
+.ufui-file-icon .ufui-file-icon-mp4,
+.ufui-file-icon .ufui-file-icon-mov,
+.ufui-file-icon .ufui-file-icon-mpeg,
+.ufui-file-icon .ufui-file-icon-rm,
+.ufui-file-icon .ufui-file-icon-rmvb{
+    background-position: -1515px center;
+}
+.ufui-file-icon .ufui-file-icon-wav,
+.ufui-file-icon .ufui-file-icon-wmv,
+.ufui-file-icon .ufui-file-icon-mid,
+.ufui-file-icon .ufui-file-icon-mp3{
+    background-position: -1615px center;
 }

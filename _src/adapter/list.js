@@ -27,8 +27,8 @@ UF.registerUI('list',
 
             var $file = $(this);
             //点击选中文件
-            var uffile = $(this).ufui(),
-                state = uffile.active();
+            var ufFile = $(this).ufui(),
+                state = ufFile.active();
 
             if(e.shiftKey) {
                 //按住shift,直点击文件
@@ -51,7 +51,7 @@ UF.registerUI('list',
                 updateSelection();
             } else if(e.ctrlKey || e.metaKey) {
                 //按住ctrl,直点击文件
-                uffile.active(!state);
+                ufFile.active(!state);
 
                 !state && ($preCliskFile = $file);
                 updateSelection();
@@ -60,12 +60,12 @@ UF.registerUI('list',
                 //直接点击文件
                 if( (!state && getPathsFormView().length > 0) || (state && getPathsFormView().length > 1) ) {
                     clearAllSelectedFiles($file);
-                    uffile.active(true);
+                    ufFile.active(true);
                 } else {
-                    uffile.active(!state);
+                    ufFile.active(!state);
                 }
 
-                uffile.active() && ($preCliskFile = $file);
+                ufFile.active() && ($preCliskFile = $file);
                 updateSelection();
             }
         });
@@ -80,8 +80,8 @@ UF.registerUI('list',
 
         /* 打开目录 */
         me.on('listfile', function(type, filelist){
-            var uflist = $list.ufui();
-            uflist.clearItems();
+            var ufList = $list.ufui();
+            ufList.clearItems();
             $.each(filelist, function(i, file){
                 var $file = $.ufuifile({
                     type: file.type,
@@ -96,7 +96,7 @@ UF.registerUI('list',
                     });
                 }
 
-                uflist.addItem($file);
+                ufList.addItem($file);
             });
         });
 

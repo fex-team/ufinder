@@ -1,7 +1,7 @@
 .ufui-message-list{
     position: absolute;
-    right: 3px;
-    margin-top: 5px;
+    right: 5px;
+    top: 5px;
 }
 .ufui-message{
     width:180px;
@@ -53,7 +53,7 @@
     height: 10px;
     background-color: #eeeeee;
     border: 1px solid #cccccc;
-    border-radius: 3px;
+    border-radius: 4px;
 }
 .ufui-message-loadbar-percent{
     width: 100%;

@@ -12,7 +12,8 @@
 @import "colorpicker.css";
 @import "separator.css";
 
-@import "tree.css";
-@import "list.css";
 @import "file.css";
+@import "list.css";
+@import "leaf.css";
+@import "tree.css";
 @import "message.css";
