@@ -8,9 +8,25 @@ var DataTree = UF.DataTree = UF.createClass("DataTree", {
             'read': true
         });
     },
+    _getFileNode: function (path) {
+        var current = this.root,
+            pathArr = path.split('/');
+
+        for (var i = 0; i < pathArr.length; i++) {
+            var name = pathArr[i];
+            if(name != '') {
+                current = current.getChild(name);
+            }
+        }
+        return current;
+    },
+    getFileInfo: function (path) {
+        var info = this._getFileNode(path);
+        return info ? info.getInfo():null;
+    },
     addFile: function (data) {
         var current = this.root,
-            pathArr = this._getPathArr(data.path);
+            pathArr = $.trim(data.path).replace(/(^\/)|(\/$)/g, '').split('/');
 
         for (var i = 0; i < pathArr.length - 1; i++) {
             var name = pathArr[i];
@@ -21,15 +37,15 @@ var DataTree = UF.DataTree = UF.createClass("DataTree", {
         current && current.addChild(new FileNode(data));
     },
     updateFile: function (data) {
-        var file = this.getFileByPath(data.path);
+        var file = this._getFileNode(data.path);
         if (!file) {
             this.addFile(data);
         } else {
-            file.setData(data);
+            file.setInfo(data);
         }
     },
     removeFile: function (path) {
-        var file = this.getFileByPath(path);
+        var file = this._getFileNode(path);
         file && file.remove();
     },
     addFiles: function (datas) {
@@ -40,8 +56,9 @@ var DataTree = UF.DataTree = UF.createClass("DataTree", {
 
     },
     updateFiles: function (datas) {
+        var me = this;
         $.each(datas, function (key, data) {
-            this.updateFile(data);
+            me.updateFile(data);
         });
     },
     removeFiles: function (paths) {
@@ -50,14 +67,14 @@ var DataTree = UF.DataTree = UF.createClass("DataTree", {
         });
     },
     lockFile: function (path) {
-        var file = this.getFileByPath(path);
+        var file = this._getFileNode(path);
         file && file.lock();
-        this.finder.fire('lockfile', file.getData());
+        this.finder.fire('lockfiles', [path]);
     },
     unLockFile: function (path) {
-        var file = this.getFileByPath(path);
+        var file = this._getFileNode(path);
         file && file.unLock();
-        this.finder.fire('unlockfile', file.getData());
+        this.finder.fire('unlockfiles', [path]);
     },
     lockFiles: function (paths) {
         var me = this;
@@ -71,27 +88,15 @@ var DataTree = UF.DataTree = UF.createClass("DataTree", {
             me.unLockFile(path);
         });
     },
-    getFileByPath: function (path) {
-        var current = this.root,
-            pathArr = path.split('/');
-
-        for (var i = 0; i < pathArr.length; i++) {
-            var name = pathArr[i];
-            if(name != '') {
-                current = current.getChild(name);
-            }
-        }
-        return current;
-    },
-    listDirFile: function(path){
+    listDirFileInfo: function(path){
         var filelist = [],
-            dir = this.getFileByPath(path);
+            dir = this._getFileNode(path);
         $.each(dir.children, function(k, v){
-            filelist.push(v.getData());
+            filelist.push(v.getInfo());
         });
         return filelist;
     },
-    _getPathArr: function (path) {
-        return $.trim(path).replace(/(^\/)|(\/$)/g, '').split('/');
+    isFileLocked: function(path){
+        return this._getFileNode(path).locked;
     }
 });

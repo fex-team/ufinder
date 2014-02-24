@@ -16,11 +16,11 @@ UF.registerModule("openmodule", function () {
                         path = "/";
                     }
 
-                    var data = uf.dataTree.listDirFile(path),
+                    var data = uf.dataTree.listDirFileInfo(path),
                         openHandler = function(data) {
                             var filelist = (data && data.data && data.data.files) || [];
                             uf.dataTree.addFiles(filelist);
-                            uf.fire('listfile', uf.dataTree.listDirFile(path));
+                            uf.fire('listfile', uf.dataTree.listDirFileInfo(path));
                             uf.setCurrentPath(path);
                         };
 
@@ -31,12 +31,12 @@ UF.registerModule("openmodule", function () {
                     }
                 },
                 queryState: function () {
-                    var paths, file;
+                    var paths, info;
                     paths = uf.getSelection().getSelectedFiles();
 
                     if(paths.length == 1) {
-                        file = uf.dataTree.getFileByPath(paths[0]);
-                        return file && file.getAttr('read') && !file.locked ? 0:-1;
+                        info = uf.dataTree.getFileInfo(paths[0]);
+                        return info && info.read && !uf.dataTree.isFileLocked(paths[0]) ? 0:-1;
                     } else {
                         return -1;
                     }

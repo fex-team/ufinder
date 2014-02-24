@@ -7,6 +7,9 @@ UF.ui.define('tree', {
     init: function (options) {
         var me = this;
         me.root( $($.parseTmpl(me.tpl, options)) );
+
+        me._ufLeaves = {};
+
         return me;
     },
     disabled: function (state) {
@@ -30,6 +33,15 @@ UF.ui.define('tree', {
     _regularDirPath: function(path){
         return path.replace(/([^\/])$/, '$1/').replace(/^([^\/])/, '/$1');
     },
+    getLeaf: function(path){
+        for(i = 0; i < this._ufLeaves.length; i++){
+            if(this._ufLeaves[i].getPath() == path) return this._ufLeaves[i];
+        }
+        return null;
+    },
+    getLeaves: function(){
+        return this._ufLeaves;
+    },
     addLeaf: function($leaf){
         var path = $leaf.ufui().getPath(),
             $parent = this.getLeaf(path.replace(/[^\/]+\/?$/, ''));
@@ -43,10 +55,6 @@ UF.ui.define('tree', {
     },
     removeLeaf: function(path){
         this.getLeaf(path).remove();
-    },
-    getLeaf: function(path){
-        var leaf = this.root().find('[data-path="' + this._regularDirPath(path) + '"]');
-        return leaf.length > 0 ? leaf:null;
     },
     isLeafInTree: function(path){
         return this.getLeaf(path) ? true:false;

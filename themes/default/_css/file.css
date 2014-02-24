@@ -13,6 +13,12 @@
     border: 2px solid #2e80dc;
     padding: 0;
 }
+.ufui-disabled .ufui-file-icon,
+.ufui-disabled .ufui-file-icon{
+    opacity: .35;
+    filter: alpha(opacity=35);
+    background-image: none;
+}
 .ufui-file-icon {
     width: 70px;
     height: 70px;
@@ -27,7 +33,7 @@
 .ufui-file-title{
     padding: 3px 0;
     font-size: 12px;
-    color: dodgerblue;
+    color: #555555;
     text-align: center;
     width: 90px;
     white-space:nowrap;

@@ -10,7 +10,7 @@ UF.registerModule("selectallmodule", function () {
             "selectall": {
                 execute: function (name) {
                     var current = uf.getCurrentPath(),
-                        filelist = uf.dataTree.listDirFile(current),
+                        filelist = uf.dataTree.listDirFileInfo(current),
                         paths = [];
 
                     $.each(filelist, function(k, v){

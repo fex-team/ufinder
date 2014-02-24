@@ -10,7 +10,8 @@ UF.ui.define('leaf', {
     defaultOpt: {
         type: 'dir',
         title: '',
-        path: '/'
+        path: '/',
+        pers: 'wr'
     },
     init: function (options) {
         var me = this;

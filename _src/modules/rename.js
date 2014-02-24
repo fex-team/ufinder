@@ -14,6 +14,7 @@ UF.registerModule("renamemodule", function () {
                         name = prompt('重命名', target.replace(/^.*\//,''));
                         fullname = uf.getCurrentPath() + name;
                         if(name && target != fullname) {
+                            uf.dataTree.lockFile(target);
                             uf.proxy.rename(target, fullname, function(d){
                                 if(d.state == 0) {
                                     var file = (d && d.data && d.data.file);
@@ -23,17 +24,18 @@ UF.registerModule("renamemodule", function () {
                                 } else {
                                     uf.fire('showmessage', {title: d.message});
                                 }
+                                uf.dataTree.unLockFile(target);
                             });
                         }
                     }
                 },
                 queryState: function () {
-                    var paths, file;
+                    var paths, info;
                     paths = uf.getSelection().getSelectedFiles();
 
                     if(paths.length == 1) {
-                        file = uf.dataTree.getFileByPath(paths[0]);
-                        return file && file.getAttr('write') && !file.locked ? 0:-1;
+                        info = uf.dataTree.getFileInfo(paths[0]);
+                        return info && info.write && !uf.dataTree.isFileLocked(paths[0]) ? 0:-1;
                     } else {
                         return -1;
                     }

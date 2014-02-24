@@ -3,24 +3,26 @@ UF.registerUI('tree',
         var me = this,
             $tree = $.ufuitree(),
             ufTree = $tree.ufui(),
-            addLeaf = function(file){
-                if(file.type == 'dir') {
-                    if(!ufTree.isLeafInTree(file.path)) {
+            addLeaf = function(info){
+                if(info.type == 'dir') {
+                    if(!ufTree.isLeafInTree(info.path)) {
                         ufTree.addLeaf( $.ufuileaf({
-                            type: file.type,
-                            title: file.name,
-                            path: file.path
+                            type: info.type,
+                            title: info.name,
+                            path: info.path
                         }) );
                     }
                 }
             };
 
-        addLeaf(me.dataTree.getFileByPath('/'));
+        /* 初始化根节点 */
+        addLeaf(me.dataTree.getFileInfo('/'));
 
+        /* 点击目录执行打开命令 */
         $tree.delegate('.ufui-leaf-title', 'click', function(){
             var path = $(this).parent().parent().attr('data-path'),
-                file = me.dataTree.getFileByPath(path);
-            if(file.getAttr('read') && file.locked()) {
+                info = me.dataTree.getFileInfo(path);
+            if(info.read && info.locked) {
                 me.execCommand('open', path);
             }
         });
@@ -33,8 +35,10 @@ UF.registerUI('tree',
         });
 
         /* 打开目录 */
-        me.on('mkdir', function(type, file){
-            addLeaf(file);
+        me.on('addfiles', function(type, files){
+            $.each($.isArray(files) ? files:[files], function(k, file){
+                addLeaf(file);
+            });
         });
 
         /* 重命名文件 */
@@ -42,7 +46,7 @@ UF.registerUI('tree',
             if(file.type != 'dir') return;
             var $leaf = ufTree.getLeaf(path),
                 ufLeaf = $leaf && $leaf.ufui();
-            if(ufLeaf.getPath().replace(/\/[^\/]+\/?$/, '') != path.replace(/\/[^\/]+\/?$/, '')) {
+            if(ufLeaf && ufLeaf.getPath().replace(/\/[^\/]+\/?$/, '') != path.replace(/\/[^\/]+\/?$/, '')) {
                 $leaf.remove();
                 addLeaf(file);
             } else {
@@ -52,10 +56,10 @@ UF.registerUI('tree',
 
         /* 删除文件 */
         me.on('removefiles', function(type, paths){
-            $.each(paths, function(i, path){
-                var file = uf.dataTree.getFileByPath(path);
-                if(file.type == 'dir') {
-                    ufTree.removeLeaf(file.path);
+            $.each($.isArray(paths) ? paths:[paths], function(i, path){
+                var info = uf.dataTree.getFileInfo(path);
+                if(info.type == 'dir') {
+                    ufTree.removeLeaf(info.path);
                 }
             });
         });

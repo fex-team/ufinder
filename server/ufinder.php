@@ -5,7 +5,6 @@ $ROOT = './files';
 $cmd = $_GET['cmd'];
 $target = $_GET['target'];
 
-//sleep(5);
 switch($cmd){
     case 'ls':
         if(isset($_GET['target'])) $target = $_GET['target'];
@@ -14,6 +13,7 @@ switch($cmd){
         echo getJson('0', 'success', array('files' => $list));
         break;
     case 'rename':
+        sleep(5);
         $name = $_GET['name'];
         if( file_exists($ROOT.$name) ) {
             $res = false;
@@ -55,7 +55,7 @@ switch($cmd){
         if($res) {
             echo getJson('0', 'success', array('file' => getFileInfo($target, $ROOT)));
         } else {
-            echo getJson('1', $msg ? $msg:'newfile error');
+            echo getJson('1', $msg ? $msg:'touch error');
         }
         break;
     case 'mkdir':

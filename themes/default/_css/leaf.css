@@ -8,12 +8,7 @@
 .ufui-leaf-title{
     cursor: pointer;
     font-size: 14px;
-    color: dodgerblue;
-}
-.ufui-leaf-title{
-    cursor: pointer;
-    font-size: 14px;
-    color: dodgerblue;
+    color: #555555;
 }
 .ufui-leaf-detail.ufui-hover{
     background-color: #cccccc;
