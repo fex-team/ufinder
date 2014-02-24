@@ -14,9 +14,17 @@ UF.ui.define('leaf', {
     },
     init: function (options) {
         var me = this;
+        options.path = me._regularDirPath(options.path);
         me.root( $($.parseTmpl(me.tpl, options)) );
         me.$detail = me.root().children().eq(0);
         me.$branch = me.root().children().eq(1);
+
+        me.$detail.find('.ufui-leaf-icon,.ufui-leaf-title').on('mouseover', function(){
+            me.$detail.addClass('ufui-hover');
+        });
+        me.$detail.find('.ufui-leaf-icon,.ufui-leaf-title').on('mouseout', function(){
+            me.$detail.removeClass('ufui-hover');
+        });
 
         return me;
     },
@@ -38,8 +46,11 @@ UF.ui.define('leaf', {
 
         return this;
     },
+    _regularDirPath: function(path){
+        return path.replace(/([^\/])$/, '$1/').replace(/^([^\/])/, '/$1');
+    },
     setPath: function(path){
-        this.root().attr('data-path', path);
+        this.root().attr('data-path', this._regularDirPath(path));
         return this;
     },
     getPath: function(){
@@ -51,7 +62,7 @@ UF.ui.define('leaf', {
     },
     getType: function(){
         var c = this.$detail.find('.ufui-leaf-icon i'),
-            m = c.match(/ufui-leaf-icon-([\w]+)(\s|$)/);
+            m = c.attr('class').match(/ufui-leaf-icon-([\w]+)(\s|$)/);
         return m ? m[1]:null;
     },
     setTitle: function(title){

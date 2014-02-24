@@ -20,7 +20,31 @@ UF.registerUI('list',
                 $list.find('.ufui-file').not($except).each(function(){
                     $(this).ufui().active(false);
                 });
+            },
+            execOpen = function(path){
+                var file = me.dataTree.getFileByPath(path);
+                if(file.getAttr('read') && !file.locked) {
+                    me.execCommand('open', path);
+                };
             };
+
+        var timer = (function(){
+            var time;
+            return function(s){
+                var now = +new Date(),
+                    dist = now - time;
+                time = now;
+                console.log(s + ':' + now + ', ' + dist);
+            }
+        })();
+
+        //双击文件夹
+        $list.delegate('.ufui-file', 'dblclick', function(e){
+            var ufFile = $(this).ufui();
+            if(ufFile.getType() == 'dir') {
+                execOpen(ufFile.getPath());
+            }
+        });
 
         //点击选文件
         $list.delegate('.ufui-file', 'click', function(e){
@@ -83,46 +107,36 @@ UF.registerUI('list',
             var ufList = $list.ufui();
             ufList.clearItems();
             $.each(filelist, function(i, file){
-                var $file = $.ufuifile({
+                ufList.addItem({
                     type: file.type,
                     title: file.name,
-                    path: file.path
+                    path: file.path,
+                    pers: (file.write ? 'w':'nw') + (file.read ? 'r':'nr')
                 });
-
-                /* 双击打开文件夹 */
-                if(file.type == 'dir') {
-                    $file.on('dblclick', function(){
-                        me.execCommand('open', file.path);
-                    });
-                }
-
-                ufList.addItem($file);
             });
         });
 
         /* 打开目录 */
         me.on('newfile mkdir', function(type, file){
-            var uflist = $list.ufui(),
-                $file = $.ufuifile({
-                    type: file.type,
-                    title: file.name,
-                    path: file.path
-                });
-
-            /* 双击打开文件夹 */
-            if(file.type == 'dir') {
-                $file.on('dblclick', function(){
-                    me.execCommand('open', file.path);
-                });
-            }
-
-            uflist.addItem($file);
+            $list.ufui().addItem({
+                type: file.type,
+                title: file.name,
+                path: file.path,
+                pers: (file.write ? 'w':'nw') + (file.read ? 'r':'nr')
+            });
         });
 
         /* 重命名文件 */
         me.on('renamefile', function(type, path, file){
-            $list.find('.ufui-file[data-path="' + path + '"]').ufui()
-                .setPath(file.path).setType(file.type).setTitle(file.name);
+            $list.ufui().removeItem(path).addItem({
+                type: file.type,
+                title: file.name,
+                path: file.path,
+                pers: (file.write ? 'w':'nw') + (file.read ? 'r':'nr')
+            });
+            clearAllSelectedFiles();
+
+            $(this).ufui();
         });
 
         /* 删除文件 */
@@ -135,6 +149,7 @@ UF.registerUI('list',
         /* 选中文件 */
         me.on('selectfiles', function(type, paths){
             me.setSelectedFiles(paths);
+            updateSelection();
             $.each(paths, function(i, path){
                 $list.find('.ufui-file[data-path="' + path + '"]').ufui().active();
             });

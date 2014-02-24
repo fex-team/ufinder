@@ -54,25 +54,21 @@ var DataTree = UF.DataTree = UF.createClass("DataTree", {
         file && file.lock();
         this.finder.fire('lockfile', file.getData());
     },
-    unlockFile: function (paths) {
-        var file = this.getFileByPath(paths);
-        file && file.unlock();
+    unLockFile: function (path) {
+        var file = this.getFileByPath(path);
+        file && file.unLock();
         this.finder.fire('unlockfile', file.getData());
     },
     lockFiles: function (paths) {
         var me = this;
         $.each(paths, function (key, path) {
-            var file = me.getFileByPath(path);
-            file && file.lock();
-            me.finder.fire('lockfile', file.getData());
+            me.lockFile(path);
         });
     },
-    unlockFiles: function (paths) {
+    unLockFiles: function (paths) {
         var me = this;
         $.each(paths, function (key, path) {
-            var file = me.getFileByPath(path);
-            file && file.unlock();
-            me.finder.fire('unlockfile', file.getData());
+            me.unLockFile(path);
         });
     },
     getFileByPath: function (path) {

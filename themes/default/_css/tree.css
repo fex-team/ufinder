@@ -20,3 +20,8 @@
     font-size: 14px;
     color: #ff6a00;
 }
+.ufui-tree-branch{
+    list-style: none;
+    margin-left: 0;
+    padding-left: 8px;
+}

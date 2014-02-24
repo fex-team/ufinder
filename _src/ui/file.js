@@ -1,12 +1,16 @@
 UF.ui.define('file', {
-    tpl: '<div class="ufui-file" data-path="<%=path%>">' +
-        '<div class="ufui-file-icon"><i class="ufui-file-icon-<%=type%>"></i></div>' +
+    tpl: '<div class="ufui-file ufui-file-<%=pers%>" data-path="<%=path%>">' +
+        '<div class="ufui-file-icon">' +
+        '   <i class="ufui-file-icon-<%=type%>"></i>' +
+        '   <span class="ufui-file-pers"></span>' +
+        '</div>' +
         '<div class="ufui-file-title"><%=title%></div>' +
         '</div>',
     defaultOpt: {
         type: '',
         title: '',
-        path: ''
+        path: '',
+        pers: 'wr'
     },
     init: function (options) {
         var me = this;
@@ -45,7 +49,7 @@ UF.ui.define('file', {
     },
     getType: function(){
         var c = this.root().find('.ufui-file-icon i'),
-            m = c.match(/ufui-file-icon-([\w]+)(\s|$)/);
+            m = c.attr('class').match(/ufui-file-icon-([\w]+)(\s|$)/);
         return m ? m[1]:null;
     },
     setPath: function(path){
@@ -54,5 +58,15 @@ UF.ui.define('file', {
     },
     getPath: function(){
         return this.root().attr('data-path');
+    },
+    setPers: function(write, read){
+        this.root().addClass('ufui-file-' + (write ? 'w':'nw') + ('read' ? 'r':'nr'));
+        return this;
+    },
+    getPers: function(){
+        var $root = this.root(),
+            write = $root.hasClass('ufui-file-w-r') || $root.hasClass('ufui-file-nw-r'),
+            read = $root.hasClass('ufui-file-w-r') || $root.hasClass('ufui-file-w-nr');
+        return {'write': write, 'read': read};
     }
 });

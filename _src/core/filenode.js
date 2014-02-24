@@ -15,6 +15,14 @@ var FileNode = UF.FileNode = UF.createClass("FileNode", {
             data[attr] && me.setAttr(attr, data[attr]);
         });
     },
+    _regularDirPath: function(){
+        var path = this.getAttr('path').replace(/^([^\/])/, '/$1');
+        if(this.getAttr('type') == 'dir') {
+            this.setAttr('path', path.replace(/([^\/])$/, '$1/'));
+        } else {
+            this.setAttr('path', path.replace(/([^\/])$/, '$1/'));
+        }
+    },
     getData: function () {
         return this.data;
     },
@@ -46,7 +54,7 @@ var FileNode = UF.FileNode = UF.createClass("FileNode", {
     lock: function () {
         this.locked = true;
     },
-    unlock: function () {
+    unLock: function () {
         this.locked = false;
     }
 });

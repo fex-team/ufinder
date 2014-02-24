@@ -4,15 +4,14 @@
     width: 90px;
     height: 90px;
     margin: 10px 0 0 10px;
-    padding: 0;
+    padding: 1px;
     list-style: none;
     border: 1px dotted #eeeeee;
+    overflow: hidden;
 }
 .ufui-file.ufui-active{
-    /*background-color: #e0e0e0;*/
     border: 2px solid #2e80dc;
-    width: 88px;
-    height: 88px;
+    padding: 0;
 }
 .ufui-file-icon {
     width: 70px;
@@ -26,10 +25,35 @@
 }
 
 .ufui-file-title{
-    padding: 3px;
+    padding: 3px 0;
     font-size: 12px;
     color: dodgerblue;
     text-align: center;
+    width: 90px;
+    white-space:nowrap;
+    word-break:keep-all;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.ufui-file-pers{
+}
+.ufui-file-nwr .ufui-file-pers{
+    float: right;
+    margin: -16px 0 0 0;
+    width: 16px;
+    height: 16px;
+    background-image: url("../images/icons.png");
+    background-position: 0 -64px;
+}
+.ufui-file-wnr .ufui-file-pers,
+.ufui-file-nwnr .ufui-file-pers{
+    float: right;
+    margin: -16px 0 0 0;
+    width: 16px;
+    height: 16px;
+    background-image: url("../images/icons.png");
+    background-position: 0 -96px;
 }
 
 /* filetype style */

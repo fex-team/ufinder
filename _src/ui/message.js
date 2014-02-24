@@ -40,10 +40,10 @@ UF.ui.define('message', {
         return me;
     },
     show: function(){
-        return this.root().fadeIn(500);
+        return this.root().fadeIn(400);
     },
     hide: function(){
-        return this.root().fadeOut(500);
+        return this.root().fadeOut(400);
     },
     setIcon: function(icon){
         this.root().find('.ufui-message-icon i').attr('class', 'ufui-message-icon-' + icon);
@@ -51,7 +51,7 @@ UF.ui.define('message', {
     },
     getIcon: function(){
         var c = this.root().find('.ufui-message-icon i'),
-            m = c.match(/ufui-message-icon-([\w]+)(\s|$)/);
+            m = c.attr('class').match(/ufui-message-icon-([\w]+)(\s|$)/);
         return m ? m[1]:null;
     },
     setMessage: function(message){

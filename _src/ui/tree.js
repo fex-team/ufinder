@@ -23,23 +23,19 @@ UF.ui.define('tree', {
         if (state === undefined) {
             return this.root().hasClass('ufui-active')
         }
-        this.root().toggleClass('ufui-active', state)
+        this.root().toggleClass('ufui-active', state);
 
         return this;
     },
-    setData: function(filelist){
-        var $ul = $('<ul class="ufui-tree-container"></ul>');
-        for(var i in filelist) {
-            if(filelist[i].type == 'dir') {
-                $ul.append($('<li data-path="' + filelist[i].path + '" class="ufui-tree-item">').text(filelist[i].path));
-            }
-        }
-        this.root().html('').append($ul);
+    _regularDirPath: function(path){
+        return path.replace(/([^\/])$/, '$1/').replace(/^([^\/])/, '/$1');
     },
     addLeaf: function($leaf){
         var path = $leaf.ufui().getPath(),
-            $parent = this.getLeaf(path.replace(/\/[^\/]+\/?$/, ''));
-        if($parent && $parent.length > 0) {
+            $parent = this.getLeaf(path.replace(/[^\/]+\/?$/, ''));
+
+        if(this.getLeaf(path)) return;
+        if($parent) {
             $parent.ufui().addChild($leaf);
         } else {
             this.root().children().eq(0).append($leaf);
@@ -49,6 +45,10 @@ UF.ui.define('tree', {
         this.getLeaf(path).remove();
     },
     getLeaf: function(path){
-        return this.root().find('[data-path="' + path + '"]');
+        var leaf = this.root().find('[data-path="' + this._regularDirPath(path) + '"]');
+        return leaf.length > 0 ? leaf:null;
+    },
+    isLeafInTree: function(path){
+        return this.getLeaf(path) ? true:false;
     }
 });

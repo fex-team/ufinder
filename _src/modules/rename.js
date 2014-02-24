@@ -41,7 +41,7 @@ UF.registerModule("renamemodule", function () {
             }
         },
         "shortcutKeys": {
-            "rename": "13" //rename F2
+            "rename": browser.mac ? "13":"113" //renamemac:Enter notmac: F2
         },
         "events": {
         }

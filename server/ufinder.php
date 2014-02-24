@@ -5,7 +5,7 @@ $ROOT = './files';
 $cmd = $_GET['cmd'];
 $target = $_GET['target'];
 
-sleep(1);
+//sleep(5);
 switch($cmd){
     case 'ls':
         if(isset($_GET['target'])) $target = $_GET['target'];
@@ -106,9 +106,9 @@ function getFileInfo($path, $ROOT){
     $stat = stat($filepath);
     $info = array(
 //        'hash' => substr(md5($filepath),8,16),
-        'path' => $path,
+        'path' => is_dir($filepath) && substr($path, strlen($path) - 1) != '/' ? $path.'/':$path,
         'name' => getFileName($path),
-//        'isdir' => is_dir($filename),
+        'isdir' => is_dir($filename),
         'type' => filetype($filepath),
         'read' => is_readable($filepath),
         'write' => is_writable($filepath),

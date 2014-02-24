@@ -1,0 +1,24 @@
+.ufui-leaf-detail{
+    padding: 3px;
+    margin-right: 3px;
+}
+.ufui-leaf-expend{
+    cursor: pointer;
+}
+.ufui-leaf-title{
+    cursor: pointer;
+    font-size: 14px;
+    color: dodgerblue;
+}
+.ufui-leaf-title{
+    cursor: pointer;
+    font-size: 14px;
+    color: dodgerblue;
+}
+.ufui-leaf-detail.ufui-hover{
+    background-color: #cccccc;
+    text-decoration: underline;
+}
+.ufui-leaf-detail.ufui-hover .ufui-leaf-title{
+    text-decoration: underline;
+}

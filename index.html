@@ -20,6 +20,7 @@
                 'core/filenode.js',
                 'core/finder.js',
                 'core/finder.event.js',
+                'core/finder.shortcutkeys.js',
                 'core/finder.select.js',
                 'core/finder.module.js',
                 'core/finder.command.js',
@@ -32,6 +33,7 @@
                 'modules/mkdir.js',
                 'modules/remove.js',
                 'modules/rename.js',
+                'modules/selectall.js',
                 'ui/widget.js',
                 'ui/button.js',
                 'ui/combobox.js',
@@ -65,51 +67,9 @@
 
     $(function () {
         var uf = window.uf = UF.getUFinder('container');
-
-//        //测试提示框
-        uf.fire('showmessage', {title:'test', timeout:0});
-        uf.fire('showmessage', {title:'test', timeout:0});
-        uf.fire('showmessage', {title:'test timeout 2000s', timeout:2000});
-        uf.fire('showmessage', {title:'test', timeout:0});
-        uf.fire('showmessage', {title:'test', timeout:0});
     });
 </script>
 <script src="lang/zh-cn/zh-cn.js"></script>
-
-<div class="">
-    <ul class="ufui-tree-branch">
-        <li class="ufui-tree-branch">
-            <div class="ufui-tree-node" data-path="/">root</div>
-            <ul class="ufui-tree-branch">
-                <li class="ufui-tree-branch">
-                    <div class="ufui-tree-node" data-path="/dir1">
-                        <div class="ufui-tree-expand"></div>
-                        <div class="ufui-tree-icon"><i></i></div>
-                        <div class="ufui-tree-title"></div>
-                    </div>
-                    <ul class="ufui-tree-branch">
-                        <li class="ufui-tree-branch">
-                            <div class="ufui-tree-node" data-path="/dir1/dir1">
-                                <div class="ufui-tree-expand"></div>
-                                <div class="ufui-tree-icon"><i></i></div>
-                                <div class="ufui-tree-title"></div>
-                            </div>
-                            <ul class="ufui-tree-branch"></ul>
-                        </li>
-                    </ul>
-                </li>
-                <li class="ufui-tree-branch">
-                    <div class="ufui-tree-node" data-path="/dir2">
-                        <div class="ufui-tree-expand"></div>
-                        <div class="ufui-tree-icon"><i></i></div>
-                        <div class="ufui-tree-title"></div>
-                    </div>
-                    <ul class="ufui-tree-branch"></ul>
-                </li>
-            </ul>
-        </li>
-    </ul>
-</div>
 
 </body>
 </html>
