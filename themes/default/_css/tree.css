@@ -12,6 +12,8 @@
     padding: 0;
     list-style: none;
     overflow-y: scroll;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-user-select: none;
 }
 .ufui-tree-container li{
     margin: 4px 0;

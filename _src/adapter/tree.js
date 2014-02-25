@@ -50,7 +50,7 @@ UF.registerUI('tree',
                 $leaf.remove();
                 addLeaf(file);
             } else {
-                ufLeaf.setType(file.type).setTitle(file.name);
+//                ufLeaf.setType(file.type).setTitle(file.name);
             }
         });
 

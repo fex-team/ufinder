@@ -13,7 +13,7 @@ switch($cmd){
         echo getJson('0', 'success', array('files' => $list));
         break;
     case 'rename':
-        sleep(5);
+        sleep(2);
         $name = $_GET['name'];
         if( file_exists($ROOT.$name) ) {
             $res = false;

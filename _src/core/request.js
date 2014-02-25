@@ -7,6 +7,8 @@ var Request = UF.Request = UF.createClass("Request", (function () {
             this.data = data;
             this.callback = callback;
             this.jqXhr = null;
+            this.webUploader = null;
+            this.type = data.type;
         },
         send: function () {
             var me = this;
@@ -23,6 +25,9 @@ var Request = UF.Request = UF.createClass("Request", (function () {
         },
         abort: function(){
             this.jqXhr && this.jqXhr.abort();
+        },
+        callback: function(){
+
         }
     }
 })());

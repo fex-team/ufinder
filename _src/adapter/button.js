@@ -1,4 +1,4 @@
-UF.registerUI('open touch mkdir rename remove',
+UF.registerUI('open touch mkdir rename remove upload',
     function(name) {
         var me = this;
         var $btn = $.ufuibutton({
