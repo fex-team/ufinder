@@ -5,7 +5,7 @@ UF.registerUI('tree',
             ufTree = $tree.ufui(),
             addLeaf = function(info){
                 if(info.type == 'dir') {
-                    if(!ufTree.isLeafInTree(info.path)) {
+                    if(!ufTree.isPathInTree(info.path)) {
                         ufTree.addLeaf( $.ufuileaf({
                             type: info.type,
                             title: info.name,
@@ -44,7 +44,7 @@ UF.registerUI('tree',
         /* 重命名文件 */
         me.on('renamefile', function(type, path, file){
             if(file.type != 'dir') return;
-            var $leaf = ufTree.getLeaf(path),
+            var $leaf = ufTree.getItem(path),
                 ufLeaf = $leaf && $leaf.ufui();
             if(ufLeaf && ufLeaf.getPath().replace(/\/[^\/]+\/?$/, '') != path.replace(/\/[^\/]+\/?$/, '')) {
                 $leaf.remove();
@@ -59,7 +59,7 @@ UF.registerUI('tree',
             $.each($.isArray(paths) ? paths:[paths], function(i, path){
                 var info = uf.dataTree.getFileInfo(path);
                 if(info.type == 'dir') {
-                    ufTree.removeLeaf(info.path);
+                    ufTree.removeItem(info.path);
                 }
             });
         });

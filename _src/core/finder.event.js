@@ -8,17 +8,17 @@ UF.extendClass(Finder, {
 
         me._proxyDomEvent = $.proxy(me._proxyDomEvent, me);
 
-        var $keyListener = $('<input class="ufui-key-listener">');
-        $container.append( $('<div class="ufui-event-helper" style="position:absolute;left:0;top:0;height:0;width:0;overflow: hidden;"></div>').append($keyListener) );
+        me._$keyListener = $('<input class="ufui-key-listener">');
+        $container.append( $('<div class="ufui-event-helper" style="position:absolute;left:0;top:0;height:0;width:0;overflow: hidden;"></div>').append(me._$keyListener) );
 
         /* 键盘事件 */
-        $keyListener.on('keydown keyup keypress', me._proxyDomEvent);
+        me._$keyListener.on('keydown keyup keypress', me._proxyDomEvent);
 
         /* 鼠标事件 */
         $container.on('click contextmenu mouseup mousemove mouseover mouseout selectstart', me._proxyDomEvent);
 
         /* 点击事件触发隐藏域聚焦,用于捕获键盘事件 */
-        this._initKeyListener($container, $keyListener);
+        this._initKeyListener($container, me._$keyListener);
     },
     _proxyDomEvent: function (evt) {
         var me = this,
@@ -35,23 +35,29 @@ UF.extendClass(Finder, {
         $container.on('click mousedown', function(evt){
             var target = evt.target;
             if(target.tagName != 'INPUT' && target.tagName != 'TEXTAREA'
-                && target.contenteditable != true) {
-                me.isFocused = true;
-                $keyListener.focus();
-                me.fire('focus');
+                && target.contenteditable != true && me.isFocused == false) {
+                me.setFocus();
             }
         });
         $(document).on('click mousedown', function(evt){
             var $ufContainer = $(evt.originalEvent.target).parents('.ufui-container');
-            if($ufContainer[0] != $container[0]) {
-                me.isFocused = false;
-                $keyListener.blur();
-                me.fire('blur');
+            if($ufContainer[0] != $container[0] && me.isFocused == true) {
+                me.setBlur();
             }
         });
         this.on('focus blur', function(type, evt){
             console.log(type);
         });
+    },
+    setFocus: function(){
+        this.isFocused = true;
+        this._$keyListener.focus();
+        this.fire('focus');
+    },
+    setBlur: function(){
+        this.isFocused = false;
+        this._$keyListener.blur();
+        this.fire('blur');
     },
     _listen: function (type, callback) {
         var callbacks = this._eventCallbacks[ type ] || ( this._eventCallbacks[ type ] = [] );

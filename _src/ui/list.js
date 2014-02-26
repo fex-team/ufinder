@@ -11,7 +11,7 @@ UF.ui.define('list', {
         me.root( $($.parseTmpl(me.tpl, options)) ).append( me.$list );
         me.$list = me.root().find('.ufui-list-container');
 
-        me._ufFiles = [];
+        me._ufItems = [];
 
         return me;
     },
@@ -30,35 +30,35 @@ UF.ui.define('list', {
         }
     },
     getItem: function(path){
-        for(i = 0; i < this._ufFiles.length; i++){
-            if(this._ufFiles[i].getPath() == path) return this._ufFiles[i];
+        for(i = 0; i < this._ufItems.length; i++){
+            if(this._ufItems[i].getPath() == path) return this._ufItems[i];
         }
         return null;
     },
     getItems: function(){
-        return this._ufFiles;
+        return this._ufItems;
     },
     addItem: function(options){
         var i, $f = $.ufuifile(options), ufFile = $f.ufui();
-        for(i = 0; i < this._ufFiles.length; i++){
-            var c = this._ufFiles[i];
+        for(i = 0; i < this._ufItems.length; i++){
+            var c = this._ufItems[i];
             if(this._compare(c, ufFile)) break;
         }
 
-        if(i >= this._ufFiles.length){
+        if(i >= this._ufItems.length){
             this.$list.append($f);
         } else {
-            $f.insertBefore(this._ufFiles[i].root());
+            $f.insertBefore(this._ufItems[i].root());
         }
-        this._ufFiles.splice(i, 0, ufFile);
+        this._ufItems.splice(i, 0, ufFile);
 
         return this;
     },
     removeItem: function(path){
-        for(var i = 0; i < this._ufFiles.length; i++){
-            var c = this._ufFiles[i];
+        for(var i = 0; i < this._ufItems.length; i++){
+            var c = this._ufItems[i];
             if(c.getPath() == path) {
-                this._ufFiles.splice(i, 1);
+                this._ufItems.splice(i, 1);
                 c.root().remove();
                 break;
             }
@@ -66,10 +66,13 @@ UF.ui.define('list', {
         return this;
     },
     clearItems: function(){
-        $.each(this._ufFiles, function(k, f){
+        $.each(this._ufItems, function(k, f){
             f.root().remove();
         });
-        this._ufFiles = [];
+        this._ufItems = [];
         return this;
+    },
+    isItemInList: function(){
+        return this.getItem(path) ? true:false;
     }
 });

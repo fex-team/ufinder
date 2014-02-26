@@ -44,6 +44,9 @@ UF.registerModule("selectmodule", function () {
             "selectdown": "40" //selectAll ctrl+down
         },
         "events": {
+            'list.click': function(){
+
+            }
         }
     }
 });

@@ -8,7 +8,7 @@ UF.ui.define('tree', {
         var me = this;
         me.root( $($.parseTmpl(me.tpl, options)) );
 
-        me._ufLeaves = {};
+        me._ufItems = [];
 
         return me;
     },
@@ -33,30 +33,50 @@ UF.ui.define('tree', {
     _regularDirPath: function(path){
         return path.replace(/([^\/])$/, '$1/').replace(/^([^\/])/, '/$1');
     },
-    getLeaf: function(path){
-        for(i = 0; i < this._ufLeaves.length; i++){
-            if(this._ufLeaves[i].getPath() == path) return this._ufLeaves[i];
+    getItem: function(path){
+        for(i = 0; i < this._ufItems.length; i++){
+            if(this._ufItems[i].getPath() == path) return this._ufItems[i];
         }
         return null;
     },
-    getLeaves: function(){
-        return this._ufLeaves;
+    getItems: function(){
+        return this._ufItems;
     },
-    addLeaf: function($leaf){
-        var path = $leaf.ufui().getPath(),
-            $parent = this.getLeaf(path.replace(/[^\/]+\/?$/, ''));
-
-        if(this.getLeaf(path)) return;
-        if($parent) {
-            $parent.ufui().addChild($leaf);
-        } else {
-            this.root().children().eq(0).append($leaf);
+    addItem: function(options){
+        var i, $f = $.ufuifile(options), ufFile = $f.ufui();
+        for(i = 0; i < this._ufItems.length; i++){
+            var c = this._ufItems[i];
+            if(this._compare(c, ufFile)) break;
         }
+
+        if(i >= this._ufItems.length){
+            this.$list.append($f);
+        } else {
+            $f.insertBefore(this._ufItems[i].root());
+        }
+        this._ufItems.splice(i, 0, ufFile);
+
+        return this;
     },
-    removeLeaf: function(path){
-        this.getLeaf(path).remove();
+    removeItem: function(path){
+        for(var i = 0; i < this._ufItems.length; i++){
+            var c = this._ufItems[i];
+            if(c.getPath() == path) {
+                this._ufItems.splice(i, 1);
+                c.root().remove();
+                break;
+            }
+        }
+        return this;
     },
-    isLeafInTree: function(path){
-        return this.getLeaf(path) ? true:false;
+    clearItems: function(){
+        $.each(this._ufItems, function(k, f){
+            f.root().remove();
+        });
+        this._ufItems = [];
+        return this;
+    },
+    isItemInTree: function(path){
+        return this.getItem(path) ? true:false;
     }
 });

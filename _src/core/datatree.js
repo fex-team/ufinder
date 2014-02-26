@@ -62,8 +62,9 @@ var DataTree = UF.DataTree = UF.createClass("DataTree", {
         });
     },
     removeFiles: function (paths) {
+        var me = this;
         $.each(paths, function (key, path) {
-            this.removeFile(path);
+            me.removeFile(path);
         });
     },
     lockFile: function (path) {
