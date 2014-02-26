@@ -6,11 +6,11 @@ UF.registerUI('open touch mkdir rename remove upload',
             click : function(){
                 me.execCommand(name);
             },
-            title: this.getLang('labelMap')[name] || ''
+            title: me.getLang('labelMap')[name] || ''
         });
 
-        this.on('selectionchange ready',function(){
-            var state = this.queryCommandState(name);
+        me.on('selectionchange ready focus blur',function(){
+            var state = me.queryCommandState(name);
             $btn.ufui().disabled(state == -1).active(state == 1)
         });
         return $btn;

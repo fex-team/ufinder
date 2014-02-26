@@ -9,37 +9,35 @@ UF.extendClass(Finder, {
         } else {
             obj = cmd;
         }
-        $.extend(this._shortcutkeys, obj)
+        $.extend(this._shortcutkeys, obj);
+
+        this._bindshortcutKeys();
     },
     _bindshortcutKeys: function () {
         var me = this,
-            shortcutkeys = me._shortcutkeys,
-            container = me.$container[0],
-            doc = container && container.ownerDocument;
+            shortcutkeys = me._shortcutkeys;
 
-        if (doc) {
-            $(doc.body).on('keydown', function (e) {
-                var keyCode = e.keyCode || e.which;
+        me.on('keydown', function (type, e) {
+            var keyCode = e.keyCode || e.which;
 
-                for (var i in shortcutkeys) {
-                    var tmp = shortcutkeys[ i ].split(',');
-                    for (var t = 0, ti; ti = tmp[ t++ ];) {
-                        ti = ti.split(':');
-                        var key = ti[ 0 ],
-                            param = ti[ 1 ];
-                        if (/^(ctrl)(\+shift)?\+(\d+)$/.test(key.toLowerCase()) || /^(\d+)$/.test(key)) {
-                            if (( ( RegExp.$1 == 'ctrl' ? ( e.ctrlKey || e.metaKey ) : 0 ) && ( RegExp.$2 != "" ? e[ RegExp.$2.slice(1) + "Key" ] : 1 ) && keyCode == RegExp.$3 ) ||
-                                keyCode == RegExp.$1
-                                ) {
+            for (var i in shortcutkeys) {
+                var tmp = shortcutkeys[ i ].split(',');
+                for (var t = 0, ti; ti = tmp[ t++ ];) {
+                    ti = ti.split(':');
+                    var key = ti[ 0 ],
+                        param = ti[ 1 ];
+                    if (/^(ctrl)(\+shift)?\+(\d+)$/.test(key.toLowerCase()) || /^(\d+)$/.test(key)) {
+                        if (( ( RegExp.$1 == 'ctrl' ? ( e.ctrlKey || e.metaKey ) : 0 ) && ( RegExp.$2 != "" ? e[ RegExp.$2.slice(1) + "Key" ] : 1 ) && keyCode == RegExp.$3 ) ||
+                            keyCode == RegExp.$1
+                            ) {
 
-                                if (me.queryCommandState(i, param) != -1)
-                                    me.execCommand(i, param);
-                                e.preventDefault();
-                            }
+                            if (me.queryCommandState(i, param) != -1)
+                                me.execCommand(i, param);
+                            e.preventDefault();
                         }
                     }
                 }
-            });
-        }
+            }
+        });
     }
 });

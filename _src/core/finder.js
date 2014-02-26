@@ -14,6 +14,7 @@ var Finder = UF.Finder = UF.createClass('Finder', {
         this.dataTree = new DataTree(this);
         this.proxy = new Proxy(this);
         this.setCurrentPath('/');
+        this.isFocused = false;
     },
     getCurrentPath: function () {
         return this._currentPath;

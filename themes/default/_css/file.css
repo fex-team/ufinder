@@ -13,8 +13,11 @@
     border: 2px solid #2e80dc;
     padding: 0;
 }
-.ufui-disabled .ufui-file-icon,
-.ufui-disabled .ufui-file-icon{
+.ufui-container.ufui-disabled .ufui-file.ufui-active{
+    border: 2px solid #cccccc;
+}
+.ufui-file.ufui-disabled .ufui-file-icon,
+.ufui-file.ufui-disabled .ufui-file-icon{
     opacity: .35;
     filter: alpha(opacity=35);
     background-image: none;

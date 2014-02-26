@@ -1,56 +1,57 @@
 UF.extendClass(Finder, {
     _initEvents: function () {
         this._eventCallbacks = {};
-
+    },
+    _initDomEvent: function () {
         var me = this,
-            $container = $(me.getOption('renderTo'));
+            $container = me.$container;
 
         me._proxyDomEvent = $.proxy(me._proxyDomEvent, me);
 
         var $keyListener = $('<input class="ufui-key-listener">');
-        $container.append( $('<div class="ufui-event-helper"></div>').append($keyListener) );
-        $container.append($('<input class="ufui-key-listener">'));
+        $container.append( $('<div class="ufui-event-helper" style="position:absolute;left:0;top:0;height:0;width:0;overflow: hidden;"></div>').append($keyListener) );
 
-        //键盘事件
-        $keyListener
-            .on('keydown keyup keypress', me._proxyDomEvent)
-            .on('keydown', function (evt) {
-                if (evt.ctrlKey || evt.metaKey || evt.shiftKey || evt.altKey) {
-                    return;
-                }
-            });
+        /* 键盘事件 */
+        $keyListener.on('keydown keyup keypress', me._proxyDomEvent);
 
-        //鼠标事件
-        $container
-            .on('click contextmenu mouseup mousemove mouseover mouseout selectstart', me._proxyDomEvent)
-            .on('mouseup', function (evt) {
-                if (evt.button == 2) return;
-            });
+        /* 鼠标事件 */
+        $container.on('click contextmenu mouseup mousemove mouseover mouseout selectstart', me._proxyDomEvent);
 
-        this._initDomEvent($container, $keyListener);
+        /* 点击事件触发隐藏域聚焦,用于捕获键盘事件 */
+        this._initKeyListener($container, $keyListener);
     },
-    _initDomEvent: function ($container, $keyListener) {
+    _proxyDomEvent: function (evt) {
+        var me = this,
+            $target = $(evt.originalEvent.target);
+        $.each(['tree', 'list', 'toolbar'], function(k, p){
+            if( $target[0] == me['$'+p][0] || $target.parents('.ufui-' + p)[0] == me['$'+p][0] ) {
+                me.fire( p + '.' + evt.type.replace(/^on/, ''), evt);
+            }
+        });
+        return this.fire(evt.type.replace(/^on/, ''), evt);
+    },
+    _initKeyListener: function($container, $keyListener){
         var me = this;
-        $container.on('click contextmenu mousedown mouseup selectstart', function(evt){
+        $container.on('click mousedown', function(evt){
             var target = evt.target;
             if(target.tagName != 'INPUT' && target.tagName != 'TEXTAREA'
                 && target.contenteditable != true) {
+                me.isFocused = true;
                 $keyListener.focus();
                 me.fire('focus');
             }
         });
-        $(document.body).on('click contextmenu mousedown mouseup selectstart', function(evt){
-            var $ufContainer = $(evt.target).parent($container);
-            if(!$ufContainer.length) {
-                me.fire('blur');
+        $(document).on('click mousedown', function(evt){
+            var $ufContainer = $(evt.originalEvent.target).parents('.ufui-container');
+            if($ufContainer[0] != $container[0]) {
+                me.isFocused = false;
                 $keyListener.blur();
+                me.fire('blur');
             }
         });
-    },
-    _proxyDomEvent: function (evt) {
-//        if(evt.type != 'mousemove') console.log(evt.type + ':' + evt.target.className);
-//        if(evt.type == 'mouseout') console.log(evt.fromElement, evt.toElement);
-        return this.fire(evt.type.replace(/^on/, ''), evt);
+        this.on('focus blur', function(type, evt){
+            console.log(type);
+        });
     },
     _listen: function (type, callback) {
         var callbacks = this._eventCallbacks[ type ] || ( this._eventCallbacks[ type ] = [] );

@@ -34,7 +34,7 @@
                 'modules/addfile.js',
                 'modules/remove.js',
                 'modules/rename.js',
-                'modules/selectall.js',
+                'modules/select.js',
                 'ui/widget.js',
                 'ui/button.js',
                 'ui/combobox.js',
@@ -68,6 +68,16 @@
 
     $(function () {
         var uf = window.uf = UF.getUFinder('container');
+        uf.fire('showmessage', {title: 'test', timeout: 10000});
+        uf.on('click', function(){
+            console.log('click container');
+        });
+        uf.on('tree.click', function(){
+            console.log('click tree');
+        });
+        uf.on('list.click', function(){
+            console.log('click list');
+        });
     });
 </script>
 <script src="lang/zh-cn/zh-cn.js"></script>

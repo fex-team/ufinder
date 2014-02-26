@@ -148,11 +148,12 @@ UF.registerUI('list',
 
         /* 选中文件 */
         me.on('selectfiles', function(type, paths){
-            me.setSelectedFiles(paths);
+            clearAllSelectedFiles();
             $.each($.isArray(paths) ? paths:[paths], function(i, path){
                 var ufFile = ufList.getItem(path);
                 ufFile && ufFile.active(true);
             });
+            updateSelection();
         });
 
         /* 锁文件 */

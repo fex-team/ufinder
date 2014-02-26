@@ -9,7 +9,7 @@ $.extend(UFinder, (function(){
         registerUI: function ( uiname, fn ) {
             $.each( uiname.split( /\s+/ ), function ( i, name ) {
                 _ufinderUI[ name ] = fn;
-            })
+            });
         },
         _createContainer: function (id) {
             var $container = $( '<div class="ufui-container"></div>' );
@@ -47,13 +47,14 @@ $.extend(UFinder, (function(){
             var $tree = _ufinderUI['tree'].call( uf, 'list' );
             uf.$container.append($tree);
             uf.$tree = $tree;
+
         },
         _createlist: function(uf){
             var $list = _ufinderUI['list'].call( uf, 'list' );
             uf.$container.append($list);
             uf.$list = $list;
         },
-        _CreateMessageHolder: function(uf){
+        _createMessageHolder: function(uf){
             var $messageHolder = $('<div class="ufui-message-list"></div>');
             uf.$container.append($messageHolder);
             uf.$messageHolder = $messageHolder;
@@ -94,14 +95,19 @@ $.extend(UFinder, (function(){
                 uf = this.getFinder( $container, options );
 
             uf.$container = $container;
-            uf._bindshortcutKeys();
+            uf.on('focus', function(){
+                $container.removeClass('ufui-disabled');
+            }).on('blur', function(){
+                $container.addClass('ufui-disabled');
+            });
 
             this._createToolbar(uf);
             this._createtree(uf);
             this._createlist(uf);
-            this._CreateMessageHolder(uf);
+            this._createMessageHolder(uf);
 
             this._loadData(uf);
+            uf._initDomEvent();
             uf.fire('ready');
             return uf;
         },
