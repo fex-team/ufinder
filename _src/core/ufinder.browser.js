@@ -1,4 +1,4 @@
-var browser = UF.browser = function(){
+var browser = UF.browser = function () {
     var agent = navigator.userAgent.toLowerCase(),
         opera = window.opera,
         browser = {
@@ -7,48 +7,48 @@ var browser = UF.browser = function(){
              * @name ie
              * @grammar UM.browser.ie  => true|false
              */
-            ie		: !!window.ActiveXObject,
+            ie: !!window.ActiveXObject,
 
             /**
              * 检测浏览器是否为Opera
              * @name opera
              * @grammar UM.browser.opera  => true|false
              */
-            opera	: ( !!opera && opera.version ),
+            opera: ( !!opera && opera.version ),
 
             /**
              * 检测浏览器是否为webkit内核
              * @name webkit
              * @grammar UM.browser.webkit  => true|false
              */
-            webkit	: ( agent.indexOf( ' applewebkit/' ) > -1 ),
+            webkit: ( agent.indexOf(' applewebkit/') > -1 ),
 
             /**
              * 检测浏览器是否为mac系统下的浏览器
              * @name mac
              * @grammar UM.browser.mac  => true|false
              */
-            mac	: ( agent.indexOf( 'macintosh' ) > -1 ),
+            mac: ( agent.indexOf('macintosh') > -1 ),
 
             /**
              * 检测浏览器是否处于怪异模式
              * @name quirks
              * @grammar UM.browser.quirks  => true|false
              */
-            quirks : ( document.compatMode == 'BackCompat' )
+            quirks: ( document.compatMode == 'BackCompat' )
         };
     /**
      * 检测浏览器是否处为gecko内核
      * @name gecko
      * @grammar UM.browser.gecko  => true|false
      */
-    browser.gecko =( navigator.product == 'Gecko' && !browser.webkit && !browser.opera );
+    browser.gecko = ( navigator.product == 'Gecko' && !browser.webkit && !browser.opera );
 
     var version = 0;
 
     // Internet Explorer 6.0+
-    if ( browser.ie ){
-        version = parseFloat( agent.match( /msie (\d+)/ )[1] );
+    if (browser.ie) {
+        version = parseFloat(agent.match(/msie (\d+)/)[1]);
         /**
          * 检测浏览器是否为 IE9 模式
          * @name ie9Compat
@@ -90,11 +90,10 @@ var browser = UF.browser = function(){
     }
 
     // Gecko.
-    if ( browser.gecko ){
-        var geckoRelease = agent.match( /rv:([\d\.]+)/ );
-        if ( geckoRelease )
-        {
-            geckoRelease = geckoRelease[1].split( '.' );
+    if (browser.gecko) {
+        var geckoRelease = agent.match(/rv:([\d\.]+)/);
+        if (geckoRelease) {
+            geckoRelease = geckoRelease[1].split('.');
             version = geckoRelease[0] * 10000 + ( geckoRelease[1] || 0 ) * 100 + ( geckoRelease[2] || 0 ) * 1;
         }
     }
@@ -104,25 +103,25 @@ var browser = UF.browser = function(){
      * @grammar     UM.browser.chrome  => true|false
      */
     if (/chrome\/(\d+\.\d)/i.test(agent)) {
-        browser.chrome = + RegExp['\x241'];
+        browser.chrome = +RegExp['\x241'];
     }
     /**
      * 检测浏览器是否为safari
      * @name safari
      * @grammar     UM.browser.safari  => true|false
      */
-    if(/(\d+\.\d)?(?:\.\d)?\s+safari\/?(\d+\.\d+)?/i.test(agent) && !/chrome/i.test(agent)){
-        browser.safari = + (RegExp['\x241'] || RegExp['\x242']);
+    if (/(\d+\.\d)?(?:\.\d)?\s+safari\/?(\d+\.\d+)?/i.test(agent) && !/chrome/i.test(agent)) {
+        browser.safari = +(RegExp['\x241'] || RegExp['\x242']);
     }
 
 
     // Opera 9.50+
-    if ( browser.opera )
-        version = parseFloat( opera.version() );
+    if (browser.opera)
+        version = parseFloat(opera.version());
 
     // WebKit 522+ (Safari 3+)
-    if ( browser.webkit )
-        version = parseFloat( agent.match( / applewebkit\/(\d+)/ )[1] );
+    if (browser.webkit)
+        version = parseFloat(agent.match(/ applewebkit\/(\d+)/)[1]);
 
     /**
      * 浏览器版本判断

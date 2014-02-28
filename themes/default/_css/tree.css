@@ -1,4 +1,5 @@
 .ufui-tree{
+    position: relative;
     float: left;
     width: 20%;
     height: 400px;

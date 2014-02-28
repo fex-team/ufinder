@@ -79,12 +79,12 @@
         );
         ClassObj.prototype.supper = (UF.ui[supperClass] || _widget).prototype;
         //父class的defaultOpt 合并
-        if( UF.ui[supperClass] && UF.ui[supperClass].prototype.defaultOpt ) {
+        if (UF.ui[supperClass] && UF.ui[supperClass].prototype.defaultOpt) {
 
             var parentDefaultOptions = UF.ui[supperClass].prototype.defaultOpt,
                 subDefaultOptions = ClassObj.prototype.defaultOpt;
 
-            ClassObj.prototype.defaultOpt = $.extend( {}, parentDefaultOptions, subDefaultOptions || {} );
+            ClassObj.prototype.defaultOpt = $.extend({}, parentDefaultOptions, subDefaultOptions || {});
 
         }
         return ClassObj
@@ -125,35 +125,35 @@
     UF.ui = {
         define: function (className, properties, supperClass) {
             var ClassObj = UF.ui[className] = _createClass(function (options, $el) {
-                    var _obj = function () {
-                    };
-                    $.extend(_obj.prototype, ClassObj.prototype, {
-                            guid: className + _guid++,
-                            widgetName: className
-                        }
-                    );
-                    var obj = new _obj;
-                    if ($.type(options) == 'string') {
-                        obj.init && obj.init({});
-                        obj.root().ufui(obj);
+                var _obj = function () {
+                };
+                $.extend(_obj.prototype, ClassObj.prototype, {
+                        guid: className + _guid++,
+                        widgetName: className
+                    }
+                );
+                var obj = new _obj;
+                if ($.type(options) == 'string') {
+                    obj.init && obj.init({});
+                    obj.root().ufui(obj);
+                    obj.root().find('a').click(function (evt) {
+                        evt.preventDefault()
+                    });
+                    return obj.root()[_prefix + className].apply(obj.root(), arguments)
+                } else {
+                    $el && obj.root($el);
+                    obj.init && obj.init(!options || $.isPlainObject(options) ? $.extend2(options || {}, obj.defaultOpt || {}, true) : options);
+                    try {
                         obj.root().find('a').click(function (evt) {
                             evt.preventDefault()
                         });
-                        return obj.root()[_prefix + className].apply(obj.root(), arguments)
-                    } else {
-                        $el && obj.root($el);
-                        obj.init && obj.init(!options || $.isPlainObject(options) ? $.extend2(options || {}, obj.defaultOpt || {}, true) : options);
-                        try{
-                            obj.root().find('a').click(function (evt) {
-                                evt.preventDefault()
-                            });
-                        }catch(e){
-                        }
-
-                        return obj.root().ufui(obj);
+                    } catch (e) {
                     }
 
-                },properties, supperClass);
+                    return obj.root().ufui(obj);
+                }
+
+            }, properties, supperClass);
 
             mergeToJQ(ClassObj, className);
         }

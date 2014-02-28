@@ -1,5 +1,9 @@
 <?php
+header("Content-Type:text/html;charset=utf-8");
+error_reporting( E_ERROR | E_WARNING );
+date_default_timezone_set("Asia/chongqing");
 
+$config = include('./config.php');
 $ROOT = './files';
 
 $cmd = $_GET['cmd'];
@@ -13,13 +17,12 @@ switch($cmd){
         echo getJson('0', 'success', array('files' => $list));
         break;
     case 'rename':
-        sleep(2);
         $name = $_GET['name'];
         if( file_exists($ROOT.$name) ) {
             $res = false;
             $msg = 'file exist';
         } else {
-            $res = rename($ROOT.$target, $ROOT.$name);
+            echo $res = rename($ROOT.$target, $ROOT.$name);
         }
         if($res) {
             echo getJson('0', 'success', array('file' => getFileInfo($name, $ROOT)));
@@ -44,7 +47,6 @@ switch($cmd){
         }
         break;
     case 'touch':
-//        sleep(3);
         if(!file_exists($ROOT.$target)) {
             file_put_contents($ROOT.$target, '');
             $res = file_exists($ROOT.$target);
@@ -69,6 +71,23 @@ switch($cmd){
             echo getJson('0', 'success', array('file' => getFileInfo($target, $ROOT)));
         } else {
             echo getJson('1', $msg ? $msg:'mkdir error', array('file' => getFileInfo($target, $ROOT)));
+        }
+        break;
+    case 'upload':
+        include "Uploader.class.php";
+        $uploadConfig = array(
+            "savePath" => $ROOT.$target,          //存储文件夹
+            "maxSize" => 10000,                   //允许的文件最大尺寸，单位KB
+            "allowFiles" => array( ".gif" , ".png" , ".jpg" , ".jpeg" , ".bmp" )  //允许的文件格式
+        );
+
+        $up = new Uploader( "file" , $uploadConfig );
+        $info = $up->getFileInfo();
+
+        if($info["state"] == 'SUCCESS') {
+            echo getJson('0', 'success', array('file' => getFileInfo($target.$info["name"], $ROOT)));
+        } else {
+            echo getJson('1', $info["state"], array('file' => getFileInfo($target.$info["name"], $ROOT)));
         }
         break;
     default:
@@ -108,7 +127,7 @@ function getFileInfo($path, $ROOT){
 //        'hash' => substr(md5($filepath),8,16),
         'path' => is_dir($filepath) && substr($path, strlen($path) - 1) != '/' ? $path.'/':$path,
         'name' => getFileName($path),
-        'isdir' => is_dir($filename),
+        'isdir' => is_dir($filepath),
         'type' => filetype($filepath),
         'read' => is_readable($filepath),
         'write' => is_writable($filepath),

@@ -5,7 +5,6 @@
     <title>ufinder demo</title>
     <script src="jquery-1.11.0.min.js"></script>
     <link rel="stylesheet" href="webuploader/webuploader.css"/>
-    <script src="webuploader/webuploader.withoutimage.min.js"></script>
     <link rel="stylesheet" href="themes/default/_css/ufinder.css"/>
 </head>
 <body>
@@ -26,15 +25,17 @@
                 'core/finder.select.js',
                 'core/finder.module.js',
                 'core/finder.command.js',
-                'core/request.js',
                 'core/selection.js',
                 'core/datatree.js',
+                'core/request.js',
+                'core/uploader.js',
                 'core/proxy.js',
                 'modules/open.js',
                 'modules/addfile.js',
                 'modules/remove.js',
                 'modules/rename.js',
                 'modules/select.js',
+                'modules/upload.js',
                 'ui/widget.js',
                 'ui/button.js',
                 'ui/combobox.js',
@@ -59,7 +60,8 @@
                 'adapter/button.js',
                 'adapter/list.js',
                 'adapter/message.js',
-                'adapter/tree.js'
+                'adapter/tree.js',
+                'adapter/upload.js'
             ],
             baseURL = '_src/';
     for (var i = 0, pi; pi = path[i++];) {
@@ -68,16 +70,14 @@
 
     $(function () {
         var uf = window.uf = UF.getUFinder('container');
-        uf.fire('showmessage', {title: 'test', timeout: 10000});
-        uf.on('click', function(){
-            console.log('click container');
-        });
-        uf.on('tree.click', function(){
-            console.log('click tree');
-        });
-        uf.on('list.click', function(){
-            console.log('click list');
-        });
+
+        /* 测试消息的泡泡 */
+//        uf.fire('showmessage', {title: 'test', timeout: 3000});
+
+        /* 测试点击事件 */
+//        uf.on('click tree.click list.click toolbar.click', function(type){
+//            console.log(type);
+//        });
     });
 </script>
 <script src="lang/zh-cn/zh-cn.js"></script>

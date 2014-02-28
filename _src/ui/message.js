@@ -15,7 +15,7 @@ UF.ui.define('message', {
     },
     init: function (options) {
         var me = this;
-        me.root( $($.parseTmpl(me.tpl, options)) );
+        me.root($($.parseTmpl(me.tpl, options)));
         me.root().hide();
 
         me.$title = me.root().find('.ufui-message-title');
@@ -26,46 +26,61 @@ UF.ui.define('message', {
         me.setLoadedPercent(me.loadedPercent);
 
         //设置关闭按钮事件
-        me.root().find('.ufui-message-close').on('click', function(){
+        me.root().find('.ufui-message-close').on('click', function () {
             me.hide();
         });
 
         //设置关闭的定时器
-        if(options.timeout > 0) {
-            setTimeout(function(){
+        if (options.timeout !== undefined && options.timeout >= 0) {
+            me.timer = setTimeout(function () {
                 me.hide();
             }, options.timeout);
         }
 
         return me;
     },
-    show: function(){
+    show: function () {
         return this.root().fadeIn(400);
     },
-    hide: function(){
+    hide: function () {
         return this.root().fadeOut(400);
     },
-    setIcon: function(icon){
+    setIcon: function (icon) {
         this.root().find('.ufui-message-icon i').attr('class', 'ufui-message-icon-' + icon);
         return this;
     },
-    getIcon: function(){
+    getIcon: function () {
         var c = this.root().find('.ufui-message-icon i'),
             m = c.attr('class').match(/ufui-message-icon-([\w]+)(\s|$)/);
-        return m ? m[1]:null;
+        return m ? m[1] : null;
     },
-    setMessage: function(message){
+    setMessage: function (message) {
         this.$title.text(message);
         return this;
     },
-    getMessage: function(){
+    getMessage: function () {
         return this.$title.text();
     },
-    setLoadedPercent: function(percent){
+    setLoadedPercent: function (percent) {
         this.root().find('.ufui-message-loadbar-percent').css('width', percent + '%');
         return this;
     },
-    getLoadedPercent: function(){
+    getLoadedPercent: function () {
         return this.root().find('.ufui-message-loadbar-percent').css('width');
+    },
+    setTimer: function (timeout) {
+        var me = this;
+        if(timeout !== undefined) {
+            clearTimeout(me.timer);
+        }
+        if (timeout >= 0) {
+            me.timer = setTimeout(function () {
+                me.hide();
+            }, timeout);
+        }
+        return this;
+    },
+    getTimer: function () {
+        return this.timer;
     }
 });

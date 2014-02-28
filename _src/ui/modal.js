@@ -40,7 +40,7 @@ UF.ui.define('modal', {
         me.root().delegate('[data-hide="modal"]', 'click', $.proxy(me.hide, me))
             .delegate('[data-ok="modal"]', 'click', $.proxy(me.ok, me));
 
-        $('[data-hide="modal"],[data-ok="modal"]',me.root()).hover(function(){
+        $('[data-hide="modal"],[data-ok="modal"]', me.root()).hover(function () {
             $(this).toggleClass('ufui-hover')
         });
     },
@@ -68,13 +68,13 @@ UF.ui.define('modal', {
                 .trigger('aftershow');
         })
     },
-    showTip: function ( text ) {
-        $( '.ufui-modal-tip', this.root() ).html( text ).fadeIn();
+    showTip: function (text) {
+        $('.ufui-modal-tip', this.root()).html(text).fadeIn();
     },
-    hideTip: function ( text ) {
-        $( '.ufui-modal-tip', this.root() ).fadeOut( function (){
+    hideTip: function (text) {
+        $('.ufui-modal-tip', this.root()).fadeOut(function () {
             $(this).html('');
-        } );
+        });
     },
     autoCenter: function () {
         //ie6下不用处理了

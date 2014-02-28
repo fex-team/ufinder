@@ -1,4 +1,5 @@
 .ufui-list{
+    position: relative;
     float: right;
     width: 80%;
     height: 400px;

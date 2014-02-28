@@ -11,14 +11,14 @@ var FileNode = UF.FileNode = UF.createClass("FileNode", {
             attrs = [
                 'path', 'name', 'type', 'read', 'write', 'time', 'mode', 'size'
             ];
-        $.each(attrs, function(i, attr){
+        $.each(attrs, function (i, attr) {
             info[attr] && me.setAttr(attr, info[attr]);
         });
         this._regularDirPath();
     },
-    _regularDirPath: function(){
+    _regularDirPath: function () {
         var path = this.info['path'].replace(/^([^\/])/, '/$1');
-        if(this.getAttr('type') == 'dir') {
+        if (this.getAttr('type') == 'dir') {
             this.info['path'] = path.replace(/([^\/])$/, '$1/');
         } else {
             this.info['path'] = path.replace(/([^\/])$/, '$1/');

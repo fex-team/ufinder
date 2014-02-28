@@ -1,7 +1,7 @@
 UF.registerModule("selectmodule", function () {
     var uf = this;
     return {
-        "init": function(){
+        "init": function () {
 
         },
         "defaultOptions": {
@@ -13,7 +13,7 @@ UF.registerModule("selectmodule", function () {
                         filelist = uf.dataTree.listDirFileInfo(current),
                         paths = [];
 
-                    $.each(filelist, function(k, v){
+                    $.each(filelist, function (k, v) {
                         paths.push(v.path);
                     });
                     uf.fire('selectfiles', paths);
@@ -44,7 +44,7 @@ UF.registerModule("selectmodule", function () {
             "selectdown": "40" //selectAll ctrl+down
         },
         "events": {
-            'list.click': function(){
+            'list.click': function () {
 
             }
         }

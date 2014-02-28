@@ -6,9 +6,11 @@ UF.ui.define('tree', {
     },
     init: function (options) {
         var me = this;
-        me.root( $($.parseTmpl(me.tpl, options)) );
 
-        me._ufItems = [];
+        me.root($($.parseTmpl(me.tpl, options)));
+        me.$branch = me.root().find('.ufui-tree-branch');
+
+        me._ufItems = {};
 
         return me;
     },
@@ -17,7 +19,7 @@ UF.ui.define('tree', {
             return this.root().hasClass('ufui-disabled')
         }
         this.root().toggleClass('ufui-disabled', state);
-        if(this.root().hasClass('ufui-disabled')){
+        if (this.root().hasClass('ufui-disabled')) {
             this.root().removeClass('ufui-hover')
         }
         return this;
@@ -30,38 +32,53 @@ UF.ui.define('tree', {
 
         return this;
     },
-    _regularDirPath: function(path){
+    _regularDirPath: function (path) {
         return path.replace(/([^\/])$/, '$1/').replace(/^([^\/])/, '/$1');
     },
-    getItem: function(path){
-        for(i = 0; i < this._ufItems.length; i++){
-            if(this._ufItems[i].getPath() == path) return this._ufItems[i];
-        }
-        return null;
+    _getParentPath: function (path) {
+        return path.replace(/[^\/]+\/?$/, '');
     },
-    getItems: function(){
+    _compare: function (a, b) {
+        var type1 = a.getType(),
+            type2 = b.getType(),
+            title1 = a.getTitle(),
+            title2 = b.getTitle();
+
+        if (type1 == 'dir' && type2 != 'dir') {
+            return 0;
+        } else if (type1 != 'dir' && type2 == 'dir') {
+            return 1;
+        } else {
+            return title1 > title2;
+        }
+    },
+    getItem: function (path) {
+        return this._ufItems[this._regularDirPath(path)];
+    },
+    getItems: function () {
         return this._ufItems;
     },
-    addItem: function(options){
-        var i, $f = $.ufuifile(options), ufFile = $f.ufui();
-        for(i = 0; i < this._ufItems.length; i++){
-            var c = this._ufItems[i];
-            if(this._compare(c, ufFile)) break;
-        }
+    addItem: function (options) {
+        var i, path = options.path,
+            $l = $.ufuileaf(options),
+            ufLeaf = $l.ufui(),
+            $parent = this.getItem(this._getParentPath(path));
 
-        if(i >= this._ufItems.length){
-            this.$list.append($f);
-        } else {
-            $f.insertBefore(this._ufItems[i].root());
+        if(!this._ufItems[path]) {
+            if ($parent) {
+                $parent.addChild($l);
+            } else {
+                this.$branch.append($l);
+            }
+            this._ufItems[path] = ufLeaf;
         }
-        this._ufItems.splice(i, 0, ufFile);
 
         return this;
     },
-    removeItem: function(path){
-        for(var i = 0; i < this._ufItems.length; i++){
+    removeItem: function (path) {
+        for (var i = 0; i < this._ufItems.length; i++) {
             var c = this._ufItems[i];
-            if(c.getPath() == path) {
+            if (c.getPath() == path) {
                 this._ufItems.splice(i, 1);
                 c.root().remove();
                 break;
@@ -69,14 +86,14 @@ UF.ui.define('tree', {
         }
         return this;
     },
-    clearItems: function(){
-        $.each(this._ufItems, function(k, f){
+    clearItems: function () {
+        $.each(this._ufItems, function (k, f) {
             f.root().remove();
         });
         this._ufItems = [];
         return this;
     },
-    isItemInTree: function(path){
-        return this.getItem(path) ? true:false;
+    isItemInTree: function (path) {
+        return this.getItem(path) ? true : false;
     }
 });

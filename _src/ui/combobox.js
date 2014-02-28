@@ -6,7 +6,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-(function(){
+(function () {
 
     var widgetName = 'combobox',
         itemClassName = 'ufui-combobox-item',
@@ -14,7 +14,7 @@
         ICON_CLASS = 'ufui-combobox-checked-icon',
         labelClassName = 'ufui-combobox-item-label';
 
-    UF.ui.define( widgetName, ( function(){
+    UF.ui.define(widgetName, (function () {
 
         return {
             tpl: "<ul class=\"dropdown-menu ufui-combobox-menu<%if (comboboxName!=='') {%> ufui-combobox-<%=comboboxName%><%}%>\" unselectable=\"on\" onmousedown=\"return false\" role=\"menu\" aria-labelledby=\"dropdownMenu\">" +
@@ -42,7 +42,7 @@
                 recordStack: [],
                 //可用项列表
                 items: [],
-		        //item对应的值列表
+                //item对应的值列表
                 value: [],
                 comboboxName: '',
                 selected: '',
@@ -51,24 +51,24 @@
                 //最多记录条数
                 recordCount: 5
             },
-            init: function( options ){
+            init: function (options) {
 
                 var me = this;
 
-                $.extend( me._optionAdaptation( options ), me._createItemMapping( options.recordStack, options.items ), {
+                $.extend(me._optionAdaptation(options), me._createItemMapping(options.recordStack, options.items), {
                     itemClassName: itemClassName,
                     iconClass: ICON_CLASS,
                     labelClassName: labelClassName
-                } );
+                });
 
-                this._transStack( options );
+                this._transStack(options);
 
-                me.root( $( $.parseTmpl( me.tpl, options ) ) );
+                me.root($($.parseTmpl(me.tpl, options)));
 
-                this.data( 'options', options ).initEvent();
+                this.data('options', options).initEvent();
 
             },
-            initEvent: function(){
+            initEvent: function () {
 
                 var me = this;
 
@@ -80,12 +80,12 @@
             /**
              * 初始化选择项
              */
-            initSelectItem: function(){
+            initSelectItem: function () {
 
                 var me = this,
-                    labelClass = "."+labelClassName;
+                    labelClass = "." + labelClassName;
 
-                me.root().delegate('.' + itemClassName, 'click', function(){
+                me.root().delegate('.' + itemClassName, 'click', function () {
 
                     var $li = $(this),
                         index = $li.attr('data-item-index');
@@ -94,7 +94,7 @@
                         index: index,
                         label: $li.find(labelClass).text(),
                         value: me.data('options').value[ index ]
-                    }).select( index );
+                    }).select(index);
 
                     me.hide();
 
@@ -103,16 +103,16 @@
                 });
 
             },
-            initItemActive: function(){
+            initItemActive: function () {
                 var fn = {
                     mouseenter: 'addClass',
                     mouseleave: 'removeClass'
                 };
                 if ($.IE6) {
-                    this.root().delegate( '.'+itemClassName,  'mouseenter mouseleave', function( evt ){
-                        $(this)[ fn[ evt.type ] ]( HOVER_CLASS );
-                    }).one('afterhide', function(){
-                    });
+                    this.root().delegate('.' + itemClassName, 'mouseenter mouseleave',function (evt) {
+                        $(this)[ fn[ evt.type ] ](HOVER_CLASS);
+                    }).one('afterhide', function () {
+                        });
                 }
             },
             /**
@@ -120,98 +120,98 @@
              * @param index 项索引
              * @returns {*} 如果存在对应索引的项，则返回该项；否则返回null
              */
-            select: function( index ){
+            select: function (index) {
 
                 var itemCount = this.data('options').itemCount,
                     items = this.data('options').autowidthitem;
 
-                if ( items && !items.length ) {
+                if (items && !items.length) {
                     items = this.data('options').items;
                 }
 
-                if( itemCount == 0 ) {
+                if (itemCount == 0) {
                     return null;
                 }
 
-                if( index < 0 ) {
+                if (index < 0) {
 
                     index = itemCount + index % itemCount;
 
-                } else if ( index >= itemCount ) {
+                } else if (index >= itemCount) {
 
-                    index = itemCount-1;
+                    index = itemCount - 1;
 
                 }
 
-                this.trigger( 'changebefore', items[ index ] );
+                this.trigger('changebefore', items[ index ]);
 
-                this._update( index );
+                this._update(index);
 
-                this.trigger( 'changeafter', items[ index ] );
+                this.trigger('changeafter', items[ index ]);
 
                 return null;
 
             },
-            selectItemByLabel: function( label ){
+            selectItemByLabel: function (label) {
 
                 var itemMapping = this.data('options').itemMapping,
                     me = this,
                     index = null;
 
-                !$.isArray( label ) && ( label = [ label ] );
+                !$.isArray(label) && ( label = [ label ] );
 
-                $.each( label, function( i, item ){
+                $.each(label, function (i, item) {
 
                     index = itemMapping[ item ];
 
-                    if( index !== undefined ) {
+                    if (index !== undefined) {
 
-                        me.select( index );
+                        me.select(index);
                         return false;
 
                     }
 
-                } );
+                });
 
             },
             /**
              * 转换记录栈
              */
-            _transStack: function( options ) {
+            _transStack: function (options) {
 
                 var temp = [],
                     itemIndex = -1,
                     selected = -1;
 
-                $.each( options.recordStack, function( index, item ){
+                $.each(options.recordStack, function (index, item) {
 
                     itemIndex = options.itemMapping[ item ];
 
-                    if( $.isNumeric( itemIndex ) ) {
+                    if ($.isNumeric(itemIndex)) {
 
-                        temp.push( itemIndex );
+                        temp.push(itemIndex);
 
                         //selected的合法性检测
-                        if( item == options.selected ) {
+                        if (item == options.selected) {
                             selected = itemIndex;
                         }
 
                     }
 
-                } );
+                });
 
                 options.recordStack = temp;
                 options.selected = selected;
                 temp = null;
 
             },
-            _optionAdaptation: function( options ) {
+            _optionAdaptation: function (options) {
 
-                if( !( 'itemStyles' in options ) ) {
+                if (!( 'itemStyles' in options )) {
 
                     options.itemStyles = [];
 
-                    for( var i = 0, len = options.items.length; i < len; i++ ) {
+                    for (var i = 0, len = options.items.length; i < len; i++) {
                         options.itemStyles.push('');
                     }
 
@@ -223,7 +223,7 @@
                 return options;
 
             },
-            _createItemMapping: function( stackItem, items ){
+            _createItemMapping: function (stackItem, items) {
 
                 var temp = {},
                     result = {
@@ -231,52 +231,52 @@
                         mapping: {}
                     };
 
-                $.each( items, function( index, item ){
+                $.each(items, function (index, item) {
                     temp[ item ] = index;
-                } );
+                });
 
                 result.itemMapping = temp;
 
-                $.each( stackItem, function( index, item ){
+                $.each(stackItem, function (index, item) {
 
-                    if( temp[ item ] !== undefined ) {
-                        result.recordStack.push( temp[ item ] );
+                    if (temp[ item ] !== undefined) {
+                        result.recordStack.push(temp[ item ]);
                         result.mapping[ item ] = temp[ item ];
                     }
 
-                } );
+                });
 
                 return result;
 
             },
-            _update: function ( index ) {
+            _update: function (index) {
 
                 var options = this.data("options"),
                     newStack = [],
                     newChilds = null;
 
-                $.each( options.recordStack, function( i, item ){
+                $.each(options.recordStack, function (i, item) {
 
-                    if( item != index ) {
-                        newStack.push( item );
+                    if (item != index) {
+                        newStack.push(item);
                     }
 
-                } );
+                });
 
                 //压入最新的记录
-                newStack.unshift( index );
+                newStack.unshift(index);
 
-                if( newStack.length > options.recordCount ) {
+                if (newStack.length > options.recordCount) {
                     newStack.length = options.recordCount;
                 }
 
                 options.recordStack = newStack;
                 options.selected = index;
 
-                newChilds = $( $.parseTmpl( this.tpl, options ) );
+                newChilds = $($.parseTmpl(this.tpl, options));
 
                 //重新渲染
-                this.root().html( newChilds.html() );
+                this.root().html(newChilds.html());
 
                 newChilds = null;
                 newStack = null;
@@ -284,6 +284,6 @@
             }
         };
 
-    } )(), 'menu' );
+    })(), 'menu');
 
 })();

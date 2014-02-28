@@ -1,4 +1,4 @@
-$.extend(UFinder, (function(){
+$.extend(UFinder, (function () {
 
     var _ufinderUI = {},
         _activeWidget = null,
@@ -6,98 +6,99 @@ $.extend(UFinder, (function(){
         _widgetCallBack = {};
 
     return {
-        registerUI: function ( uiname, fn ) {
-            $.each( uiname.split( /\s+/ ), function ( i, name ) {
+        registerUI: function (uiname, fn) {
+            $.each(uiname.split(/\s+/), function (i, name) {
                 _ufinderUI[ name ] = fn;
             });
         },
         _createContainer: function (id) {
-            var $container = $( '<div class="ufui-container"></div>' );
-            $(Utils.isString( id ) ? '#' + id : id ).append( $container );
+            var $container = $('<div class="ufui-container"></div>');
+            $(Utils.isString(id) ? '#' + id : id).append($container);
             return $container;
         },
-        _createToolbar: function(uf){
-            var toolbars = uf.getOption( 'toolbars' );
+        _createToolbar: function (uf) {
+            var toolbars = uf.getOption('toolbars');
 
             var $toolbar = $.ufuitoolbar();
             uf.$container.append($toolbar);
             uf.$toolbar = $toolbar;
 
-            if ( toolbars && toolbars.length ) {
+            if (toolbars && toolbars.length) {
                 var btns = [];
-                $.each( toolbars, function ( i, uiNames ) {
-                    $.each( uiNames.split( /\s+/ ), function ( index, name ) {
-                        if ( name == '|' ) {
-                            $.ufuiseparator && btns.push( $.ufuiseparator() );
+                $.each(toolbars, function (i, uiNames) {
+                    $.each(uiNames.split(/\s+/), function (index, name) {
+                        if (name == '|') {
+                            $.ufuiseparator && btns.push($.ufuiseparator());
                         } else {
-                            if ( _ufinderUI[ name ] ) {
-                                var ui = _ufinderUI[ name ].call( uf, name );
-                                ui && btns.push( ui );
+                            if (_ufinderUI[ name ]) {
+                                var ui = _ufinderUI[ name ].call(uf, name);
+                                ui && btns.push(ui);
                             }
 
                         }
 
-                    } );
-                    btns.length && $toolbar.ufui().appendToBtnmenu( btns );
-                } );
+                    });
+                    btns.length && $toolbar.ufui().appendToBtnmenu(btns);
+                });
             }
-            $toolbar.append( $( '<div class="ufui-dialog-container"></div>' ) );
+            $toolbar.append($('<div class="ufui-dialog-container"></div>'));
         },
-        _createtree: function(uf){
-            var $tree = _ufinderUI['tree'].call( uf, 'list' );
+        _createtree: function (uf) {
+            var $tree = _ufinderUI['tree'].call(uf, 'list');
             uf.$container.append($tree);
             uf.$tree = $tree;
 
         },
-        _createlist: function(uf){
-            var $list = _ufinderUI['list'].call( uf, 'list' );
+        _createlist: function (uf) {
+            var $list = _ufinderUI['list'].call(uf, 'list');
             uf.$container.append($list);
             uf.$list = $list;
         },
-        _createMessageHolder: function(uf){
+        _createMessageHolder: function (uf) {
             var $messageHolder = $('<div class="ufui-message-list"></div>');
             uf.$container.append($messageHolder);
             uf.$messageHolder = $messageHolder;
 
             var _messages = {};
 
-            uf.on('showmessage', function(type, p){
-                var $message = _ufinderUI['message'].call( uf, 'message', {
+            uf.on('showmessage', function (type, p) {
+                var $message = _ufinderUI['message'].call(uf, 'message', {
                     icon: p.icon || 'warning',
                     title: p.title || '',
                     loadedPercent: p.loadedPercent || 100,
-                    timeout: p.timeout !== undefined ? p.timeout:3000
+                    timeout: p.timeout,
+                    id: p.id || 'm' + (+new Date()).toString(36)
                 });
-                if(p.request) {
-                    _messages[p.request.id] = $message;
+                if (p.id) {
+                    _messages[p.id] = $message;
                 }
                 $messageHolder.append($message);
                 $message.ufui().show();
             });
-            uf.on('updatemessage', function(type, p){
+            uf.on('updatemessage', function (type, p) {
                 var $message;
-                if(p.request && ($message = _messages[p.request.id])) {
-                    $message.ufui().setIcon(p.icon).setTitle(p.title).setLoadedPercent(p.loadedPercent);
+                if (p.id && ($message = _messages[p.id])) {
+                    $message.ufui().setIcon(p.icon).setMessage(p.title).setTimer(p.timeout).setLoadedPercent(p.loadedPercent);
                 }
             });
-            uf.on('hidemessage', function(type, p){
+            uf.on('hidemessage', function (type, p) {
                 var $message;
-                if(p.request && ($message = _messages[p.request.id])) {
+                if (($message = _messages[p.id])) {
                     $message.ufui().hide();
                 }
             });
         },
-        _loadData: function(uf){
+        _loadData: function (uf) {
             uf.execCommand('open', '/');
         },
         getUFinder: function (id, options) {
             var $container = this._createContainer(id),
-                uf = this.getFinder( $container, options );
+                uf = this.getFinder($container, options);
 
             uf.$container = $container;
-            uf.on('focus', function(){
+            uf.on('beforefocus',function () {
                 $container.removeClass('ufui-disabled');
-            }).on('blur', function(){
+            }).on('blur', function () {
                 $container.addClass('ufui-disabled');
             });
 
@@ -113,11 +114,11 @@ $.extend(UFinder, (function(){
         },
         delUFinder: function (id) {
         },
-        registerWidget: function ( name, pro, cb ) {
+        registerWidget: function (name, pro, cb) {
         },
-        getWidgetData: function ( name ) {
+        getWidgetData: function (name) {
         },
-        setWidgetBody: function ( name, $widget, km ) {
+        setWidgetBody: function (name, $widget, km) {
         },
         createEditor: function (id, opt) {
         },

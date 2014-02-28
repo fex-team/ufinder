@@ -1,33 +1,29 @@
-var Request = UF.Request = UF.createClass("Request", (function () {
-    var maxIndex = 0;
+var Request = UF.Request = UF.createClass("Request", {
+    constructor: function (data, callback) {
+        this.id = 'r' + (+new Date()).toString(36);
+        this.data = data;
+        this.jqXhr = null;
+        this.callback = callback;
+    },
+    send: function () {
+        var me = this;
+        me.jqXhr = $.ajax(me.data).always(function (r) {
+            try {
+                me.responseJson = JSON ? JSON.parse(r) : eval(r);
+                me.callback && me.callback(me.responseJson);
+            } catch (e) {
+                me.responseJson = null;
+            }
+            me.responseText = r;
+        });
+    },
+    abort: function () {
+        this.cancel();
+    },
+    cancel: function(){
+        this.jqXhr && this.jqXhr.abort();
+    },
+    callback: function () {
 
-    return {
-        constructor: function (data, callback) {
-            this.id = maxIndex++;
-            this.data = data;
-            this.callback = callback;
-            this.jqXhr = null;
-            this.webUploader = null;
-            this.type = data.type;
-        },
-        send: function () {
-            var me = this;
-            me.jqXhr = $.ajax(me.data).always(function (r) {
-                console.log(r);
-                var data;
-                try{
-                    data = JSON ? JSON.parse(r):eval(r);
-                } catch(e) {
-                    data = r;
-                }
-                me.callback && me.callback(data);
-            });
-        },
-        abort: function(){
-            this.jqXhr && this.jqXhr.abort();
-        },
-        callback: function(){
-
-        }
     }
-})());
+});

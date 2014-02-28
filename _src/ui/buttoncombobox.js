@@ -6,11 +6,11 @@
  * To change this template use File | Settings | File Templates.
  */
 
-(function(){
+(function () {
 
     var widgetName = 'buttoncombobox';
 
-    UF.ui.define( widgetName, ( function(){
+    UF.ui.define(widgetName, (function () {
 
         return {
             defaultOpt: {
@@ -18,7 +18,7 @@
                 label: '',
                 title: ''
             },
-            init: function( options ) {
+            init: function (options) {
 
                 var me = this;
 
@@ -27,28 +27,28 @@
                     name: options.comboboxName,
                     title: options.title,
                     text: options.label,
-                    click: function(){
-                        me.show( this.root() );
+                    click: function () {
+                        me.show(this.root());
                     }
                 });
 
-                me.supper.init.call( me, options );
+                me.supper.init.call(me, options);
 
                 //监听change， 改变button显示内容
-                me.on('changebefore', function( e, label ){
-                    btnWidget.ufuibutton('label', label );
+                me.on('changebefore', function (e, label) {
+                    btnWidget.ufuibutton('label', label);
                 });
 
-                me.data( 'button', btnWidget );
+                me.data('button', btnWidget);
 
                 me.attachTo(btnWidget)
 
             },
-            button: function(){
-                return this.data( 'button' );
+            button: function () {
+                return this.data('button');
             }
         }
 
-    } )(), 'combobox' );
+    })(), 'combobox');
 
 })();

@@ -15,8 +15,8 @@ UF.ui.define('scale', {
         $wrap: $(document)
     },
     init: function (options) {
-        if(options.$doc) this.defaultOpt.$doc = options.$doc;
-        if(options.$wrap) this.defaultOpt.$wrap = options.$wrap;
+        if (options.$doc) this.defaultOpt.$doc = options.$doc;
+        if (options.$wrap) this.defaultOpt.$wrap = options.$wrap;
         this.root($($.parseTmpl(this.tpl, options)));
         this.initStyle();
         this.startPos = this.prePos = {x: 0, y: 0};
@@ -112,7 +112,7 @@ UF.ui.define('scale', {
     _validScaledProp: function (prop, value) {
         var $ele = this.root(),
             $wrap = this.defaultOpt.$doc,
-            calc = function(val, a, b){
+            calc = function (val, a, b) {
                 return (val + a) > b ? b - a : value;
             };
 
@@ -121,7 +121,7 @@ UF.ui.define('scale', {
             case 'left':
                 return value < 0 ? 0 : calc(value, $ele.width(), $wrap.width());
             case 'top':
-                return value < 0 ? 0 : calc(value, $ele.height(),$wrap.height());
+                return value < 0 ? 0 : calc(value, $ele.height(), $wrap.height());
             case 'width':
                 return value <= 0 ? 1 : calc(value, $ele.offset().left, $wrap.width());
             case 'height':

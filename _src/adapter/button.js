@@ -1,15 +1,15 @@
-UF.registerUI('open touch mkdir rename remove upload',
-    function(name) {
+UF.registerUI('open touch mkdir rename remove',
+    function (name) {
         var me = this;
         var $btn = $.ufuibutton({
-            icon : name,
-            click : function(){
+            icon: name,
+            click: function () {
                 me.execCommand(name);
             },
             title: me.getLang('labelMap')[name] || ''
         });
 
-        me.on('selectionchange ready focus blur',function(){
+        me.on('selectionchange ready focus blur', function () {
             var state = me.queryCommandState(name);
             $btn.ufui().disabled(state == -1).active(state == 1)
         });

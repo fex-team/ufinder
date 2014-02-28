@@ -14,7 +14,7 @@ UF.ui.define('file', {
     },
     init: function (options) {
         var me = this;
-        me.root( $($.parseTmpl(me.tpl, options)) );
+        me.root($($.parseTmpl(me.tpl, options)));
 
         return me;
     },
@@ -23,7 +23,7 @@ UF.ui.define('file', {
             return this.root().hasClass('ufui-disabled')
         }
         this.root().toggleClass('ufui-disabled', state);
-        if(this.root().hasClass('ufui-disabled')){
+        if (this.root().hasClass('ufui-disabled')) {
             this.root().removeClass('ufui-hover')
         }
         return this;
@@ -36,34 +36,34 @@ UF.ui.define('file', {
 
         return this;
     },
-    setTitle: function(title){
+    setTitle: function (title) {
         this.root().find('.ufui-file-title').text(title);
         return this;
     },
-    getTitle: function(){
+    getTitle: function () {
         return this.root().find('.ufui-file-title').text();
     },
-    setType: function(type){
+    setType: function (type) {
         this.root().find('.ufui-file-icon i').attr('class', 'ufui-file-icon-' + type);
         return this;
     },
-    getType: function(){
+    getType: function () {
         var c = this.root().find('.ufui-file-icon i'),
             m = c.attr('class').match(/ufui-file-icon-([\w]+)(\s|$)/);
-        return m ? m[1]:null;
+        return m ? m[1] : null;
     },
-    setPath: function(path){
+    setPath: function (path) {
         this.root().attr('data-path', path);
         return this;
     },
-    getPath: function(){
+    getPath: function () {
         return this.root().attr('data-path');
     },
-    setPers: function(write, read){
-        this.root().addClass('ufui-file-' + (write ? 'w':'nw') + ('read' ? 'r':'nr'));
+    setPers: function (write, read) {
+        this.root().addClass('ufui-file-' + (write ? 'w' : 'nw') + ('read' ? 'r' : 'nr'));
         return this;
     },
-    getPers: function(){
+    getPers: function () {
         var $root = this.root(),
             write = $root.hasClass('ufui-file-w-r') || $root.hasClass('ufui-file-nw-r'),
             read = $root.hasClass('ufui-file-w-r') || $root.hasClass('ufui-file-w-nr');

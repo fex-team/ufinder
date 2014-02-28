@@ -23,7 +23,7 @@ UF.ui.define('button', {
             });
 
         me.root().hover(function () {
-            if(!me.root().hasClass("ufui-disabled")){
+            if (!me.root().hasClass("ufui-disabled")) {
                 me.root().toggleClass('ufui-hover')
             }
         })
@@ -50,7 +50,7 @@ UF.ui.define('button', {
             return this.root().hasClass('ufui-disabled')
         }
         this.root().toggleClass('ufui-disabled', state);
-        if(this.root().hasClass('ufui-disabled')){
+        if (this.root().hasClass('ufui-disabled')) {
             this.root().removeClass('ufui-hover')
         }
         return this;

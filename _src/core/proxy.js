@@ -4,7 +4,7 @@ var Proxy = UF.Proxy = UF.createClass("Proxy", {
         this._queue = [];
         this.active = false;
         this.nextSendIndex = 0;
-        this._url = 'http://localhost/ufinder/server/ufinder.php';
+        this._url = finder.getOption('serverUrl');
     },
     'ls': function (target, callback) {
         return this._get({
@@ -37,35 +37,53 @@ var Proxy = UF.Proxy = UF.createClass("Proxy", {
             'target': target
         }, callback);
     },
+    upload: function (target, file, callback) {
+        return this._upload({
+            'cmd': 'upload',
+            'target': target
+        }, callback, file);
+    },
     _get: function (data, callback) {
         return this._ajax('GET', data, callback);
     },
     _post: function (data, callback) {
-        return this._ajax('GET', data, callback);
+        return this._ajax('POST', data, callback);
     },
-    _upload: function (data, callback) {
-        //TODO 上传文件
+    _upload: function (data, file, callback) {
+        return this._ajax('UPLOAD', data, callback, file);
     },
-    _ajax: function(type, data, callback){
-
+    _ajax: function (type, data, callback, file) {
         var me = this,
+            request,
+            handler = function (d) {
+                me._beforeRequestComplete(d, request);
+                callback && callback(d, request);
+                me._afterRequestComplete(d, request);
+            };
+
+        if (type == 'UPLOAD') {
+            request = new Uploader({
+                url: me._url,
+                type: type,
+                webuploader: me.finder.webuploader,
+                file: file,
+                data: data
+            }, handler);
+        } else {
             request = new Request({
-            url: this._url,
-            type: type,
-            data: data
-        }, function(d){
-            me._beforeRequestComplete(d, request);
-            callback && callback(d, request);
-            me._afterRequestComplete(d, request);
-        });
+                url: me._url,
+                type: type,
+                data: data
+            }, handler);
+        }
 
         this._pushRequest(request);
         this.finder.fire('showmessage', {
             icon: 'loading',
             title: data.cmd + ' loading...',
             loadedPercent: 100,
-            timeout: 0,
-            request: request
+            request: request,
+            id: request.id
         });
 
         return request;
@@ -75,18 +93,18 @@ var Proxy = UF.Proxy = UF.createClass("Proxy", {
         this._sendRequest();
     },
     _sendRequest: function () {
-        if(!this.active && this.nextSendIndex < this._queue.length) {
+        if (!this.active && this.nextSendIndex < this._queue.length) {
             this.active = true;
             this._queue[this.nextSendIndex++].send();
         }
     },
-    _beforeRequestComplete: function(d, request){
+    _beforeRequestComplete: function (d, request) {
         this.finder.fire('beforeRequestComplete', d, request);
-        this.finder.fire('hidemessage', {request: request});
+        this.finder.fire('hidemessage', {id: request.id});
         this.active = false;
         this._sendRequest();
     },
-    _afterRequestComplete: function(d, request){
+    _afterRequestComplete: function (d, request) {
         this.finder.fire('afterRequestComplete', d, request);
     }
 });

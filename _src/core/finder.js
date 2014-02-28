@@ -8,7 +8,7 @@ var Finder = UF.Finder = UF.createClass('Finder', {
         this._initShortcutKey();
         this._initModules();
 
-        this.fire('ready');
+        this.fire('finderready');
     },
     _initFinder: function () {
         this.dataTree = new DataTree(this);
@@ -23,6 +23,7 @@ var Finder = UF.Finder = UF.createClass('Finder', {
         path.charAt(0) != '/' && (path = '/' + path);
         path.charAt(path.length - 1) != '/' && (path = path + '/');
         this._currentPath = path;
+        this.fire('currentpathchange', this._currentPath);
     },
     setDefaultOptions: function (key, val) {
         var obj = {};

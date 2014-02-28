@@ -4,7 +4,7 @@ UF.ui.define('panel', {
     },
     init: function (options) {
         var me = this;
-        me.root( $($.parseTmpl(me.tpl, options)) );
+        me.root($($.parseTmpl(me.tpl, options)));
         return me;
     }
 });

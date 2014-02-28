@@ -30,6 +30,6 @@ var UFinder =
                     return instanceMap[ id ] || this.createFinder(target, options);
                 },
                 //挂接多语言
-                LANG:{}
+                LANG: {}
             }
         }();

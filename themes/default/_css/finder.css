@@ -1,9 +1,6 @@
 .ufui-container{
     width: 700px;
     overflow: hidden;
-}
-
-.ufui-container{
     position: relative;
     border: 1px solid #d4d4d4;
     border-radius: 4px;

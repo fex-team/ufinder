@@ -16,14 +16,14 @@ UF.ui.define('leaf', {
     init: function (options) {
         var me = this;
         options.path = me._regularDirPath(options.path);
-        me.root( $($.parseTmpl(me.tpl, options)) );
+        me.root($($.parseTmpl(me.tpl, options)));
         me.$detail = me.root().children().eq(0);
         me.$branch = me.root().children().eq(1);
 
-        me.$detail.find('.ufui-leaf-icon,.ufui-leaf-title').on('mouseover', function(){
+        me.$detail.find('.ufui-leaf-icon,.ufui-leaf-title').on('mouseover', function () {
             me.$detail.addClass('ufui-hover');
         });
-        me.$detail.find('.ufui-leaf-icon,.ufui-leaf-title').on('mouseout', function(){
+        me.$detail.find('.ufui-leaf-icon,.ufui-leaf-title').on('mouseout', function () {
             me.$detail.removeClass('ufui-hover');
         });
 
@@ -34,7 +34,7 @@ UF.ui.define('leaf', {
             return this.root().hasClass('ufui-disabled')
         }
         this.root().toggleClass('ufui-disabled', state);
-        if(this.root().hasClass('ufui-disabled')){
+        if (this.root().hasClass('ufui-disabled')) {
             this.root().removeClass('ufui-hover')
         }
         return this;
@@ -47,39 +47,58 @@ UF.ui.define('leaf', {
 
         return this;
     },
-    _regularDirPath: function(path){
+    _regularDirPath: function (path) {
         return path.replace(/([^\/])$/, '$1/').replace(/^([^\/])/, '/$1');
     },
-    setPath: function(path){
+    _compare: function (a, b) {
+        var type1 = a.getType(),
+            type2 = b.getType(),
+            title1 = a.getTitle(),
+            title2 = b.getTitle();
+
+        if (type1 == 'dir' && type2 != 'dir') {
+            return 0;
+        } else if (type1 != 'dir' && type2 == 'dir') {
+            return 1;
+        } else {
+            return title1 > title2;
+        }
+    },
+    setPath: function (path) {
         this.root().attr('data-path', this._regularDirPath(path));
         return this;
     },
-    getPath: function(){
+    getPath: function () {
         return this.root().attr('data-path');
     },
-    setType: function(type){
+    setType: function (type) {
         this.$detail.find('.ufui-leaf-icon i').attr('class', 'ufui-leaf-icon-' + type);
         return this;
     },
-    getType: function(){
+    getType: function () {
         var c = this.$detail.find('.ufui-leaf-icon i'),
             m = c.attr('class').match(/ufui-leaf-icon-([\w]+)(\s|$)/);
-        return m ? m[1]:null;
+        return m ? m[1] : null;
     },
-    setTitle: function(title){
+    setTitle: function (title) {
         this.$detail.find('.ufui-leaf-title').text(title);
         return this;
     },
-    getTitle: function(){
+    getTitle: function () {
         return this.$detail.find('.ufui-leaf-title').text();
     },
-    addChild: function($leaf){
+    addChild: function ($leaf) {
+//        var $
+//        for (i = 0; i < .length; i++) {
+//            var c = this._ufItems[i];
+//            if (this._compare(c, ufFile)) break;
+//        }
         this.$branch.append($leaf);
     },
-    removeChild: function($leaf){
+    removeChild: function ($leaf) {
         $leaf.remove();
     },
-    getChildren: function(){
+    getChildren: function () {
         return this.$branch.children();
     }
 });

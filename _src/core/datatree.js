@@ -14,7 +14,7 @@ var DataTree = UF.DataTree = UF.createClass("DataTree", {
 
         for (var i = 0; i < pathArr.length; i++) {
             var name = pathArr[i];
-            if(name != '') {
+            if (name != '') {
                 current = current.getChild(name);
             }
         }
@@ -22,7 +22,7 @@ var DataTree = UF.DataTree = UF.createClass("DataTree", {
     },
     getFileInfo: function (path) {
         var info = this._getFileNode(path);
-        return info ? info.getInfo():null;
+        return info ? info.getInfo() : null;
     },
     addFile: function (data) {
         var current = this.root,
@@ -30,11 +30,11 @@ var DataTree = UF.DataTree = UF.createClass("DataTree", {
 
         for (var i = 0; i < pathArr.length - 1; i++) {
             var name = pathArr[i];
-            if(name != '') {
+            if (name != '') {
                 current = current.getChild(name);
             }
         }
-        current && current.addChild(new FileNode(data));
+        current && current.addChild(new FileNode(data))
     },
     updateFile: function (data) {
         var file = this._getFileNode(data.path);
@@ -89,15 +89,15 @@ var DataTree = UF.DataTree = UF.createClass("DataTree", {
             me.unLockFile(path);
         });
     },
-    listDirFileInfo: function(path){
+    listDirFileInfo: function (path) {
         var filelist = [],
             dir = this._getFileNode(path);
-        $.each(dir.children, function(k, v){
+        $.each(dir.children, function (k, v) {
             filelist.push(v.getInfo());
         });
         return filelist;
     },
-    isFileLocked: function(path){
+    isFileLocked: function (path) {
         return this._getFileNode(path).locked;
     }
 });
