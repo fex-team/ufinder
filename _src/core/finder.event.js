@@ -5,7 +5,7 @@ UF.extendClass(Finder, {
     _initDomEvent: function () {
         var me = this,
             $container = me.$container;
-            $keyListener = $('<input class="ufui-key-listener">');
+        $keyListener = $('<input class="ufui-key-listener">');
 
         $container.append($('<div class="ufui-event-helper" style="position:absolute;left:0;top:0;height:0;width:0;overflow: hidden;"></div>').append($keyListener));
         me._proxyDomEvent = $.proxy(me._proxyDomEvent, me);
@@ -13,16 +13,17 @@ UF.extendClass(Finder, {
         /* 点击事件触发隐藏域聚焦,用于捕获键盘事件 */
         me._initKeyListener($container, $keyListener);
 
-        /* 鼠标事件 */
-        $container.on('click contextmenu mouseup mousemove mouseover mouseout selectstart', me._proxyDomEvent);
-
         /* 键盘事件 */
         $keyListener.on('keydown keyup keypress', me._proxyDomEvent);
 
+        /* 鼠标事件 */
+        $container.on('click contextmenu mouseup mousemove mouseover mouseout selectstart', me._proxyDomEvent);
+
     },
     _proxyDomEvent: function (evt) {
+//        if(['mouseover', 'mousemove', 'mouseout'].indexOf(evt.type)==-1) console.log(evt.type);
         var me = this;
-        if(evt.originalEvent) {
+        if (evt.originalEvent) {
             var $target = $(evt.originalEvent.target);
             /* 同时触发 tree.click 等事件 */
             $.each(['tree', 'list', 'toolbar'], function (k, p) {
@@ -42,14 +43,12 @@ UF.extendClass(Finder, {
                 && target.contenteditable != true) {
                 $keyListener.focus();
                 me.isFocused == false && me.setFocus();
-                evt.preventDefault(evt);
-                return false;
             }
         });
         /* 点击document除掉当前ufinder的位置,让ufinder失去焦点 */
         $(document).on('click mousedown', function (evt) {
             /* 忽略代码触发的点击事件 */
-            if(evt.originalEvent) {
+            if (evt.originalEvent) {
                 var $ufContainer = $(evt.originalEvent.target).parents('.ufui-container');
                 if ($ufContainer[0] != $container[0]) {
                     $keyListener.focus();
@@ -57,18 +56,17 @@ UF.extendClass(Finder, {
                 }
             }
         });
+        me.on('afterexeccommand', function () {
+            $keyListener.focus();
+        });
     },
     setFocus: function () {
-        this.fire('beforefocus');
         this.isFocused = true;
         this.fire('focus');
-        this.fire('afterfocus');
     },
     setBlur: function () {
-        this.fire('breforeblur');
         this.isFocused = false;
         this.fire('blur');
-        this.fire('aftreblur');
     },
     _listen: function (type, callback) {
         var callbacks = this._eventCallbacks[ type ] || ( this._eventCallbacks[ type ] = [] );

@@ -2,42 +2,50 @@ var Utils = UFinder.Utils = {
     argsToArray: function (args, index) {
         return Array.prototype.slice.call(args, index || 0);
     },
-    loadFile: (function(){
+    regularDirPath: function (path) {
+        return path.replace(/([^\/])$/, '$1/').replace(/^([^\/])/, '/$1');
+    },
+    getParentPath: function (path) {
+        return path.replace(/[^\/]+\/?$/, '');
+    },
+    loadFile: (function () {
         var tmpList = [];
-        function getItem(doc,obj){
-            try{
-                for(var i= 0,ci;ci=tmpList[i++];){
-                    if(ci.doc === doc && ci.url == (obj.src || obj.href)){
+
+        function getItem(doc, obj) {
+            try {
+                for (var i = 0, ci; ci = tmpList[i++];) {
+                    if (ci.doc === doc && ci.url == (obj.src || obj.href)) {
                         return ci;
                     }
                 }
-            }catch(e){
+            } catch (e) {
                 return null;
             }
 
         }
+
         return function (doc, obj, fn) {
-            var item = getItem(doc,obj);
+            var item = getItem(doc, obj);
             if (item) {
-                if(item.ready){
+                if (item.ready) {
                     fn && fn();
-                }else{
+                } else {
                     item.funs.push(fn)
                 }
                 return;
             }
             tmpList.push({
-                doc:doc,
-                url:obj.src||obj.href,
-                funs:[fn]
+                doc: doc,
+                url: obj.src || obj.href,
+                funs: [fn]
             });
             if (!doc.body) {
                 var html = [];
-                for(var p in obj){
-                    if(p == 'tag')continue;
+                for (var p in obj) {
+                    if (p == 'tag')continue;
                     html.push(p + '="' + obj[p] + '"')
                 }
-                doc.write('<' + obj.tag + ' ' + html.join(' ') + ' ></'+obj.tag+'>');
+                doc.write('<' + obj.tag + ' ' + html.join(' ') + ' ></' + obj.tag + '>');
                 return;
             }
             if (obj.id && doc.getElementById(obj.id)) {
@@ -50,7 +58,7 @@ var Utils = UFinder.Utils = {
             }
             element.onload = element.onreadystatechange = function () {
                 if (!this.readyState || /loaded|complete/.test(this.readyState)) {
-                    item = getItem(doc,obj);
+                    item = getItem(doc, obj);
                     if (item.funs.length > 0) {
                         item.ready = 1;
                         for (var fi; fi = item.funs.pop();) {
@@ -60,8 +68,8 @@ var Utils = UFinder.Utils = {
                     element.onload = element.onreadystatechange = null;
                 }
             };
-            element.onerror = function(){
-                throw Error('The load '+(obj.href||obj.src)+' fails,check the url')
+            element.onerror = function () {
+                throw Error('The load ' + (obj.href || obj.src) + ' fails,check the url')
             };
             doc.getElementsByTagName("head")[0].appendChild(element);
         }

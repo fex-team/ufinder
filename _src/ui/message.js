@@ -70,7 +70,7 @@ UF.ui.define('message', {
     },
     setTimer: function (timeout) {
         var me = this;
-        if(timeout !== undefined) {
+        if (timeout !== undefined) {
             clearTimeout(me.timer);
         }
         if (timeout >= 0) {

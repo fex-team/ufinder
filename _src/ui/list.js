@@ -54,12 +54,18 @@ UF.ui.define('list', {
 
         return this;
     },
-    removeItem: function (path) {
+    removeItem: function (path, fadeOutTime) {
         for (var i = 0; i < this._ufItems.length; i++) {
             var c = this._ufItems[i];
             if (c.getPath() == path) {
                 this._ufItems.splice(i, 1);
-                c.root().remove();
+                if (fadeOutTime) {
+                    c.active(false).root().fadeOut(fadeOutTime || 0, function () {
+                        $(this).remove();
+                    });
+                } else {
+                    c.root().remove();
+                }
                 break;
             }
         }
@@ -72,7 +78,7 @@ UF.ui.define('list', {
         this._ufItems = [];
         return this;
     },
-    isItemInList: function () {
+    isItemInList: function (path) {
         return this.getItem(path) ? true : false;
     }
 });

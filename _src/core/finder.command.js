@@ -30,7 +30,10 @@ UF.extendClass(Finder, {
         if (!cmd) {
             return false;
         }
+
+        me.fire('beforeexeccommand', name);
         result = cmd.execute.apply(me, cmdArgs);
+        me.fire('afterexeccommand', name);
 
         return result === undefined ? null : result;
     }

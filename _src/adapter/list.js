@@ -3,9 +3,21 @@ UF.registerUI('list',
     function (name) {
         var me = this,
             $list = $.ufuilist(),
-            ufList = $list.ufui();
-
-        var $preCliskFile,
+            ufList = $list.ufui(),
+            $preCliskFile,
+            addFile = function (filelist) {
+                var currentPath = me.getCurrentPath();
+                $.each($.isArray(filelist) ? filelist : [filelist], function (k, file) {
+                    if (Utils.getParentPath(file.path) == currentPath) {
+                        ufList.addItem({
+                            type: file.type,
+                            title: file.name,
+                            path: file.path,
+                            pers: (file.write ? 'w' : 'nw') + (file.read ? 'r' : 'nr')
+                        })
+                    }
+                });
+            },
             getPathsFormView = function () {
                 var paths = [];
                 $list.find('.ufui-file.ufui-active').each(function (i, item) {
@@ -20,32 +32,30 @@ UF.registerUI('list',
                 $list.find('.ufui-file').not($except).each(function () {
                     $(this).ufui().active(false);
                 });
-            },
-            execOpen = function (path) {
-                var file = me.dataTree.getFileInfo(path);
-                if (file.read && !file.locked) {
-                    me.execCommand('open', path);
-                }
             };
 
-        //双击文件夹
+        /* 双击文件夹 */
         $list.delegate('.ufui-file', 'dblclick', function (e) {
             var ufFile = $(this).ufui();
             if (ufFile.getType() == 'dir') {
-                execOpen(ufFile.getPath());
+                var path = ufFile.getPath(),
+                    file = me.dataTree.getFileInfo(path);
+                if (file.read && !file.locked) {
+                    me.execCommand('open', path);
+                }
             }
         });
 
-        //点击选文件
+        /* 点击选文件 */
         $list.delegate('.ufui-file', 'click', function (e) {
 
             var $file = $(this);
-            //点击选中文件
+            /* 点击选中文件 */
             var ufFile = $(this).ufui(),
                 state = ufFile.active();
 
-            if (e.shiftKey) {
-                //按住shift,直点击文件
+            if (e.shiftKey && $preCliskFile) {
+                /* 按住shift,直点击文件 */
                 var $start, $end, $current, endIndex;
                 if ($file.index() > $preCliskFile.index()) {
                     $start = $preCliskFile;
@@ -64,14 +74,14 @@ UF.registerUI('list',
                 }
                 updateSelection();
             } else if (e.ctrlKey || e.metaKey) {
-                //按住ctrl,直点击文件
+                /* 按住ctrl,直点击文件 */
                 ufFile.active(!state);
 
                 !state && ($preCliskFile = $file);
                 updateSelection();
             } else {
 
-                //直接点击文件
+                /* 直接点击文件 */
                 if ((!state && getPathsFormView().length > 0) || (state && getPathsFormView().length > 1)) {
                     clearAllSelectedFiles($file);
                     ufFile.active(true);
@@ -84,6 +94,7 @@ UF.registerUI('list',
             }
         });
 
+        /* 去除选区 */
         $list.on('click', function (e) {
             var target = e.target || e.srcElement;
             if (target && target == $list.children()[0]) {
@@ -92,52 +103,35 @@ UF.registerUI('list',
             }
         });
 
-        /* 打开目录 */
-        me.on('listfile', function (type, filelist) {
-            ufList.clearItems();
-            $.each(filelist, function (i, file) {
-                ufList.addItem({
-                    type: file.type,
-                    title: file.name,
-                    path: file.path,
-                    pers: (file.write ? 'w' : 'nw') + (file.read ? 'r' : 'nr')
-                });
-            });
+        /* 目录改变 */
+        me.on('currentPathChange', function (type, path) {
+            if ($list.attr('data-path') != path) {
+                $list.attr('data-path', path);
+                ufList.clearItems();
+                addFile(me.dataTree.listDirFileInfo(path));
+            }
         });
 
         /* 新增文件 */
-        me.on('addfiles', function (type, files) {
-            $.each($.isArray(files) ? files : [files], function (k, file) {
-                ufList.addItem({
-                    type: file.type,
-                    title: file.name,
-                    path: file.path,
-                    pers: (file.write ? 'w' : 'nw') + (file.read ? 'r' : 'nr')
-                });
-            });
+        me.on('addFiles', function (type, files) {
+            addFile(files);
         });
 
         /* 重命名文件 */
-        me.on('renamefile', function (type, path, file) {
-            ufList.removeItem(path).addItem({
-                type: file.type,
-                title: file.name,
-                path: file.path,
-                pers: (file.write ? 'w' : 'nw') + (file.read ? 'r' : 'nr')
-            });
-            var ufFile = ufList.getItem(file.path);
-            ufFile && ufFile.active(true);
+        me.on('updateFile', function (type, path, info) {
+            ufList.isItemInList(path) && ufList.removeItem(path);
+            addFile(info);
         });
 
         /* 删除文件 */
-        me.on('removefiles', function (type, paths) {
+        me.on('removeFiles', function (type, paths) {
             $.each($.isArray(paths) ? paths : [paths], function (i, path) {
-                ufList.isItemInList(path) && ufList.removeItem(path);
+                ufList.isItemInList(path) && ufList.removeItem(path, 300);
             });
         });
 
         /* 选中文件 */
-        me.on('selectfiles', function (type, paths) {
+        me.on('selectFiles', function (type, paths) {
             clearAllSelectedFiles();
             $.each($.isArray(paths) ? paths : [paths], function (i, path) {
                 var ufFile = ufList.getItem(path);
@@ -147,7 +141,7 @@ UF.registerUI('list',
         });
 
         /* 锁文件 */
-        me.on('lockfiles', function (type, paths) {
+        me.on('lockFiles', function (type, paths) {
             $.each($.isArray(paths) ? paths : [paths], function (i, path) {
                 var ufFile = ufList.getItem(path);
                 ufFile && ufFile.disabled(true);
@@ -155,7 +149,7 @@ UF.registerUI('list',
         });
 
         /* 解锁文件 */
-        me.on('unlockfiles', function (type, paths) {
+        me.on('unlockFiles', function (type, paths) {
             $.each($.isArray(paths) ? paths : [paths], function (i, path) {
                 var ufFile = ufList.getItem(path);
                 ufFile && ufFile.disabled(false);

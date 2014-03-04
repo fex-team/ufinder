@@ -9,12 +9,12 @@ UF.registerModule("removemodule", function () {
                     var paths = uf.getSelection().getSelectedFiles();
                     if (paths.length) {
                         uf.dataTree.lockFiles(paths);
-                        uf.proxy.rm(paths, function (d) {
+                        var req = uf.proxy.rm(paths, function (d) {
                             if (d.state == 0) {
                                 uf.dataTree.removeFiles(paths);
                                 uf.fire('removefiles', paths);
                             } else {
-                                uf.fire('showmessage', {title: d.message, timeout: 3000});
+                                uf.fire('updatemessage', {title: d.message, timeout: 3000, id: req.id});
                             }
                             uf.dataTree.unLockFiles(paths);
                         });
@@ -26,7 +26,7 @@ UF.registerModule("removemodule", function () {
                     if (paths.length > 0) {
                         for (var k in paths) {
                             var info = uf.dataTree.getFileInfo(paths[k]);
-                            if (info && (!info.write || uf.dataTree.isFileLocked(paths[k]))) {
+                            if (info && !(info.write && !uf.dataTree.isFileLocked(paths[k]))) {
                                 return -1;
                             }
                         }

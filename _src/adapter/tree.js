@@ -13,22 +13,43 @@ UF.registerUI('tree',
                         });
                     }
                 }
+            },
+            openDir = function (path) {
+                var info = me.dataTree.getFileInfo(path);
+                if (info.read && !me.dataTree.isFileLocked(path)) {
+                    me.execCommand('open', path);
+                }
             };
 
-        /* 初始化根节点 */
-        addItem(me.dataTree.getFileInfo('/'));
-
         /* 点击目录执行打开命令 */
-        $tree.delegate('.ufui-leaf-title', 'click', function () {
-            var path = $(this).parent().parent().attr('data-path'),
+        $tree.delegate('.ufui-leaf-expand,.ufui-leaf-folder,.ufui-leaf-title', 'click', function () {
+            var $target = $(this),
+                $detail = $target.parent(),
+                $leaf = $detail.parent(),
+                path = $leaf.attr('data-path'),
                 info = me.dataTree.getFileInfo(path);
-            if (info.read && me.dataTree.isFileLocked(path)) {
-                me.execCommand('open', path);
+            if (info.read && !me.dataTree.isFileLocked(path)) {
+                if ($target.hasClass('ufui-leaf-expand')) {
+                    if (!$detail.hasClass('ufui-leaf-detail-closed')) {
+                        me.execCommand('list', path);
+                    }
+                } else {
+                    me.execCommand('open', path);
+                }
             }
         });
 
+        /* 初始化根节点 */
+        me.on('dataReady', function (type, info) {
+            ufTree.setRoot({
+                type: info.type,
+                title: 'Root',
+                path: info.path
+            });
+        });
+
         /* 打开目录 */
-        me.on('listfile', function (type, filelist) {
+        me.on('listFile', function (type, filelist) {
             $.each(filelist, function (i, file) {
                 addItem(file);
             });
@@ -44,13 +65,10 @@ UF.registerUI('tree',
         /* 重命名文件 */
         me.on('renamefile', function (type, path, file) {
             if (file.type != 'dir') return;
-            var $leaf = ufTree.getItem(path),
-                ufLeaf = $leaf && $leaf.ufui();
-            if (ufLeaf && ufLeaf.getPath().replace(/\/[^\/]+\/?$/, '') != path.replace(/\/[^\/]+\/?$/, '')) {
-                $leaf.remove();
+            var ufLeaf = ufTree.getItem(path);
+            if (ufLeaf) {
+                ufTree.removeItem(path);
                 addItem(file);
-            } else {
-                ufLeaf.setType(file.type).setTitle(file.name);
             }
         });
 

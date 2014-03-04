@@ -6,6 +6,11 @@ var Proxy = UF.Proxy = UF.createClass("Proxy", {
         this.nextSendIndex = 0;
         this._url = finder.getOption('serverUrl');
     },
+    'init': function (callback) {
+        return this._get({
+            'cmd': 'init'
+        }, callback);
+    },
     'ls': function (target, callback) {
         return this._get({
             'cmd': 'ls',
@@ -40,8 +45,15 @@ var Proxy = UF.Proxy = UF.createClass("Proxy", {
     upload: function (target, file, callback) {
         return this._upload({
             'cmd': 'upload',
-            'target': target
+            'target': target,
+            'file': file
         }, callback, file);
+    },
+    info: function (target, callback) {
+        return this._get({
+            'cmd': 'info',
+            'target': target
+        }, callback);
     },
     _get: function (data, callback) {
         return this._ajax('GET', data, callback);
@@ -49,10 +61,10 @@ var Proxy = UF.Proxy = UF.createClass("Proxy", {
     _post: function (data, callback) {
         return this._ajax('POST', data, callback);
     },
-    _upload: function (data, file, callback) {
-        return this._ajax('UPLOAD', data, callback, file);
+    _upload: function (data, callback) {
+        return this._ajax('UPLOAD', data, callback);
     },
-    _ajax: function (type, data, callback, file) {
+    _ajax: function (type, data, callback) {
         var me = this,
             request,
             handler = function (d) {
@@ -66,7 +78,6 @@ var Proxy = UF.Proxy = UF.createClass("Proxy", {
                 url: me._url,
                 type: type,
                 webuploader: me.finder.webuploader,
-                file: file,
                 data: data
             }, handler);
         } else {

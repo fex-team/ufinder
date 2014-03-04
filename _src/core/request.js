@@ -10,17 +10,18 @@ var Request = UF.Request = UF.createClass("Request", {
         me.jqXhr = $.ajax(me.data).always(function (r) {
             try {
                 me.responseJson = JSON ? JSON.parse(r) : eval(r);
-                me.callback && me.callback(me.responseJson);
             } catch (e) {
                 me.responseJson = null;
             }
             me.responseText = r;
+            console.log(me.responseJson || r);
+            me.callback && me.callback(me.responseJson);
         });
     },
     abort: function () {
         this.cancel();
     },
-    cancel: function(){
+    cancel: function () {
         this.jqXhr && this.jqXhr.abort();
     },
     callback: function () {

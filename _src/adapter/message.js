@@ -4,8 +4,8 @@ UF.registerUI('message',
             $message = $.ufuimessage(options),
             request = options.request;
 
-        if(request) {
-            $message.find('.ufui-message-loadbar').on('click', function(){
+        if (request) {
+            $message.find('.ufui-message-loadbar').on('click', function () {
                 request.pause();
             });
         }

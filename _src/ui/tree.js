@@ -1,6 +1,6 @@
 UF.ui.define('tree', {
     tpl: '<div class="ufui-tree">' +
-        '<ul class="ufui-tree-branch ufui-tree-branch-closed"></ul>' +
+        '<ul class="ufui-tree-branch ufui-tree-branch-root"></ul>' +
         '</div>',
     defaultOpt: {
     },
@@ -32,12 +32,6 @@ UF.ui.define('tree', {
 
         return this;
     },
-    _regularDirPath: function (path) {
-        return path.replace(/([^\/])$/, '$1/').replace(/^([^\/])/, '/$1');
-    },
-    _getParentPath: function (path) {
-        return path.replace(/[^\/]+\/?$/, '');
-    },
     _compare: function (a, b) {
         var type1 = a.getType(),
             type2 = b.getType(),
@@ -53,20 +47,20 @@ UF.ui.define('tree', {
         }
     },
     getItem: function (path) {
-        return this._ufItems[this._regularDirPath(path)];
+        return this._ufItems[Utils.regularDirPath(path)];
     },
     getItems: function () {
         return this._ufItems;
     },
     addItem: function (options) {
-        var i, path = options.path,
+        var path = options.path,
             $l = $.ufuileaf(options),
             ufLeaf = $l.ufui(),
-            $parent = this.getItem(this._getParentPath(path));
+            $parent = this.getItem(Utils.getParentPath(path));
 
-        if(!this._ufItems[path]) {
+        if (!this._ufItems[path]) {
             if ($parent) {
-                $parent.addChild($l);
+                $parent.addChild(ufLeaf);
             } else {
                 this.$branch.append($l);
             }
@@ -75,14 +69,25 @@ UF.ui.define('tree', {
 
         return this;
     },
+    setRoot: function (options) {
+        options.name = 'Root';
+
+        var $l = $.ufuileaf(options),
+            ufLeaf = $l.ufui();
+
+        this.$branch.append($l);
+        this._ufItems[options.path] = ufLeaf;
+        $l.addClass('ufui-tree-leaf-root');
+//        ufLeaf.expand(true);
+
+        return this;
+    },
     removeItem: function (path) {
-        for (var i = 0; i < this._ufItems.length; i++) {
-            var c = this._ufItems[i];
-            if (c.getPath() == path) {
-                this._ufItems.splice(i, 1);
-                c.root().remove();
-                break;
-            }
+        var me = this;
+        path = Utils.regularDirPath(path);
+        if (me._ufItems[path]) {
+            me._ufItems[path].root().remove();
+            delete me._ufItems[path];
         }
         return this;
     },

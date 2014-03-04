@@ -34,7 +34,6 @@ $.extend(UFinder, (function () {
                                 var ui = _ufinderUI[ name ].call(uf, name);
                                 ui && btns.push(ui);
                             }
-
                         }
 
                     });
@@ -88,26 +87,22 @@ $.extend(UFinder, (function () {
                 }
             });
         },
-        _loadData: function (uf) {
-            uf.execCommand('open', '/');
-        },
         getUFinder: function (id, options) {
             var $container = this._createContainer(id),
                 uf = this.getFinder($container, options);
 
             uf.$container = $container;
-            uf.on('beforefocus',function () {
+            uf.on('focus',function () {
                 $container.removeClass('ufui-disabled');
             }).on('blur', function () {
-                $container.addClass('ufui-disabled');
-            });
+                    $container.addClass('ufui-disabled');
+                });
 
             this._createToolbar(uf);
             this._createtree(uf);
             this._createlist(uf);
             this._createMessageHolder(uf);
 
-            this._loadData(uf);
             uf._initDomEvent();
             uf.fire('ready');
             return uf;

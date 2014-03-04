@@ -1,12 +1,11 @@
 var DataTree = UF.DataTree = UF.createClass("DataTree", {
     constructor: function (finder) {
         this.finder = finder;
-        this.root = new FileNode({
-            'path': '/',
-            'name': 'root',
-            'write': true,
-            'read': true
-        });
+        this.root = null;
+    },
+    setRoot: function (data) {
+        this.root = new FileNode(data);
+        this.finder.fire('dataReady', data);
     },
     _getFileNode: function (path) {
         var current = this.root,
@@ -24,7 +23,7 @@ var DataTree = UF.DataTree = UF.createClass("DataTree", {
         var info = this._getFileNode(path);
         return info ? info.getInfo() : null;
     },
-    addFile: function (data) {
+    _addFile: function (data) {
         var current = this.root,
             pathArr = $.trim(data.path).replace(/(^\/)|(\/$)/g, '').split('/');
 
@@ -34,31 +33,31 @@ var DataTree = UF.DataTree = UF.createClass("DataTree", {
                 current = current.getChild(name);
             }
         }
-        current && current.addChild(new FileNode(data))
+        current && current.addChild(new FileNode(data));
     },
-    updateFile: function (data) {
-        var file = this._getFileNode(data.path);
-        if (!file) {
-            this.addFile(data);
-        } else {
+    addFile: function (data) {
+        this._addFile(data);
+        this.finder.fire('addFiles', data);
+    },
+    updateFile: function (path, data) {
+        var file = this._getFileNode(path);
+        if (file.path == path) {
             file.setInfo(data);
+        } else {
+            file.remove();
+            this._addFile(data);
         }
+        this.finder.fire('updateFile', path, data);
     },
     removeFile: function (path) {
         var file = this._getFileNode(path);
         file && file.remove();
+        this.finder.fire('removeFiles', path);
     },
     addFiles: function (datas) {
         var me = this;
         $.each(datas, function (key, data) {
             me.addFile(data);
-        });
-
-    },
-    updateFiles: function (datas) {
-        var me = this;
-        $.each(datas, function (key, data) {
-            me.updateFile(data);
         });
     },
     removeFiles: function (paths) {

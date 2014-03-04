@@ -20,7 +20,6 @@ UF.registerModule("addfilemodule", function () {
                             if (d.state == 0) {
                                 var file = (d && d.data && d.data.file);
                                 uf.dataTree.addFile(file);
-                                uf.fire('addfiles', file);
                                 uf.fire('selectfiles', file.path);
                             } else {
                                 uf.fire('showmessage', {title: d.message, timeout: 3000});
@@ -47,7 +46,6 @@ UF.registerModule("addfilemodule", function () {
                             if (d.state == 0) {
                                 var file = (d && d.data && d.data.file);
                                 uf.dataTree.addFile(file);
-                                uf.fire('addfiles', file);
                                 uf.fire('selectfiles', file.path);
                             } else {
                                 uf.fire('showmessage', {title: d.message, timeout: 3000});

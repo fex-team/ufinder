@@ -23,8 +23,21 @@
     font-size: 14px;
     color: #ff6a00;
 }
+/* 孩子容器样式 */
 .ufui-tree-branch{
     list-style: none;
     margin-left: 0;
-    padding-left: 8px;
+    padding-left: 13px;
+    display: block;
+}
+.ufui-tree-branch.ufui-tree-branch-root{
+    margin: 8px 2px;
+    padding-left: 0;
+    display: block;
+}
+.ufui-tree-branch.ufui-tree-branch-opened{
+    display: block;
+}
+.ufui-tree-branch.ufui-tree-branch-closed{
+    display: none;
 }

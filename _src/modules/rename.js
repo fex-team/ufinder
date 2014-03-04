@@ -18,11 +18,10 @@ UF.registerModule("renamemodule", function () {
                             var req = uf.proxy.rename(target, fullname, function (d) {
                                 if (d.state == 0) {
                                     var file = (d && d.data && d.data.file);
-                                    uf.dataTree.removeFile(target);
-                                    uf.dataTree.addFile(file);
-                                    uf.fire('renamefile', target, file);
+                                    uf.dataTree.updateFile(target, file);
+                                    uf.fire('selectfiles', file.path);
                                 } else {
-                                    uf.fire('updatemessage', {title: d.message, timeout: 3000, id:req.id});
+                                    uf.fire('updatemessage', {title: d.message, timeout: 3000, id: req.id});
                                 }
                                 uf.dataTree.unLockFile(target);
                             });

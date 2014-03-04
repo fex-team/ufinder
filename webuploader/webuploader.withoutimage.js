@@ -1,86 +1,141 @@
-/* WebUploader 0.1.0 */
-(function( window, undefined ) {
-    /**
-     * @fileOverview 让内部各个部件的代码可以用[amd](https://github.com/amdjs/amdjs-api/wiki/AMD)模块定义方式组织起来。
-     *
-     * AMD API 内部的简单不完全实现，请忽略。只有当WebUploader被合并成一个文件的时候才会引入。
-     */
-    var internalAmd = (function( global, undefined ) {
-            var modules = {},
-    
-                // 简单不完全实现https://github.com/amdjs/amdjs-api/wiki/require
-                require = function( deps, callback ) {
-                    var args, len, i;
-    
-                    // 如果deps不是数组，则直接返回指定module
-                    if ( typeof deps === 'string' ) {
-                        return getModule( deps );
-                    } else {
-                        args = [];
-                        for( len = deps.length, i = 0; i < len; i++ ) {
-                            args.push( getModule( deps[ i ] ) );
-                        }
-    
-                        return callback.apply( null, args );
-                    }
-                },
-    
-                // 内部的define，暂时不支持不指定id.
-                define = function( id, deps, factory ) {
-                    if ( arguments.length === 2 ) {
-                        factory = deps;
-                        deps = null;
-                    }
-    
-                    if ( typeof id !== 'string' || !factory ) {
-                        throw new Error('Define Error');
-                    }
-    
-                    require( deps || [], function() {
-                        setModule( id, factory, arguments );
-                    });
-                },
-    
-                // 设置module, 兼容CommonJs写法。
-                setModule = function( id, factory, args ) {
-                    var module = {
-                            exports: factory
-                        },
-                        returned;
-    
-                    if ( typeof factory === 'function' ) {
-                        args.length || (args = [ require, module.exports, module ]);
-                        returned = factory.apply( null, args );
-                        returned !== undefined && (module.exports = returned);
-                    }
-    
-                    modules[ id ] = module.exports;
-                },
-    
-                // 根据id获取module
-                getModule = function( id ) {
-                    var module = modules[ id ] || global[ id ];
-    
-                    if ( !module ) {
-                        throw new Error( '`' + id + '` is undefined' );
-                    }
-    
-                    return module;
-                };
-    
-            return {
-                define: define,
-                require: require,
-    
-                // 暴露所有的模块。
-                modules: modules
-            };
-        })( window ),
-    
-        /* jshint unused: false */
-        require = internalAmd.require,
-        define = internalAmd.define;
+/*! WebUploader 0.1.0 */
 
+
+/**
+ * @fileOverview 让内部各个部件的代码可以用[amd](https://github.com/amdjs/amdjs-api/wiki/AMD)模块定义方式组织起来。
+ *
+ * AMD API 内部的简单不完全实现，请忽略。只有当WebUploader被合并成一个文件的时候才会引入。
+ */
+(function( root, factory ) {
+    var modules = {},
+
+        // 内部require, 简单不完全实现。
+        // https://github.com/amdjs/amdjs-api/wiki/require
+        require2 = function( deps, callback ) {
+            var args, len, i;
+
+            // 如果deps不是数组，则直接返回指定module
+            if ( typeof deps === 'string' ) {
+                return getModule( deps );
+            } else {
+                args = [];
+                for( len = deps.length, i = 0; i < len; i++ ) {
+                    args.push( getModule( deps[ i ] ) );
+                }
+
+                return callback.apply( null, args );
+            }
+        },
+
+        // 内部define，暂时不支持不指定id.
+        define2 = function( id, deps, factory ) {
+            if ( arguments.length === 2 ) {
+                factory = deps;
+                deps = null;
+            }
+
+            require2( deps || [], function() {
+                setModule( id, factory, arguments );
+            });
+        },
+
+        // 设置module, 兼容CommonJs写法。
+        setModule = function( id, factory, args ) {
+            var module = {
+                    exports: factory
+                },
+                returned;
+
+            if ( typeof factory === 'function' ) {
+                args.length || (args = [ require2, module.exports, module ]);
+                returned = factory.apply( null, args );
+                returned !== undefined && (module.exports = returned);
+            }
+
+            modules[ id ] = module.exports;
+        },
+
+        // 根据id获取module
+        getModule = function( id ) {
+            var module = modules[ id ] || root[ id ];
+
+            if ( !module ) {
+                throw new Error( '`' + id + '` is undefined' );
+            }
+
+            return module;
+        },
+
+        // 将所有modules，将路径ids装换成对象。
+        exportsTo = function( obj ) {
+            var key, host, parts, part, last, ucFirst;
+
+            // make the first character upper case.
+            ucFirst = function( str ) {
+                return str && (str.charAt( 0 ).toUpperCase() + str.substr( 1 ));
+            };
+
+            for ( key in modules ) {
+                host = obj;
+
+                if ( !modules.hasOwnProperty( key ) ) {
+                    continue;
+                }
+
+                parts = key.split('/');
+                last = ucFirst( parts.pop() );
+
+                while( (part = ucFirst( parts.shift() )) ) {
+                    host[ part ] = host[ part ] || {};
+                    host = host[ part ];
+                }
+
+                host[ last ] = modules[ key ];
+            }
+        },
+
+        origin;
+
+    if ( typeof module === 'object' && typeof module.exports === 'object' ) {
+
+        // For CommonJS and CommonJS-like environments where a proper window is present,
+        module.exports = factory( root, define2, require2 );
+        exportsTo( module.exports );
+    } else if ( typeof define === 'function' && define.amd ) {
+
+        // Allow using this built library as an AMD module
+        // in another project. That other project will only
+        // see this AMD call, not the internal modules in
+        // the closure below.
+        define([], factory );
+    } else {
+
+        // Browser globals case. Just assign the
+        // result to a property on the global.
+        origin = root.WebUploader;
+        root.WebUploader = factory( root, define2, require2 );
+        exportsTo( root.WebUploader );
+        root.WebUploader.noConflict = function() {
+            root.WebUploader = origin;
+        };
+    }
+})( this, function( window, define, require ) {
+
+
+    /**
+     * @fileOverview jQuery or Zepto
+     */
+    define('dollar-third',[],function() {
+        return window.jQuery || window.Zepto;
+    });
+    /**
+     * @fileOverview Dom 操作相关
+     */
+    define('dollar',[
+        'dollar-third'
+    ], function( _ ) {
+        return _;
+    });
     /**
      * @fileOverview 基础类方法。
      */
@@ -101,8 +156,8 @@
      * @module WebUploader
      * @title WebUploader API文档
      */
-    define( 'base', [
-        'jQuery'
+    define('base',[
+        'dollar'
     ], function( $ ) {
     
         var noop = function() {},
@@ -144,68 +199,12 @@
             /**
              * @property {String} version 当前版本号。
              */
-            version: '0.1.0',
+            version: '@version@',
     
             /**
              * @property {jQuery|Zepto} $ 引用依赖的jQuery或者Zepto对象。
              */
             $: $,
-    
-            /**
-             * 创建一个[Deferred](http://api.jquery.com/category/deferred-object/)对象。
-             * 详细的Deferred用法说明，请参照jQuery的API文档。
-             *
-             * Deferred对象在钩子回掉函数中经常要用到，用来处理需要等待的异步操作。
-             *
-             *
-             * @method Deferred
-             * @grammar Base.Deferred() => Deferred
-             * @example
-             * // 在文件开始发送前做些异步操作。
-             * // WebUploader会等待此异步操作完成后，开始发送文件。
-             * Uploader.register({
-             *     'before-send-file': 'doSomthingAsync'
-             * }, {
-             *
-             *     doSomthingAsync: function() {
-             *         var deferred = Base.Deferred();
-             *
-             *         // 模拟一次异步操作。
-             *         setTimeout(deferred.resolve, 2000);
-             *
-             *         return deferred.promise();
-             *     }
-             * });
-             */
-            Deferred: $.Deferred,
-    
-            /**
-             * 判断传入的参数是否为一个promise对象。
-             * @method isPromise
-             * @grammar Base.isPromise( anything ) => Boolean
-             * @param  {*}  anything 检测对象。
-             * @return {Boolean}
-             * @example
-             * console.log( Base.isPromise() );    // => false
-             * console.log( Base.isPromise({ key: '123' }) );    // => false
-             * console.log( Base.isPromise( Base.Deferred().promise() ) );    // => true
-             *
-             * // Deferred也是一个Promise
-             * console.log( Base.isPromise( Base.Deferred() ) );    // => true
-             */
-            isPromise: function( anything ) {
-                return anything && typeof anything.then === 'function';
-            },
-    
-    
-            /**
-             * 返回一个promise，此promise在所有传入的promise都完成了后完成。
-             * 详细请查看[这里](http://api.jquery.com/jQuery.when/)。
-             *
-             * @method when
-             * @grammar Base.when( promise1[, promise2[, promise3...]] ) => Promise
-             */
-            when: $.when,
     
             /**
              * @description  简单的浏览器检查结果。
@@ -426,11 +425,10 @@
             }
         };
     });
-
     /**
      * @fileOverview Mediator
      */
-    define( 'mediator', [
+    define('mediator',[
         'base'
     ], function( Base ) {
         var $ = Base.$,
@@ -642,11 +640,10 @@
     
         }, protos );
     });
-
     /**
      * @fileOverview Uploader上传类
      */
-    define( 'uploader', [
+    define('uploader',[
         'base',
         'mediator'
     ], function( Base, Mediator ) {
@@ -682,8 +679,8 @@
             stop: 'stop-upload',
             getFile: 'get-file',
             getFiles: 'get-files',
-            // addFile: 'add-file',
-            // addFiles: 'add-file',
+            addFile: 'add-file',
+            addFiles: 'add-file',
             removeFile: 'remove-file',
             skipFile: 'skip-file',
             retry: 'retry',
@@ -814,7 +811,7 @@
          * @static
          * @grammar Base.create( opts ) => Uploader
          */
-        Base.create = function( opts ) {
+        Base.create = Uploader.create = function( opts ) {
             return new Uploader( opts );
         };
     
@@ -823,11 +820,10 @@
     
         return Uploader;
     });
-
     /**
      * @fileOverview Runtime管理器，负责Runtime的选择, 连接
      */
-    define( 'runtime/runtime', [
+    define('runtime/runtime',[
         'base',
         'mediator'
     ], function( Base, Mediator ) {
@@ -871,8 +867,8 @@
                     position: 'absolute',
                     top: '0px',
                     left: '0px',
-                    width: '1px',
-                    height: '1px',
+                    bottom: '0px',
+                    right: '0px',
                     overflow: 'hidden'
                 });
     
@@ -934,11 +930,11 @@
         Mediator.installTo( Runtime.prototype );
         return Runtime;
     });
-
+    
     /**
      * @fileOverview Runtime管理器，负责Runtime的选择, 连接
      */
-    define( 'runtime/client', [
+    define('runtime/client',[
         'base',
         'mediator',
         'runtime/runtime'
@@ -1065,11 +1061,10 @@
         Mediator.installTo( RuntimeClient.prototype );
         return RuntimeClient;
     });
-
     /**
      * @fileOverview Blob
      */
-    define( 'lib/blob', [
+    define('lib/blob',[
         'base',
         'runtime/client'
     ], function( Base, RuntimeClient ) {
@@ -1105,11 +1100,10 @@
     
         return Blob;
     });
-
     /**
      * @fileOverview File
      */
-    define( 'lib/file', [
+    define('lib/file',[
         'base',
         'lib/blob'
     ], function( Base, Blob ) {
@@ -1135,11 +1129,11 @@
     
         return Base.inherits( Blob, File );
     });
-
+    
     /**
      * @fileOverview 错误信息
      */
-    define( 'lib/filepicker', [
+    define('lib/filepicker',[
         'base',
         'runtime/client',
         'lib/file'
@@ -1156,9 +1150,9 @@
                 throw new Error('按钮指定错误');
             }
     
-            opts.label = opts.label || opts.container.text() || '选择文件';
+            opts.label = opts.label || opts.container.html() || ' ';
             opts.button = $( opts.button || document.createElement('div') );
-            opts.button.text( opts.label );
+            opts.button.html( opts.label );
             opts.container.html( opts.button );
     
             RuntimeClent.call( this, 'FilePicker', true );
@@ -1206,6 +1200,7 @@
                 me.connectRuntime( opts, function() {
                     me.refresh();
                     me.exec( 'init', opts );
+                    me.trigger('ready');
                 });
     
                 $( window ).on( 'resize', function() {
@@ -1220,10 +1215,29 @@
                     height = button.outerHeight(),
                     pos = button.offset();
     
-                width && shimContainer.css({
+                width && height && shimContainer.css({
+                    bottom: 'auto',
+                    right: 'auto',
                     width: width + 'px',
                     height: height + 'px'
                 }).offset( pos );
+            },
+    
+            enable: function() {
+                var btn = this.options.button;
+    
+                btn.removeClass('webuploader-pick-disable');
+                this.refresh();
+            },
+    
+            disable: function() {
+                var btn = this.options.button;
+    
+                this.getRuntime().getContainer().css({
+                    top: '-99999px'
+                });
+    
+                btn.addClass('webuploader-pick-disable');
             },
     
             destroy: function() {
@@ -1236,11 +1250,11 @@
     
         return FilePicker;
     });
-
+    
     /**
      * @fileOverview 组件基类。
      */
-    define( 'widgets/widget', [
+    define('widgets/widget',[
         'base',
         'uploader'
     ], function( Base, Uploader ) {
@@ -1404,18 +1418,18 @@
     
         return Widget;
     });
-
     /**
      * @fileOverview 文件选择相关
      */
-    define( 'widgets/filepicker', [
+    define('widgets/filepicker',[
         'base',
         'uploader',
         'lib/filepicker',
         'widgets/widget'
     ], function( Base, Uploader, FilePicker ) {
+        var $ = Base.$;
     
-        Base.$.extend( Uploader.options, {
+        $.extend( Uploader.options, {
     
             /**
              * @property {Selector | Object} [pick=undefined]
@@ -1458,7 +1472,9 @@
     
         return Uploader.register({
             'add-btn': 'addButton',
-            'refresh': 'refresh'
+            refresh: 'refresh',
+            disable: 'disable',
+            enable: 'enable'
         }, {
     
             init: function( opts ) {
@@ -1519,14 +1535,25 @@
                 this.pickers.push( picker );
     
                 return deferred.promise();
+            },
+    
+            disable: function() {
+                $.each( this.pickers, function() {
+                    this.disable();
+                });
+            },
+    
+            enable: function() {
+                $.each( this.pickers, function() {
+                    this.enable();
+                });
             }
         });
     });
-
     /**
      * @fileOverview 错误信息
      */
-    define( 'lib/dnd', [
+    define('lib/dnd',[
         'base',
         'mediator',
         'runtime/client'
@@ -1548,7 +1575,7 @@
     
         DragAndDrop.options = {
             accept: null,
-            disableGlobalDnd: true
+            disableGlobalDnd: false
         };
     
         Base.inherits( RuntimeClent, {
@@ -1559,6 +1586,7 @@
     
                 me.connectRuntime( me.options, function() {
                     me.exec('init');
+                    me.trigger('ready');
                 });
             },
     
@@ -1571,16 +1599,16 @@
     
         return DragAndDrop;
     });
-
     /**
      * @fileOverview DragAndDrop Widget。
      */
-    define( 'widgets/filednd', [
+    define('widgets/filednd',[
         'base',
         'uploader',
         'lib/dnd',
         'widgets/widget'
     ], function( Base, Uploader, Dnd ) {
+        var $ = Base.$;
     
         Uploader.options.dnd = '';
     
@@ -1617,11 +1645,94 @@
             }
         });
     });
-
+    /**
+     * @fileOverview 错误信息
+     */
+    define('lib/filepaste',[
+        'base',
+        'mediator',
+        'runtime/client'
+    ], function( Base, Mediator, RuntimeClent ) {
+    
+        var $ = Base.$;
+    
+        function FilePaste( opts ) {
+            opts = this.options = $.extend({}, opts );
+            opts.container = $( opts.container || document.body );
+            RuntimeClent.call( this, 'FilePaste' );
+        }
+    
+        Base.inherits( RuntimeClent, {
+            constructor: FilePaste,
+    
+            init: function() {
+                var me = this;
+    
+                me.connectRuntime( me.options, function() {
+                    me.exec('init');
+                    me.trigger('ready');
+                });
+            },
+    
+            destroy: function() {
+                this.exec('destroy');
+                this.disconnectRuntime();
+                this.off();
+            }
+        });
+    
+        Mediator.installTo( FilePaste.prototype );
+    
+        return FilePaste;
+    });
+    /**
+     * @fileOverview 组件基类。
+     */
+    define('widgets/filepaste',[
+        'base',
+        'uploader',
+        'lib/filepaste',
+        'widgets/widget'
+    ], function( Base, Uploader, FilePaste ) {
+        var $ = Base.$;
+    
+        /**
+         * @property {Selector} [paste=undefined]  指定监听paste事件的容器，如果不指定，不启用此功能。此功能为通过粘贴来添加截屏的图片。建议设置为`document.body`.
+         * @namespace options
+         * @for Uploader
+         */
+        return Uploader.register({
+            init: function( opts ) {
+    
+                if ( !opts.paste ||
+                        this.request('predict-runtime-type') !== 'html5' ) {
+                    return;
+                }
+    
+                var me = this,
+                    deferred = Base.Deferred(),
+                    options = $.extend({}, {
+                        container: opts.paste,
+                        accept: opts.accept
+                    }),
+                    paste;
+    
+                paste = new FilePaste( options );
+    
+                paste.once( 'ready', deferred.resolve );
+                paste.on( 'paste', function( files ) {
+                    me.owner.request( 'add-file', [ files ]);
+                });
+                paste.init();
+    
+                return deferred.promise();
+            }
+        });
+    });
     /**
      * @fileOverview 文件属性封装
      */
-    define( 'file', [
+    define('file',[
         'base',
         'mediator'
     ], function( Base, Mediator ) {
@@ -1664,9 +1775,9 @@
              * 文件MIMETYPE类型，与文件类型的对应关系请参考[http://t.cn/z8ZnFny](http://t.cn/z8ZnFny)
              * @property type
              * @type {string}
-             * @default 'image/png'
+             * @default 'application'
              */
-            this.type = source.type || 'image/png';
+            this.type = source.type || 'application';
     
             /**
              * 文件最后修改日期
@@ -1802,11 +1913,11 @@
     
         return WUFile;
     });
-
+    
     /**
      * @fileOverview 文件队列
      */
-    define( 'queue', [
+    define('queue',[
         'base',
         'mediator',
         'file'
@@ -2007,11 +2118,10 @@
     
         return Queue;
     });
-
     /**
      * @fileOverview 队列
      */
-    define( 'widgets/queue', [
+    define('widgets/queue',[
         'base',
         'uploader',
         'queue',
@@ -2215,11 +2325,10 @@
         });
     
     });
-
     /**
      * @fileOverview 添加获取Runtime相关信息的方法。
      */
-    define( 'widgets/runtime', [
+    define('widgets/runtime',[
         'uploader',
         'runtime/runtime',
         'widgets/widget'
@@ -2265,11 +2374,10 @@
             }
         });
     });
-
     /**
      * @fileOverview Transport
      */
-    define( 'lib/transport', [
+    define('lib/transport',[
         'base',
         'runtime/client',
         'mediator'
@@ -2396,11 +2504,10 @@
     
         return Transport;
     });
-
     /**
      * @fileOverview 负责文件上传相关。
      */
-    define( 'widgets/upload', [
+    define('widgets/upload',[
         'base',
         'uploader',
         'file',
@@ -2466,6 +2573,28 @@
              * @description 文件上传请求的参数表，每次发送都会发送此对象中的参数。
              */
             formdata: null
+    
+            /**
+             * @property {Object} [fileVal='file']
+             * @namespace options
+             * @for Uploader
+             * @description 设置文件上传域的name。
+             */
+    
+            /**
+             * @property {Object} [method='POST']
+             * @namespace options
+             * @for Uploader
+             * @description 文件上传方式，`POST`或者`GET`。
+             */
+    
+            /**
+             * @property {Object} [sendAsBinary=false]
+             * @namespace options
+             * @for Uploader
+             * @description 是否已二进制的流的方式发送文件，这样整个上传内容`php://input`都为文件内容，
+             * 其他参数在$_GET数组中。
+             */
         });
     
         // 负责将文件切片。
@@ -3017,11 +3146,232 @@
     
         });
     });
-
+    /**
+     * @fileOverview 各种验证，包括文件总大小是否超出、单文件是否超出和文件是否重复。
+     */
+    
+    define('widgets/validator',[
+        'base',
+        'uploader',
+        'file',
+        'widgets/widget'
+    ], function( Base, Uploader, WUFile ) {
+    
+        var $ = Base.$,
+            validators = {},
+            api;
+    
+        /**
+         * @event error
+         * @param {String} type 错误类型。
+         * @description 当validate不通过时，会以派送错误事件的形式通知调用者。通过`upload.on('error', handler)`可以捕获到此类错误，目前有以下错误会在特定的情况下派送错来。
+         *
+         * * `Q_EXCEED_NUM_LIMIT` 在设置了`fileNumLimit`且尝试给`uploader`添加的文件数量超出这个值时派送。
+         * * `Q_EXCEED_SIZE_LIMIT` 在设置了`Q_EXCEED_SIZE_LIMIT`且尝试给`uploader`添加的文件总大小超出这个值时派送。
+         * @for  Uploader
+         */
+    
+        // 暴露给外面的api
+        api = {
+    
+            // 添加验证器
+            addValidator: function( type, cb ) {
+                validators[ type ] = cb;
+            },
+    
+            // 移除验证器
+            removeValidator: function( type ) {
+                delete validators[ type ];
+            }
+        };
+    
+        // 在Uploader初始化的时候启动Validators的初始化
+        Uploader.register({
+            init: function() {
+                var me = this;
+                $.each( validators, function() {
+                    this.call( me.owner );
+                });
+            }
+        });
+    
+        /**
+         * @property {int} [fileNumLimit=undefined]
+         * @namespace options
+         * @for Uploader
+         * @description 验证文件总数量, 超出则不允许加入队列。
+         */
+        api.addValidator( 'fileNumLimit', function() {
+            var uploader = this,
+                opts = uploader.options,
+                count = 0,
+                max = opts.fileNumLimit >> 0,
+                flag = true;
+    
+            if ( !max ) {
+                return;
+            }
+    
+            uploader.on( 'beforeFileQueued', function() {
+    
+                if ( count >= max && flag ) {
+                    flag = false;
+                    this.trigger( 'error', 'Q_EXCEED_NUM_LIMIT', max );
+                    setTimeout(function() {
+                        flag = true;
+                    }, 1 );
+                }
+    
+                return count >= max ? false : true;
+            });
+    
+            uploader.on( 'fileQueued', function() {
+                count++;
+            });
+    
+            uploader.on( 'fileDequeued', function() {
+                count--;
+            });
+    
+            uploader.on( 'uploadFinished', function() {
+                count = 0;
+            });
+        });
+    
+    
+        /**
+         * @property {int} [fileSizeLimit=undefined]
+         * @namespace options
+         * @for Uploader
+         * @description 验证文件总大小是否超出限制, 超出则不允许加入队列。
+         */
+        api.addValidator( 'fileSizeLimit', function() {
+            var uploader = this,
+                opts = uploader.options,
+                count = 0,
+                max = opts.fileSizeLimit >> 0,
+                flag = true;
+    
+            if ( !max ) {
+                return;
+            }
+    
+            uploader.on( 'beforeFileQueued', function( file ) {
+                var invalid = count + file.size > max;
+    
+                if ( invalid && flag ) {
+                    flag = false;
+                    this.trigger( 'error', 'Q_EXCEED_SIZE_LIMIT', max );
+                    setTimeout(function() {
+                        flag = true;
+                    }, 1 );
+                }
+    
+                return invalid ? false : true;
+            });
+    
+            uploader.on( 'fileQueued', function( file ) {
+                count += file.size;
+            });
+    
+            uploader.on( 'fileDequeued', function( file ) {
+                count -= file.size;
+            });
+    
+            uploader.on( 'uploadFinished', function() {
+                count = 0;
+            });
+        });
+    
+        /**
+         * @property {int} [fileSingleSizeLimit=undefined]
+         * @namespace options
+         * @for Uploader
+         * @description 验证单个文件大小是否超出限制, 超出则不允许加入队列。
+         */
+        api.addValidator( 'fileSingleSizeLimit', function() {
+            var uploader = this,
+                opts = uploader.options,
+                max = opts.fileSingleSizeLimit;
+    
+            if ( !max ) {
+                return;
+            }
+    
+            uploader.on( 'beforeFileQueued', function( file ) {
+    
+                if ( file.size > max ) {
+                    file.setStatus( WUFile.Status.INVALID, 'exceed_size' );
+                    this.trigger( 'error', 'F_EXCEED_SIZE' );
+                    return false;
+                }
+    
+            });
+    
+        });
+    
+        /**
+         * @property {int} [duplicate=undefined]
+         * @namespace options
+         * @for Uploader
+         * @description 去重， 根据文件名字、文件大小和最后修改时间来生成hash Key.
+         */
+        api.addValidator( 'duplicate', function() {
+            var uploader = this,
+                opts = uploader.options,
+                mapping = {};
+    
+            if ( opts.duplicate ) {
+                return;
+            }
+    
+            function hashString( str ) {
+                var hash = 0,
+                    i = 0,
+                    len = str.length,
+                    _char;
+    
+                for ( ; i < len; i++ ) {
+                    _char = str.charCodeAt( i );
+                    hash = _char + (hash << 6) + (hash << 16) - hash;
+                }
+    
+                return hash;
+            }
+    
+            uploader.on( 'beforeFileQueued', function( file ) {
+                var hash = hashString( file.name + file.size +
+                        file.lastModifiedDate );
+    
+                // 已经重复了
+                if ( mapping[ hash ] ) {
+                    this.trigger( 'error', 'F_DUPLICATE' );
+                    return false;
+                }
+            });
+    
+            uploader.on( 'fileQueued', function( file ) {
+                var hash = hashString( file.name + file.size +
+                        file.lastModifiedDate );
+    
+                mapping[ hash ] = true;
+            });
+    
+            uploader.on( 'fileDequeued', function( file ) {
+                var hash = hashString( file.name + file.size +
+                        file.lastModifiedDate );
+    
+                delete mapping[ hash ];
+            });
+        });
+    
+        return api;
+    });
+    
     /**
      * @fileOverview Runtime管理器，负责Runtime的选择, 连接
      */
-    define( 'runtime/compbase', function() {
+    define('runtime/compbase',[],function() {
     
         function CompBase( owner, runtime ) {
     
@@ -3043,11 +3393,10 @@
     
         return CompBase;
     });
-
     /**
      * @fileOverview Html5Runtime
      */
-    define( 'runtime/html5/runtime', [
+    define('runtime/html5/runtime',[
         'base',
         'runtime/runtime',
         'runtime/compbase'
@@ -3113,11 +3462,10 @@
     
         return Html5Runtime;
     });
-
     /**
      * @fileOverview Blob Html实现
      */
-    define( 'runtime/html5/blob', [
+    define('runtime/html5/blob',[
         'runtime/html5/runtime',
         'lib/blob'
     ], function( Html5Runtime, Blob ) {
@@ -3133,14 +3481,330 @@
             }
         });
     });
-
+    /**
+     * @fileOverview FilePaste
+     */
+    define('runtime/html5/dnd',[
+        'base',
+        'runtime/html5/runtime',
+        'lib/file'
+    ], function( Base, Html5Runtime, File ) {
+    
+        var $ = Base.$;
+    
+        return Html5Runtime.register( 'DragAndDrop', {
+            init: function() {
+                var elem = this.elem = this.options.container;
+    
+                this.dragEnterHandler = Base.bindFn( this._dragEnterHandler, this );
+                this.dragOverHandler = Base.bindFn( this._dragOverHandler, this );
+                this.dragLeaveHandler = Base.bindFn( this._dragLeaveHandler, this );
+                this.dropHandler = Base.bindFn( this._dropHandler, this );
+                this.dndOver = false;
+    
+                elem.on( 'dragenter', this.dragEnterHandler );
+                elem.on( 'dragover', this.dragOverHandler );
+                elem.on( 'dragleave', this.dragLeaveHandler );
+                elem.on( 'drop', this.dropHandler );
+    
+                if ( !this.options.disableGlobalDnd ) {
+                    $( document ).on( 'dragover', this.dragOverHandler );
+                    $( document ).on( 'drop', this.dropHandler );
+                }
+            },
+    
+            _dragEnterHandler: function( e ) {
+                this.dndOver = true;
+                this.elem.addClass('webuploader-dnd-over');
+    
+                e = e.originalEvent || e;
+                e.dataTransfer.dropEffect = 'copy';
+    
+                return false;
+            },
+    
+            _dragOverHandler: function( e ) {
+                // 只处理框内的。
+                var parentElem = this.elem.parent().get( 0 );
+                if ( parentElem && !$.contains( parentElem, e.target ) ) {
+                    return false;
+                }
+    
+                this._dragEnterHandler.call( this, e );
+    
+                return false;
+            },
+    
+            _dragLeaveHandler: function() {
+                var me = this,
+                    handler = function() {
+                        if ( !me.dndOver ) {
+                            me.elem.removeClass('webuploader-dnd-over');
+                        }
+                    };
+                setTimeout( handler, 50 );
+                this.dndOver = false;
+    
+                return false;
+            },
+    
+            _dropHandler: function( e ) {
+                var results  = [],
+                    promises = [],
+                    me = this,
+                    ruid = me.getRuid(),
+                    parentElem = me.elem.parent().get( 0 ),
+                    items, files, dataTransfer, file, i, len, canAccessFolder;
+    
+                // 只处理框内的。
+                if ( parentElem && !$.contains( parentElem, e.target ) ) {
+                    return false;
+                }
+    
+                e = e.originalEvent || e;
+                dataTransfer = e.dataTransfer;
+                items = dataTransfer.items;
+                files = dataTransfer.files;
+    
+                canAccessFolder = !!(items && items[ 0 ].webkitGetAsEntry);
+    
+                for ( i = 0, len = files.length; i < len; i++ ) {
+                    file = files[ i ];
+                    if ( file.type ) {
+                        results.push( file );
+                    } else if ( !file.type && canAccessFolder ) {
+                        promises.push( this._traverseDirectoryTree(
+                                items[ i ].webkitGetAsEntry(), results ) );
+                    }
+                }
+    
+                Base.when.apply( Base, promises ).done(function() {
+                    me.trigger( 'drop', $.map( results, function( file ) {
+                        return new File( ruid, file );
+                    }) );
+                });
+    
+                this.dndOver = false;
+                this.elem.removeClass('webuploader-dnd-over');
+                return false;
+            },
+    
+            _traverseDirectoryTree: function( entry, results ) {
+                var deferred = Base.Deferred(),
+                    me = this;
+    
+                if ( entry.isFile ) {
+                    entry.file(function( file ) {
+                        file.type && results.push( file );
+                        deferred.resolve( true );
+                    });
+                } else if ( entry.isDirectory ) {
+                    entry.createReader().readEntries(function( entries ) {
+                        var len = entries.length,
+                            promises = [],
+                            arr = [],    // 为了保证顺序。
+                            i;
+    
+                        for ( i = 0; i < len; i++ ) {
+                            promises.push( me._traverseDirectoryTree(
+                                    entries[ i ], arr ) );
+                        }
+    
+                        Base.when.apply( Base, promises ).then(function() {
+                            results.push.apply( results, arr );
+                            deferred.resolve( true );
+                        }, deferred.reject );
+                    });
+                }
+    
+                return deferred.promise();
+            },
+    
+            destroy: function() {
+                var elem = this.elem;
+    
+                elem.off( 'dragenter', this.dragEnterHandler );
+                elem.off( 'dragover', this.dragEnterHandler );
+                elem.off( 'dragleave', this.dragLeaveHandler );
+                elem.off( 'drop', this.dropHandler );
+    
+                if ( this.options.disableGlobalDnd ) {
+                    $( document ).off( 'dragover', this.dragOverHandler );
+                    $( document ).off( 'drop', this.dropHandler );
+                }
+            }
+        });
+    });
+    
+    /**
+     * @fileOverview FilePaste
+     */
+    define('runtime/html5/filepaste',[
+        'base',
+        'runtime/html5/runtime',
+        'lib/file'
+    ], function( Base, Html5Runtime, File ) {
+    
+        return Html5Runtime.register( 'FilePaste', {
+            init: function() {
+                var opts = this.options,
+                    elem = this.elem = opts.container,
+                    accept = '.*',
+                    arr, i, len, item;
+    
+                // accetp的mimeTypes中生成匹配正则。
+                if ( opts.accept ) {
+                    arr = [];
+    
+                    for ( i = 0, len = opts.accept.length; i < len; i++ ) {
+                        item = opts.accept[ i ].mimeTypes;
+                        item && arr.push( item );
+                    }
+    
+                    if ( arr.length ) {
+                        accept = arr.join(',');
+                        accept = accept.replace( /,/g, '|' ).replace( /\*/g, '.*' );
+                    }
+                }
+                this.accept = accept = new RegExp( accept, 'i' );
+                this.hander = Base.bindFn( this._pasteHander, this );
+                elem.on( 'paste', this.hander );
+            },
+    
+            _pasteHander: function( e ) {
+                var allowed = [],
+                    ruid = this.getRuid(),
+                    files, file, blob, i, len;
+    
+                e = e.originalEvent || e;
+    
+                files = e.clipboardData.items;
+    
+                for ( i = 0, len = files.length; i < len; i++ ) {
+                    file = files[ i ];
+    
+                    if ( !file.type || !(blob = file.getAsFile()) ||
+                            blob.size < 6 ) {
+                        continue;
+                    }
+    
+                    allowed.push( new File( ruid, blob ) );
+                }
+    
+                if ( allowed.length ) {
+                    // 不阻止非文件粘贴（文字粘贴）的事件冒泡
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.trigger( 'paste', allowed );
+                }
+            },
+    
+            destroy: function() {
+                this.elem.off( 'paste', this.hander );
+            }
+        });
+    });
+    
+    /**
+     * @fileOverview FilePicker
+     */
+    define('runtime/html5/filepicker',[
+        'base',
+        'runtime/html5/runtime'
+    ], function( Base, Html5Runtime ) {
+    
+        var $ = Base.$;
+    
+        return Html5Runtime.register( 'FilePicker', {
+            init: function() {
+                var container = this.getRuntime().getContainer(),
+                    me = this,
+                    owner = me.owner,
+                    opts = me.options,
+                    lable = $( document.createElement('label') ),
+                    input = $( document.createElement('input') ),
+                    arr, i, len, mouseHandler;
+    
+                input.attr( 'type', 'file' );
+    
+                input.css({
+                    position: 'absolute',
+                    clip: 'rect(1px,1px,1px,1px)'
+                });
+    
+                lable.on( 'click', function() {
+                    input.trigger('click');
+                });
+    
+                lable.css({
+                    opacity: 0,
+                    width: '100%',
+                    height: '100%',
+                    display: 'block',
+                    cursor: 'pointer',
+                    background: '#ffffff'
+                });
+    
+                if ( opts.multiple ) {
+                    input.attr( 'multiple', 'multiple' );
+                }
+    
+                // @todo Firefox不支持单独指定后缀
+                if ( opts.accept && opts.accept.length > 0 ) {
+                    arr = [];
+    
+                    for ( i = 0, len = opts.accept.length; i < len; i++ ) {
+                        arr.push( opts.accept[ i ].mimeTypes );
+                    }
+    
+                    input.attr( 'accept', arr.join(',') );
+                }
+    
+                container.append( input );
+                container.append( lable );
+    
+                mouseHandler = function( e ) {
+                    owner.trigger( e.type );
+                };
+    
+                input.on( 'change', function( e ) {
+                    var fn = arguments.callee,
+                        clone;
+    
+                    me.files = e.target.files;
+    
+                    // reset input
+                    clone = this.cloneNode( true );
+                    this.parentNode.replaceChild( clone, this );
+    
+                    input.off();
+                    input = $( clone ).on( 'change', fn )
+                            .on( 'mouseenter mouseleave', mouseHandler );
+    
+                    owner.trigger('change');
+                });
+    
+                lable.on( 'mouseenter mouseleave', mouseHandler );
+    
+            },
+    
+    
+            getFiles: function() {
+                return this.files;
+            },
+    
+            destroy: function() {
+                // todo
+            }
+        });
+    });
     /**
      * @fileOverview Transport
      * @todo 支持chunked传输，优势：
      * 可以将大文件分成小块，挨个传输，可以提高大文件成功率，当失败的时候，也只需要重传那小部分，
      * 而不需要重头再传一次。另外断点续传也需要用chunked方式。
      */
-    define( 'runtime/html5/transport', [
+    define('runtime/html5/transport',[
         'base',
         'runtime/html5/runtime'
     ], function( Base, Html5Runtime ) {
@@ -3282,247 +3946,10 @@
             }
         });
     });
-
-    /**
-     * @fileOverview FilePicker
-     */
-    define( 'runtime/html5/filepicker', [
-        'base',
-        'runtime/html5/runtime'
-    ], function( Base, Html5Runtime ) {
-    
-        var $ = Base.$;
-    
-        return Html5Runtime.register( 'FilePicker', {
-            init: function() {
-                var container = this.getRuntime().getContainer(),
-                    me = this,
-                    owner = me.owner,
-                    opts = me.options,
-                    lable = $( document.createElement('label') ),
-                    input = $( document.createElement('input') ),
-                    arr, i, len, mouseHandler;
-    
-                input.attr( 'type', 'file' );
-    
-                input.css({
-                    position: 'absolute',
-                    clip: 'rect(1px,1px,1px,1px)'
-                });
-    
-                lable.on( 'click', function() {
-                    input.trigger('click');
-                });
-    
-                lable.css({
-                    opacity: 0,
-                    width: '100%',
-                    height: '100%',
-                    display: 'block',
-                    cursor: 'pointer',
-                    background: '#ffffff'
-                });
-    
-                if ( opts.multiple ) {
-                    input.attr( 'multiple', 'multiple' );
-                }
-    
-                // @todo Firefox不支持单独指定后缀
-                if ( opts.accept && opts.accept.length > 0 ) {
-                    arr = [];
-    
-                    for ( i = 0, len = opts.accept.length; i < len; i++ ) {
-                        arr.push( opts.accept[ i ].mimeTypes );
-                    }
-    
-                    input.attr( 'accept', arr.join(',') );
-                }
-    
-                container.append( input );
-                container.append( lable );
-    
-                mouseHandler = function( e ) {
-                    owner.trigger( e.type );
-                };
-    
-                input.on( 'change', function( e ) {
-                    var fn = arguments.callee,
-                        clone;
-    
-                    me.files = e.target.files;
-    
-                    // reset input
-                    clone = this.cloneNode( true );
-                    this.parentNode.replaceChild( clone, this );
-    
-                    input.off();
-                    input = $( clone ).on( 'change', fn )
-                            .on( 'mouseenter mouseleave', mouseHandler );
-    
-                    owner.trigger('change');
-                });
-    
-                lable.on( 'mouseenter mouseleave', mouseHandler );
-    
-            },
-    
-    
-            getFiles: function() {
-                return this.files;
-            },
-    
-            destroy: function() {
-                // todo
-            }
-        });
-    });
-
-    /**
-     * @fileOverview FilePaste
-     */
-    define( 'runtime/html5/dnd', [
-        'base',
-        'runtime/html5/runtime',
-        'lib/file'
-    ], function( Base, Html5Runtime, File ) {
-    
-        var $ = Base.$;
-    
-        return Html5Runtime.register( 'DragAndDrop', {
-            init: function() {
-                var elem = this.elem = this.options.container;
-    
-                this.dragEnterHandler = Base.bindFn( this._dragEnterHandler, this );
-                this.dragOverHandler = Base.bindFn( this._dragOverHandler, this );
-                this.dragLeaveHandler = Base.bindFn( this._dragLeaveHandler, this );
-                this.dropHandler = Base.bindFn( this._dropHandler, this );
-    
-                elem.on( 'dragenter', this.dragEnterHandler );
-                elem.on( 'dragover', this.dragOverHandler );
-                elem.on( 'dragleave', this.dragLeaveHandler );
-                elem.on( 'drop', this.dropHandler );
-    
-                if ( this.options.disableGlobalDnd ) {
-                    $( document ).on( 'dragover', this.dragOverHandler );
-                    $( document ).on( 'drop', this.dropHandler );
-                }
-            },
-    
-            _dragEnterHandler: function( e ) {
-                this.elem.addClass('webuploader-dnd-over');
-    
-                e = e.originalEvent || e;
-                e.dataTransfer.dropEffect = 'copy';
-    
-                return false;
-            },
-    
-            _dragOverHandler: function( e ) {
-                // 只处理框内的。
-                if ( !$.contains( this.elem.parent().get( 0 ), e.target ) ) {
-                    return false;
-                }
-    
-                this._dragEnterHandler.call( this, e );
-    
-                return false;
-            },
-    
-            _dragLeaveHandler: function() {
-                this.elem.removeClass('webuploader-dnd-over');
-                return false;
-            },
-    
-            _dropHandler: function( e ) {
-                var results  = [],
-                    promises = [],
-                    me = this,
-                    ruid = me.getRuid(),
-                    items, files, dataTransfer, file, i, len, canAccessFolder;
-    
-                // 只处理框内的。
-                if ( !$.contains( me.elem.parent().get( 0 ), e.target ) ) {
-                    return false;
-                }
-    
-                e = e.originalEvent || e;
-                dataTransfer = e.dataTransfer;
-                items = dataTransfer.items;
-                files = dataTransfer.files;
-    
-                canAccessFolder = !!(items && items[ 0 ].webkitGetAsEntry);
-    
-                for ( i = 0, len = files.length; i < len; i++ ) {
-                    file = files[ i ];
-                    if ( file.type ) {
-                        results.push( file );
-                    } else if ( !file.type && canAccessFolder ) {
-                        promises.push( this._traverseDirectoryTree(
-                                items[ i ].webkitGetAsEntry(), results ) );
-                    }
-                }
-    
-                Base.when.apply( Base, promises ).done(function() {
-                    me.trigger( 'drop', $.map( results, function( file ) {
-                        return new File( ruid, file );
-                    }) );
-                });
-    
-                this.elem.removeClass('webuploader-dnd-over');
-                return false;
-            },
-    
-            _traverseDirectoryTree: function( entry, results ) {
-                var deferred = Base.Deferred(),
-                    me = this;
-    
-                if ( entry.isFile ) {
-                    entry.file(function( file ) {
-                        file.type && results.push( file );
-                        deferred.resolve( true );
-                    });
-                } else if ( entry.isDirectory ) {
-                    entry.createReader().readEntries(function( entries ) {
-                        var len = entries.length,
-                            promises = [],
-                            arr = [],    // 为了保证顺序。
-                            i;
-    
-                        for ( i = 0; i < len; i++ ) {
-                            promises.push( me._traverseDirectoryTree(
-                                    entries[ i ], arr ) );
-                        }
-    
-                        Base.when.apply( Base, promises ).then(function() {
-                            results.push.apply( results, arr );
-                            deferred.resolve( true );
-                        }, deferred.reject );
-                    });
-                }
-    
-                return deferred.promise();
-            },
-    
-            destroy: function() {
-                var elem = this.elem;
-    
-                elem.off( 'dragenter', this.dragEnterHandler );
-                elem.off( 'dragover', this.dragEnterHandler );
-                elem.off( 'dragleave', this.dragLeaveHandler );
-                elem.off( 'drop', this.dropHandler );
-    
-                if ( this.options.disableGlobalDnd ) {
-                    $( document ).off( 'dragover', this.dragOverHandler );
-                    $( document ).off( 'drop', this.dropHandler );
-                }
-            }
-        });
-    });
-
     /**
      * @fileOverview FlashRuntime
      */
-    define( 'runtime/flash/runtime', [
+    define('runtime/flash/runtime',[
         'base',
         'runtime/runtime',
         'runtime/compbase'
@@ -3702,15 +4129,39 @@
     
         return FlashRuntime;
     });
-
+    /**
+     * @fileOverview FilePicker
+     */
+    define('runtime/flash/filepicker',[
+        'base',
+        'runtime/flash/runtime'
+    ], function( Base, FlashRuntime ) {
+        var $ = Base.$;
+    
+        return FlashRuntime.register( 'FilePicker', {
+            init: function( opts ) {
+                var copy = $.extend({}, opts );
+    
+                delete copy.button;
+                delete copy.container;
+    
+                this.flashExec( 'FilePicker', 'init', copy );
+            },
+    
+            destroy: function() {
+                // todo
+            }
+        });
+    });
     /**
      * @fileOverview  Transport flash实现
      */
-    define( 'runtime/flash/transport', [
+    define('runtime/flash/transport',[
         'base',
         'runtime/flash/runtime',
         'runtime/client'
     ], function( Base, FlashRuntime, RuntimeClient ) {
+        var $ = Base.$;
     
         return FlashRuntime.register( 'Transport', {
             init: function() {
@@ -3793,7 +4244,6 @@
                     if ( status === 200 ) {
                         me._response = xhr.exec('getResponse');
                         me._responseJson = xhr.exec('getResponseAsJson');
-                        console.log(me._response);
                         return me.trigger('load');
                     }
     
@@ -3821,79 +4271,35 @@
             }
         });
     });
-
     /**
-     * @fileOverview FilePicker
+     * @fileOverview 没有图像处理的版本。
      */
-    define( 'runtime/flash/filepicker', [
+    define('preset/withoutimage',[
         'base',
-        'runtime/flash/runtime'
-    ], function( Base, FlashRuntime ) {
-        var $ = Base.$;
+        'uploader',
     
-        return FlashRuntime.register( 'FilePicker', {
-            init: function( opts ) {
-                var copy = $.extend({}, opts );
+        // widgets
+        'widgets/filepicker',
+        'widgets/filednd',
+        'widgets/filepaste',
+        'widgets/queue',
+        'widgets/runtime',
+        'widgets/upload',
+        'widgets/validator',
     
-                delete copy.button;
-                delete copy.container;
+        // runtimes
+        // html5
+        'runtime/html5/blob',
+        'runtime/html5/dnd',
+        'runtime/html5/filepaste',
+        'runtime/html5/filepicker',
+        'runtime/html5/transport',
     
-                this.flashExec( 'FilePicker', 'init', copy );
-            },
-    
-            destroy: function() {
-                // todo
-            }
-        });
+        // flash
+        'runtime/flash/filepicker',
+        'runtime/flash/transport'
+    ], function( Base ) {
+        return Base;
     });
-
-    /**
-     * @file 暴露变量给外部使用。
-     * 此文件也只有在把webupload合并成一个文件使用的时候才会引入。
-     *
-     * 将所有modules，将路径ids装换成对象。
-     */
-    (function( modules ) {
-        var
-            // 让首写字母大写。
-            ucFirst = function( str ) {
-                return str && (str.charAt( 0 ).toUpperCase() + str.substr( 1 ));
-            },
-    
-            // 暴露出去的key
-            exportName = 'WebUploader',
-            exports = modules.base,
-            key, host, parts, part, last, origin;
-    
-        for ( key in modules ) {
-            host = exports;
-    
-            if ( !modules.hasOwnProperty( key ) ) {
-                continue;
-            }
-    
-            parts = key.split('/');
-            last = ucFirst( parts.pop() );
-    
-            while( (part = ucFirst( parts.shift() )) ) {
-                host[ part ] = host[ part ] || {};
-                host = host[ part ];
-            }
-    
-            host[ last ] = modules[ key ];
-        }
-    
-        if ( typeof module === 'object' && typeof module.exports === 'object' ) {
-            module.exports = exports;
-        } else if ( window.define && window.define.amd ) {
-            window.define( function() { return exports; } );
-        } else {
-            origin = window[ exportName ];
-            window[ exportName ] = exports;
-            window[ exportName ].noConflict = function() {
-                window[ exportName ] = origin;
-            };
-        }
-    })( internalAmd.modules );
-    
-})( this );
+    return require('base');
+});

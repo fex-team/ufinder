@@ -21,7 +21,7 @@ var FileNode = UF.FileNode = UF.createClass("FileNode", {
         if (this.getAttr('type') == 'dir') {
             this.info['path'] = path.replace(/([^\/])$/, '$1/');
         } else {
-            this.info['path'] = path.replace(/([^\/])$/, '$1/');
+            this.info['path'] = path.replace(/([^\/])$/, '$1');
         }
     },
     getInfo: function () {

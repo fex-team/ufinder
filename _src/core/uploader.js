@@ -1,32 +1,32 @@
 var Uploader = UF.Uploader = UF.createClass("Uploader", {
-    constructor: function (data, webuploader, callback) {
+    constructor: function (data, callback) {
         this.id = 'r' + (+new Date()).toString(36);
         this.data = data;
-        this.webuploader = webuploader;
+        this.webuploader = data.webuploader;
         this.callback = callback;
-        this.file = data.file;
+        this.file = data.data.file;
         this._initEvents();
     },
     _initEvents: function () {
         var me = this, r,
-            handler = function(file){
+            handler = function (file) {
                 console.log(r);
                 try {
                     me.responseJson = JSON ? JSON.parse(r) : eval(r);
-                    me.callback && me.callback(me.responseJson);
                 } catch (e) {
                     me.responseJson = null;
                 }
                 me.responseText = r;
+                me.callback && me.callback(me.responseJson);
                 me.webuploader.off('uploadComplete', handler);
             };
 
-        me.webuploader.on('uploadProgress', function(file, ret){
-        });
-        me.webuploader.on('uploadSuccess', function(file, ret){
+//        me.webuploader.on('uploadProgress', function(file, ret){
+//        });
+        me.webuploader.on('uploadSuccess', function (file, ret) {
             r = ret._raw;
         });
-        me.webuploader.on('uploadError', function(file, ret){
+        me.webuploader.on('uploadError', function (file, ret) {
             r = ret._raw;
         });
 
@@ -39,7 +39,7 @@ var Uploader = UF.Uploader = UF.createClass("Uploader", {
     pause: function () {
         webuploader.stop();
     },
-    cancel: function(){
+    cancel: function () {
         webuploader.stop(true);
     }
 });

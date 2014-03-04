@@ -1,8 +1,8 @@
 UF.ui.define('leaf', {
     tpl: '<li class="ufui-leaf" data-path="<%=path%>">' +
-        '   <div class="ufui-leaf-detail">' +
+        '   <div class="ufui-leaf-detail ufui-leaf-detail-closed">' +
         '       <div class="ufui-leaf-expand"></div>' +
-        '       <div class="ufui-leaf-icon"><i class="ufui-leaf-icon-<%=type%>"></i></div>' +
+        '       <div class="ufui-leaf-folder"><i class="ufui-leaf-folder-<%=type%>"></i></div>' +
         '       <div class="ufui-leaf-title"><%=title%></div>' +
         '   </div>' +
         '   <ul class="ufui-tree-branch ufui-tree-branch-closed"></ul>' +
@@ -15,16 +15,18 @@ UF.ui.define('leaf', {
     },
     init: function (options) {
         var me = this;
-        options.path = me._regularDirPath(options.path);
+        options.path = Utils.regularDirPath(options.path);
         me.root($($.parseTmpl(me.tpl, options)));
-        me.$detail = me.root().children().eq(0);
+        var $detail = me.$detail = me.root().children().eq(0);
         me.$branch = me.root().children().eq(1);
 
-        me.$detail.find('.ufui-leaf-icon,.ufui-leaf-title').on('mouseover', function () {
-            me.$detail.addClass('ufui-hover');
-        });
-        me.$detail.find('.ufui-leaf-icon,.ufui-leaf-title').on('mouseout', function () {
-            me.$detail.removeClass('ufui-hover');
+        /* 设置展开收起文件夹 */
+        $detail.find('.ufui-leaf-expand').on('click', function () {
+            if ($detail.hasClass('ufui-leaf-detail-opened')) {
+                me.expand(false);
+            } else {
+                me.expand(true);
+            }
         });
 
         return me;
@@ -47,8 +49,14 @@ UF.ui.define('leaf', {
 
         return this;
     },
-    _regularDirPath: function (path) {
-        return path.replace(/([^\/])$/, '$1/').replace(/^([^\/])/, '/$1');
+    expand: function (state) {
+        if (state) {
+            this.$detail.removeClass('ufui-leaf-detail-closed').addClass('ufui-leaf-detail-opened');
+            this.$branch.removeClass('ufui-tree-branch-closed').addClass('ufui-tree-branch-opened');
+        } else {
+            this.$detail.removeClass('ufui-leaf-detail-opened').addClass('ufui-leaf-detail-closed');
+            this.$branch.removeClass('ufui-tree-branch-opened').addClass('ufui-tree-branch-closed');
+        }
     },
     _compare: function (a, b) {
         var type1 = a.getType(),
@@ -65,19 +73,19 @@ UF.ui.define('leaf', {
         }
     },
     setPath: function (path) {
-        this.root().attr('data-path', this._regularDirPath(path));
+        this.root().attr('data-path', Utils.regularDirPath(path));
         return this;
     },
     getPath: function () {
         return this.root().attr('data-path');
     },
     setType: function (type) {
-        this.$detail.find('.ufui-leaf-icon i').attr('class', 'ufui-leaf-icon-' + type);
+        this.$detail.find('.ufui-leaf-folder i').attr('class', 'ufui-leaf-folder-' + type);
         return this;
     },
     getType: function () {
-        var c = this.$detail.find('.ufui-leaf-icon i'),
-            m = c.attr('class').match(/ufui-leaf-icon-([\w]+)(\s|$)/);
+        var c = this.$detail.find('.ufui-leaf-folder i'),
+            m = c.attr('class').match(/ufui-leaf-folder-([\w]+)(\s|$)/);
         return m ? m[1] : null;
     },
     setTitle: function (title) {
@@ -87,16 +95,22 @@ UF.ui.define('leaf', {
     getTitle: function () {
         return this.$detail.find('.ufui-leaf-title').text();
     },
-    addChild: function ($leaf) {
-//        var $
-//        for (i = 0; i < .length; i++) {
-//            var c = this._ufItems[i];
-//            if (this._compare(c, ufFile)) break;
-//        }
-        this.$branch.append($leaf);
+    addChild: function (ufLeaf) {
+        var children = this.$branch.children();
+        for (var i = 0; i < children.length; i++) {
+            if (this._compare($(children[i]).ufui(), ufLeaf)) break;
+        }
+        if (i == 0) {
+            this.$branch.prepend(ufLeaf.root());
+        } else {
+            $(children[i - 1]).after(ufLeaf.root());
+        }
+        this.expand(true);
+        return this;
     },
     removeChild: function ($leaf) {
         $leaf.remove();
+        return this;
     },
     getChildren: function () {
         return this.$branch.children();
