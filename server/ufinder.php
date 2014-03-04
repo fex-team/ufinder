@@ -39,12 +39,11 @@ switch($cmd){
     case 'rm':
         foreach($target as $key => $path) {
             if(is_dir($ROOT.$path)) {
-                removeDir($ROOT.$path);
+                $res = removeDir($ROOT.$path);
             } else {
-                unlink($ROOT.$path);
+                $res = unlink($ROOT.$path);
             }
-            $res = !file_exists($ROOT.$path);
-            if($res == false) break;
+            if(!$res) break;
         }
 
         if($res) {
@@ -84,11 +83,16 @@ switch($cmd){
         include "Uploader.class.php";
         $uploadConfig = array(
             "savePath" => $ROOT.$target,          //存储文件夹
-            "maxSize" => 10000,                   //允许的文件最大尺寸，单位KB
-            "allowFiles" => array( ".gif" , ".png" , ".jpg" , ".jpeg" , ".bmp" )  //允许的文件格式
+            "maxSize" => 200000,                   //允许的文件最大尺寸，单位KB
+            "allowFiles" => array(".rar", ".zip", ".rar", ".7z", "tar", "gz",
+                ".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx",
+                "", ".txt", ".pdf",
+                ".bmp", ".gif", ".jpg", ".jpeg", ".png", ".psd",
+                ".swf", ".mkv", ".avi", ".rm", ".rmvb",
+                ".mpeg", ".mpg", ".ogg", ".mov", ".wmv", ".mp4", ".webm")  //允许的文件格式
         );
 
-        $up = new Uploader( "file" , $uploadConfig );
+        $up = new Uploader( "file", $uploadConfig );
         $info = $up->getFileInfo();
 
         if($info["state"] == 'SUCCESS') {
@@ -101,7 +105,7 @@ switch($cmd){
         echo getJson('0', 'success', array('file' => getFileInfo($target, $ROOT)));
         break;
     default:
-        echo 'unknow command';
+        echo getJson('1', 'unknow command');
         break;
 }
 

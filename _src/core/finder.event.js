@@ -110,7 +110,7 @@ UF.extendClass(Finder, {
     fire: function (type) {
         var callbacks = this._eventCallbacks[ type.toLowerCase() ];
         if (!callbacks) {
-            return false;
+            return;
         }
         for (var i = 0; i < callbacks.length; i++) {
             var res = callbacks[ i ].apply(this, arguments);

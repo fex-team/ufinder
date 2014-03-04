@@ -78,7 +78,14 @@ var Proxy = UF.Proxy = UF.createClass("Proxy", {
                 url: me._url,
                 type: type,
                 webuploader: me.finder.webuploader,
-                data: data
+                data: data,
+                process: function(p){
+                    me.finder.fire('updatemessage', {
+                        loadedPercent: p,
+                        request: request,
+                        id: request.id
+                    });
+                }
             }, handler);
         } else {
             request = new Request({
@@ -88,8 +95,8 @@ var Proxy = UF.Proxy = UF.createClass("Proxy", {
             }, handler);
         }
 
-        this._pushRequest(request);
-        this.finder.fire('showmessage', {
+        me._pushRequest(request);
+        me.finder.fire('showmessage', {
             icon: 'loading',
             title: data.cmd + ' loading...',
             loadedPercent: 100,

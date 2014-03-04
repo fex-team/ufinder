@@ -5,6 +5,7 @@ UF.registerUI('upload',
             $btn = $.ufuibutton({
                 icon: name,
                 click: function () {
+
                 },
                 title: me.getLang('labelMap')[name] || ''
             });
@@ -14,7 +15,7 @@ UF.registerUI('upload',
             var state = me.queryCommandState(name);
             $btn.ufui().disabled(state == -1).active(state == 1);
             if (me.webuploader) {
-//                state == -1 ? me.webuploader.disable() : me.webuploader.enable();
+                state == -1 ? me.webuploader.disable() : me.webuploader.enable();
             }
         });
 

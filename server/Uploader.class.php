@@ -157,7 +157,11 @@ class Uploader
      */
     private function getName()
     {
-        return $this->fileName = time() . rand( 1 , 10000 ) . $this->getFileExt();
+        $this->fileName = $this->oriName . $this->getFileExt();
+        for( $i = 1; !file_exists($this->getFolder() . '/' .$this->fileName); $i++ ){
+            $this->fileName = $this->oriName . $i . $this->getFileExt();
+        }
+        return ;
     }
 
     /**
