@@ -16,7 +16,7 @@ UF.registerModule("uploadmodule", function () {
 
                 // 选择文件的按钮。可选。
                 // 内部根据当前运行是创建，可能是input元素，也可能是flash.
-                pick: '#testBtn',
+                // pick: '#' + id,
 
                 // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
                 resize: false,
@@ -45,7 +45,7 @@ UF.registerModule("uploadmodule", function () {
         "defaultOptions": {
             'uploaderFileName': 'file',
             'uploaderSwfUrl': uf.getOption('URL') + '/webuploader/dist/Uploader.swf',
-            'uploaderJsUrl': uf.getOption('URL') + '/webuploader/dist/webuploader.min.js'
+            'uploaderJsUrl': uf.getOption('URL') + '/webuploader/dist/webuploader.js'
         },
         "commands": {
             "upload": {
