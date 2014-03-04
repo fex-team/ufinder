@@ -10,6 +10,12 @@ $cmd = $_GET['cmd'];
 $target = $_GET['target'];
 
 switch($cmd){
+    case 'init':
+        echo getJson('0', 'success', array(
+            'root' => getFileInfo('/', $ROOT),
+            'config' => array()
+        ));
+        break;
     case 'ls':
         if(isset($_GET['target'])) $target = $_GET['target'];
         else $target = '';
@@ -22,7 +28,7 @@ switch($cmd){
             $res = false;
             $msg = 'file exist';
         } else {
-            echo $res = rename($ROOT.$target, $ROOT.$name);
+            $res = rename($ROOT.$target, $ROOT.$name);
         }
         if($res) {
             echo getJson('0', 'success', array('file' => getFileInfo($name, $ROOT)));
@@ -31,15 +37,16 @@ switch($cmd){
         }
         break;
     case 'rm':
-        $name = $_GET['name'];
         foreach($target as $key => $path) {
             if(is_dir($ROOT.$path)) {
-                $res = removeDir($ROOT.$path);
+                removeDir($ROOT.$path);
             } else {
-                $res = unlink($ROOT.$path);
+                unlink($ROOT.$path);
             }
+            $res = !file_exists($ROOT.$path);
             if($res == false) break;
         }
+
         if($res) {
             echo getJson('0', 'success');
         } else {
@@ -89,6 +96,9 @@ switch($cmd){
         } else {
             echo getJson('1', $info["state"], array('file' => getFileInfo($target.$info["name"], $ROOT)));
         }
+        break;
+    case 'info':
+        echo getJson('0', 'success', array('file' => getFileInfo($target, $ROOT)));
         break;
     default:
         echo 'unknow command';

@@ -5,7 +5,8 @@ UF.registerModule("uploadmodule", function () {
             var timestrap = (+new Date()).toString(36),
                 messageId = 'u' + timestrap;
 
-            $('<div><div id="testBtn"></div>').appendTo(document.body);
+//            $('<div><div id="testBtn">upload</div></div>').appendTo(uf.$toolbar);
+            $('<div><div id="testBtn">upload</div></div>').appendTo(document.body);
             // 创建webupoaler实例
             var uploader = uf.webuploader = WebUploader.create({
 
@@ -30,7 +31,6 @@ UF.registerModule("uploadmodule", function () {
 
             // 当有文件被添加进队列的时候
             uploader.on('fileQueued', function (file) {
-                uf.fire('showmessage', {'title': '等待上传.', 'id': messageId + file.id});
                 uf.execCommand('upload', file);
             });
 
