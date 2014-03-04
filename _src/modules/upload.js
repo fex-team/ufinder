@@ -5,8 +5,6 @@ UF.registerModule("uploadmodule", function () {
             var timestrap = (+new Date()).toString(36),
                 messageId = 'u' + timestrap;
 
-//            $('<div><div id="testBtn">upload</div></div>').appendTo(uf.$toolbar);
-            $('<div><div id="testBtn">upload</div></div>').appendTo(document.body);
             // 创建webupoaler实例
             var uploader = uf.webuploader = WebUploader.create({
 
@@ -46,8 +44,8 @@ UF.registerModule("uploadmodule", function () {
         },
         "defaultOptions": {
             'uploaderFileName': 'file',
-            'uploaderSwfUrl': uf.getOption('URL') + '/webuploader/Uploader.swf',
-            'uploaderJsUrl': uf.getOption('URL') + '/webuploader/webuploader.min.js'
+            'uploaderSwfUrl': uf.getOption('URL') + '/webuploader/dist/Uploader.swf',
+            'uploaderJsUrl': uf.getOption('URL') + '/webuploader/dist/webuploader.min.js'
         },
         "commands": {
             "upload": {
