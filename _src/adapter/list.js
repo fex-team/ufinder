@@ -112,6 +112,8 @@ UF.registerUI('list',
             }
         });
 
+
+
         /* 新增文件 */
         me.on('addFiles', function (type, files) {
             addFile(files);

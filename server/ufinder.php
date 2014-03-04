@@ -94,7 +94,6 @@ switch($cmd){
 
         $up = new Uploader( "file", $uploadConfig );
         $info = $up->getFileInfo();
-
         if($info["state"] == 'SUCCESS') {
             echo getJson('0', 'success', array('file' => getFileInfo($target.$info["name"], $ROOT)));
         } else {

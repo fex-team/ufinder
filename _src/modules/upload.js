@@ -25,7 +25,8 @@ UF.registerModule("uploadmodule", function () {
 
                 threads: 1,
                 fileVal: uf.getOption('uploaderFileName'),
-                formdata: {}
+                formdata: {},
+                duplicate: false
 
             });
 

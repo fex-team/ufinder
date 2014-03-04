@@ -157,11 +157,13 @@ class Uploader
      */
     private function getName()
     {
-        $this->fileName = $this->oriName . $this->getFileExt();
-        for( $i = 1; !file_exists($this->getFolder() . '/' .$this->fileName); $i++ ){
-            $this->fileName = $this->oriName . $i . $this->getFileExt();
+        $folder = $this->getFolder();
+        $fileext = $this->getFileExt();
+        $filename = $oriname = $this->getFileName();
+        for( $i = 1; file_exists($folder.'/'.$filename.$fileext); $i++ ){
+            $filename = $oriname.'_'.$i;
         }
-        return ;
+        return $this->fileName = $filename.$fileext;
     }
 
     /**
@@ -180,6 +182,16 @@ class Uploader
     private function  checkSize()
     {
         return $this->fileSize <= ( $this->config[ "maxSize" ] * 1024 );
+    }
+
+    /**
+     * 获取文件扩展名
+     * @return string
+     */
+    private function getFileName()
+    {
+        $index = strrpos( $this->file[ "name" ] , '.' );
+        return $index!==false ? substr($this->file[ "name" ], 0, $index) : $this->file[ "name" ];
     }
 
     /**
