@@ -68,5 +68,15 @@ UF.ui.define('file', {
             write = $root.hasClass('ufui-file-w-r') || $root.hasClass('ufui-file-nw-r'),
             read = $root.hasClass('ufui-file-w-r') || $root.hasClass('ufui-file-w-nr');
         return {'write': write, 'read': read};
+    },
+    setPreviewImg: function(src){
+        this.root().find('.ufui-file-icon i').css({
+            'background-color': '#eeeeee',
+            'background-image': 'url("' + src + '")',
+            'background-size': 'auto 100%',
+            'background-position': 'center center',
+            'background-repeat': 'no-repeat no-repeat',
+            'border-radius': '3px'
+        });
     }
 });
