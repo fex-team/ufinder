@@ -4,7 +4,7 @@ window.UFINDER_CONFIG = {
     URL: URL,
 
     toolbars: [
-        'open touch mkdir rename remove upload upload parentdir previousdir nextdir'
+        'open fileup filebackward fileforward touch mkdir rename remove upload download'
     ],
 
     serverUrl: URL + '/server/ufinder.php'

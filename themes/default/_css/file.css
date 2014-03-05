@@ -106,7 +106,14 @@
 .ufui-file-icon .ufui-file-icon-pdf{
     background-position: -630px center;
 }
-.ufui-file-icon .ufui-file-icon-txt{
+.ufui-file-icon .ufui-file-icon-txt,
+.ufui-file-icon .ufui-file-icon-htm,
+.ufui-file-icon .ufui-file-icon-html,
+.ufui-file-icon .ufui-file-icon-js,
+.ufui-file-icon .ufui-file-icon-css,
+.ufui-file-icon .ufui-file-icon-php,
+.ufui-file-icon .ufui-file-icon-jsp,
+.ufui-file-icon .ufui-file-icon-asp{
     background-position: -700px center;
 }
 .ufui-file-icon .ufui-file-icon-apk{
