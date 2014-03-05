@@ -9,7 +9,7 @@ UF.registerUI('open touch mkdir rename remove',
             title: me.getLang('labelMap')[name] || ''
         });
 
-        me.on('selectionchange ready focus blur', function () {
+        me.on('selectionchange ready focus blur currentpathchange', function () {
             var state = me.queryCommandState(name);
             $btn.ufui().disabled(state == -1).active(state == 1)
         });

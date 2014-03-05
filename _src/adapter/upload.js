@@ -11,7 +11,7 @@ UF.registerUI('upload',
             });
 
         /* 按钮状态反射 */
-        me.on('selectionchange ready focus blur', function () {
+        me.on('selectionchange ready focus blur currentpathchange', function () {
             var state = me.queryCommandState(name);
             $btn.ufui().disabled(state == -1).active(state == 1);
             if (me.webuploader) {
