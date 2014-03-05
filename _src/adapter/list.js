@@ -10,7 +10,7 @@ UF.registerUI('list',
                 $.each($.isArray(filelist) ? filelist : [filelist], function (k, file) {
                     if (Utils.getParentPath(file.path) == currentPath) {
                         ufList.addItem({
-                            type: file.type,
+                            type: file.type == 'dir' ? 'dir':file.name.substr((file.name.lastIndexOf('.') + 1) || file.name.length),
                             title: file.name,
                             path: file.path,
                             pers: (file.write ? 'w' : 'nw') + (file.read ? 'r' : 'nr')

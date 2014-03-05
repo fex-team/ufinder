@@ -8,6 +8,7 @@
     padding: 2px;
     margin: 0;
     clear: both;
+    white-space: nowrap;
 }
 .ufui-leaf-detail:hover{
     background-color: #dddddd;
