@@ -9,12 +9,18 @@ UF.registerUI('list',
                 var currentPath = me.getCurrentPath();
                 $.each($.isArray(filelist) ? filelist : [filelist], function (k, file) {
                     if (Utils.getParentPath(file.path) == currentPath) {
+                        var type = file.name.substr((file.name.lastIndexOf('.') + 1) || file.name.length);
                         ufList.addItem({
-                            type: file.type == 'dir' ? 'dir':file.name.substr((file.name.lastIndexOf('.') + 1) || file.name.length),
+                            type: file.type == 'dir' ? 'dir':type,
                             title: file.name,
                             path: file.path,
                             pers: (file.write ? 'w' : 'nw') + (file.read ? 'r' : 'nr')
-                        })
+                        });
+
+                        if('gif bmp png jpg jpeg'.split(' ').indexOf(type) != -1) {
+                            var realPath = me.serverOption.realRootUrl + file.path;
+                            ufList.getItem(file.path).setPreviewImg(realPath);
+                        }
                     }
                 });
             },

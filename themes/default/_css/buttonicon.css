@@ -1,20 +1,32 @@
 .ufui-btn-toolbar .ufui-btn .ufui-icon-open {
     background-position: 0 0;
 }
-.ufui-btn-toolbar .ufui-btn .ufui-icon-touch {
-    background-position: -118px 0;
+.ufui-btn-toolbar .ufui-btn .ufui-icon-fileup {
+    background-position: -20px 0;
 }
-.ufui-btn-toolbar .ufui-btn .ufui-icon-mkdir {
-    background-position: -138px 0;
+.ufui-btn-toolbar .ufui-btn .ufui-icon-filebackward {
+    background-position: -40px 0;
 }
-.ufui-btn-toolbar .ufui-btn .ufui-icon-rename {
+.ufui-btn-toolbar .ufui-btn .ufui-icon-fileforward {
     background-position: -60px 0;
 }
+.ufui-btn-toolbar .ufui-btn .ufui-icon-touch {
+    background-position: -80px 0;
+}
+.ufui-btn-toolbar .ufui-btn .ufui-icon-mkdir {
+    background-position: -100px 0;
+}
 .ufui-btn-toolbar .ufui-btn .ufui-icon-remove {
-    background-position: -79px 0;
+    background-position: -120px 0;
 }
 .ufui-btn-toolbar .ufui-btn .ufui-icon-upload{
-    background-position: -20px 0;
+    background-position: -140px 0;
+}
+.ufui-btn-toolbar .ufui-btn .ufui-icon-download {
+    background-position: -160px 0;
+}
+.ufui-btn-toolbar .ufui-btn .ufui-icon-rename {
+    background-position: -180px 0;
 }
 .ufui-btn-toolbar .ufui-btn.ufui-btn-upload div {
     top: 0;
@@ -38,7 +50,7 @@
     background-repeat: no-repeat;
     background-image: url("../images/toolbar-icons.png");
     background-image: url("../images/toolbar-icons.gif") \9;
-    background-position: -20px 0;
+    background-position: -140px 0;
     background-size: auto 100%;
 }
 .ufui-btn-toolbar .ufui-btn.ufui-btn-upload div input {
