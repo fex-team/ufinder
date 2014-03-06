@@ -44,7 +44,7 @@ UF.ui.define('file', {
         return this.root().find('.ufui-file-title').text();
     },
     setType: function (type) {
-        this.root().find('.ufui-file-icon i').attr('class', 'ufui-file-icon-' + type);
+        this.root().find('.ufui-file-icon i').attr('class', 'ufui-file-icon-' + type).attr('style', '');
         return this;
     },
     getType: function () {
@@ -70,13 +70,20 @@ UF.ui.define('file', {
         return {'write': write, 'read': read};
     },
     setPreviewImg: function(src){
-        this.root().find('.ufui-file-icon i').css({
-            'background-color': '#eeeeee',
-            'background-image': 'url("' + src + '")',
-            'background-size': 'auto 100%',
-            'background-position': 'center center',
-            'background-repeat': 'no-repeat no-repeat',
-            'border-radius': '3px'
+        var me = this;
+        $('<img src="' + src + '" style="display:none;">').appendTo(document.body).on('load', function(){
+            var $target = $(this);
+            me.root().find('.ufui-file-icon i').css({
+                'background-image': 'url("' + src + '")',
+                'background-size': $target.width() > $target.height() ? 'auto 100%':'100% auto',
+                'background-position': 'center center',
+                'background-repeat': 'no-repeat no-repeat',
+                'border-radius': '3px',
+                'width': '60px',
+                'height': '60px',
+                'margin': '10px auto 0 auto'
+            });
+            $target.remove();
         });
     }
 });

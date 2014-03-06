@@ -4,9 +4,8 @@
     width: 90px;
     height: 90px;
     margin: 10px 0 0 10px;
-    padding: 1px;
+    padding: 2px;
     list-style: none;
-    border: 1px dotted #eeeeee;
     overflow: hidden;
 }
 .ufui-file.ufui-active{
@@ -26,6 +25,7 @@
     width: 70px;
     height: 70px;
     margin: 0 auto 0 auto;
+    overflow: hidden;
 }
 .ufui-file-icon i{
     display: block;
@@ -144,5 +144,5 @@
 .ufui-file-icon .ufui-file-icon-bmp,
 .ufui-file-icon .ufui-file-icon-png,
 .ufui-file-icon .ufui-file-icon-psd{
-    background-position: -1120px center;
+    background-position: -140px center;
 }
