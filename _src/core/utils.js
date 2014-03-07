@@ -16,7 +16,7 @@ var Utils = UFinder.Utils = {
         return path && 'png gif bmp jpg jpeg'.split(' ').indexOf(Utils.getPathExt(path)) != -1;
     },
     isCodePath: function(path){
-        return path && 'txt js css html htm php asp jsp md json'.split(' ').indexOf(Utils.getPathExt(path)) != -1;
+        return path && 'txt md json js css html htm xml php asp jsp'.split(' ').indexOf(Utils.getPathExt(path)) != -1;
     },
     extend:function (t, s, b) {
         if (s) {

@@ -115,7 +115,10 @@
     background-position: -630px center;
 }
 .ufui-file-icon .ufui-file-icon-txt,
+.ufui-file-icon .ufui-file-icon-md,
+.ufui-file-icon .ufui-file-icon-json,
 .ufui-file-icon .ufui-file-icon-htm,
+.ufui-file-icon .ufui-file-icon-xml,
 .ufui-file-icon .ufui-file-icon-html,
 .ufui-file-icon .ufui-file-icon-js,
 .ufui-file-icon .ufui-file-icon-css,

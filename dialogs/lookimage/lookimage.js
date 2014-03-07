@@ -27,7 +27,7 @@
             }
         },
         reset: function(){
-            this.root().html('').css('over-flow', 'hidden').height(this.height);
+            this.$widget.ufui().hide();
         },
         initEvent: function (editor, $w) {
         },
