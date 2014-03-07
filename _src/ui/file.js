@@ -15,7 +15,7 @@ UF.ui.define('file', {
     init: function (options) {
         var me = this;
         me.root($($.parseTmpl(me.tpl, options)));
-        me.root().find('.ufui-file-title').on('focus blur', function(evt){
+        me.root().find('.ufui-file-title').on('focus blur', function (evt) {
 //            console.log(+new Date(), evt.type, evt)
         });
         return me;
@@ -30,10 +30,10 @@ UF.ui.define('file', {
             $title.removeClass('ufui-file-title-editable').attr('contenteditable', 'false');
             me.renameFlag = false;
         } else {
-            if(me.renameFlag) return this;
+            if (me.renameFlag) return this;
 
             var isExit = false,
-                finishHandler = function(evt){
+                finishHandler = function (evt) {
                     callback($title.text());
                     $title.focus().off('blur keydown', renameHandler);
                     me.editabled(false);
@@ -41,9 +41,9 @@ UF.ui.define('file', {
                     evt.preventDefault();
                     return false;
                 },
-                renameHandler = function(evt){
+                renameHandler = function (evt) {
                     console.log('---', evt.type, evt.keyCode);
-                    if(evt.type == 'blur' && !isExit) {
+                    if (evt.type == 'blur' && !isExit) {
                         return finishHandler(evt);
                     } else if (evt.type == 'keydown') {
                         if (evt.keyCode == 27) { //Esc取消
@@ -51,7 +51,7 @@ UF.ui.define('file', {
                         } else if (evt.keyCode == 13) { //Enter提交
                             return finishHandler(evt);
                         }
-                    } else if(evt.type == 'click') {
+                    } else if (evt.type == 'click') {
                         evt.preventDefault();
                         return false;
                     }
@@ -59,9 +59,9 @@ UF.ui.define('file', {
             $title.addClass('ufui-file-title-editable').attr('contenteditable', 'true');
 
             me.renameFlag = true;
-            setTimeout(function(){
+            setTimeout(function () {
                 $title.focus();
-                setTimeout(function(){
+                setTimeout(function () {
                     $title.on('keydown click blur', renameHandler);
                 }, 100);
             }, 100);
@@ -70,11 +70,11 @@ UF.ui.define('file', {
     },
     disabled: function (state) {
         if (state === undefined) {
-            return this.root().hasClass('ufui-disabled')
+            return this.root().hasClass('ufui-disabled');
         }
         this.root().toggleClass('ufui-disabled', state);
         if (this.root().hasClass('ufui-disabled')) {
-            this.root().removeClass('ufui-hover')
+            this.root().removeClass('ufui-hover');
         }
         return this;
     },

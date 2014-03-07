@@ -79,7 +79,7 @@ var Proxy = UF.Proxy = UF.createClass("Proxy", {
                 type: type,
                 webuploader: me.finder.webuploader,
                 data: data,
-                process: function(p){
+                process: function (p) {
                     me.finder.fire('updatemessage', {
                         loadedPercent: p,
                         request: request,

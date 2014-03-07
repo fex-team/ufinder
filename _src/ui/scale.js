@@ -141,7 +141,7 @@ UF.ui.define('scale', {
         me.root().unbind('mousedown', $.proxy(me._eventHandler, me));
         me.defaultOpt.$doc.unbind('mouseup', $.proxy(me._eventHandler, me));
         me.root().hide();
-        me.trigger('afterhide')
+        me.trigger('afterhide');
     },
     attachTo: function ($obj) {
         var me = this,

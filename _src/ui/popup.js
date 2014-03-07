@@ -35,26 +35,26 @@ UF.ui.define('popup', {
                 top: posObj.caretTop || 0,
                 left: posObj.caretLeft || 0,
                 position: 'absolute'
-            }).addClass(posObj.caretDir || "up")
+            }).addClass(posObj.caretDir || "up");
 
         }
         this.trigger("aftershow");
     },
     hide: function () {
         this.root().css('display', 'none');
-        this.trigger('afterhide')
+        this.trigger('afterhide');
     },
     attachTo: function ($obj, posObj) {
-        var me = this
+        var me = this;
         if (!$obj.data('$mergeObj')) {
             $obj.data('$mergeObj', me.root());
             $obj.on('wrapclick', function (evt) {
-                me.show($obj, posObj)
+                me.show($obj, posObj);
             });
             me.register('click', $obj, function (evt) {
-                me.hide()
+                me.hide();
             });
-            me.data('$mergeObj', $obj)
+            me.data('$mergeObj', $obj);
         }
     },
     getBodyContainer: function () {

@@ -57,7 +57,7 @@ UF.extendClass(Finder, {
             }
         });
         me.on('afterexeccommand', function (type, cmd) {
-            if(['rename', 'touch', 'mkdir'].indexOf(cmd) == -1) {
+            if (['rename', 'touch', 'mkdir'].indexOf(cmd) == -1) {
                 $keyListener.focus();
             }
         });

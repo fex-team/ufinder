@@ -54,7 +54,7 @@
                 this.root().data(_prefix + key, val);
                 return this;
             } else {
-                return this.root().data(_prefix + key)
+                return this.root().data(_prefix + key);
             }
         },
         register: function (eventName, $el, fn) {
@@ -62,7 +62,7 @@
                 'evtname': eventName,
                 '$els': $.isArray($el) ? $el : [$el],
                 handler: $.proxy(fn, $el)
-            })
+            });
         }
     };
 
@@ -87,7 +87,7 @@
             ClassObj.prototype.defaultOpt = $.extend({}, parentDefaultOptions, subDefaultOptions || {});
 
         }
-        return ClassObj
+        return ClassObj;
     }
 
     var _guid = 1;
@@ -101,8 +101,8 @@
                 var $this = $(el);
                 var obj = $this.ufui();
                 if (!obj) {
-                    ClassObj(!opt || !$.isPlainObject(opt) ? {} : opt, $this);
-                    $this.ufui(obj)
+                    new ClassObj(!opt || !$.isPlainObject(opt) ? {} : opt, $this);
+                    $this.ufui(obj);
                 }
                 if ($.type(opt) == 'string') {
                     if (opt == 'this') {
@@ -119,7 +119,7 @@
             });
 
             return result !== null ? result : this;
-        }
+        };
     }
 
     UF.ui = {
@@ -132,20 +132,20 @@
                         widgetName: className
                     }
                 );
-                var obj = new _obj;
+                var obj = new _obj();
                 if ($.type(options) == 'string') {
                     obj.init && obj.init({});
                     obj.root().ufui(obj);
                     obj.root().find('a').click(function (evt) {
-                        evt.preventDefault()
+                        evt.preventDefault();
                     });
-                    return obj.root()[_prefix + className].apply(obj.root(), arguments)
+                    return obj.root()[_prefix + className].apply(obj.root(), arguments);
                 } else {
                     $el && obj.root($el);
                     obj.init && obj.init(!options || $.isPlainObject(options) ? $.extend2(options || {}, obj.defaultOpt || {}, true) : options);
                     try {
                         obj.root().find('a').click(function (evt) {
-                            evt.preventDefault()
+                            evt.preventDefault();
                         });
                     } catch (e) {
                     }
@@ -167,9 +167,9 @@
                         if ($el[0] !== evt.target && !$.contains($el[0], evt.target)) {
                             obj.handler(evt);
                         }
-                    })
+                    });
                 }
-            })
-        })
-    })
+            });
+        });
+    });
 })(jQuery);

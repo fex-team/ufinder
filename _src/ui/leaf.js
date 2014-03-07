@@ -33,17 +33,17 @@ UF.ui.define('leaf', {
     },
     disabled: function (state) {
         if (state === undefined) {
-            return this.root().hasClass('ufui-disabled')
+            return this.root().hasClass('ufui-disabled');
         }
         this.root().toggleClass('ufui-disabled', state);
         if (this.root().hasClass('ufui-disabled')) {
-            this.root().removeClass('ufui-hover')
+            this.root().removeClass('ufui-hover');
         }
         return this;
     },
     active: function (state) {
         if (state === undefined) {
-            return this.root().hasClass('ufui-active')
+            return this.root().hasClass('ufui-active');
         }
         this.root().toggleClass('ufui-active', state);
 

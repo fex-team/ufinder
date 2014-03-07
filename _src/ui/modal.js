@@ -31,17 +31,17 @@ UF.ui.define('modal', {
 
         me.data("options", options);
         if (options.okFn) {
-            me.on('ok', $.proxy(options.okFn, me))
+            me.on('ok', $.proxy(options.okFn, me));
         }
         if (options.cancelFn) {
-            me.on('beforehide', $.proxy(options.cancelFn, me))
+            me.on('beforehide', $.proxy(options.cancelFn, me));
         }
 
         me.root().delegate('[data-hide="modal"]', 'click', $.proxy(me.hide, me))
             .delegate('[data-ok="modal"]', 'click', $.proxy(me.ok, me));
 
         $('[data-hide="modal"],[data-ok="modal"]', me.root()).hover(function () {
-            $(this).toggleClass('ufui-hover')
+            $(this).toggleClass('ufui-hover');
         });
     },
     toggle: function () {
@@ -66,7 +66,7 @@ UF.ui.define('modal', {
                 .show()
                 .focus()
                 .trigger('aftershow');
-        })
+        });
     },
     showTip: function (text) {
         $('.ufui-modal-tip', this.root()).html(text).fadeIn();
@@ -98,7 +98,7 @@ UF.ui.define('modal', {
         if (me.data("isShown") && me.data("options").keyboard) {
             me.root().on('keyup', function (e) {
                 e.which == 27 && me.hide();
-            })
+            });
         }
         else if (!me.data("isShown")) {
             me.root().off('keyup');
@@ -110,7 +110,7 @@ UF.ui.define('modal', {
         me.backdrop(function () {
             me.removeBackdrop();
             me.trigger('afterhide');
-        })
+        });
     },
     removeBackdrop: function () {
         this.$backdrop && this.$backdrop.remove();
@@ -123,21 +123,21 @@ UF.ui.define('modal', {
                 me.data("options").backdrop == 'static' ?
                     $.proxy(me.root()[0].focus, me.root()[0])
                     : $.proxy(me.hide, me)
-            )
+            );
         }
         me.trigger('afterbackdrop');
         callback && callback();
 
     },
     attachTo: function ($obj) {
-        var me = this
+        var me = this;
         if (!$obj.data('$mergeObj')) {
 
             $obj.data('$mergeObj', me.root());
             $obj.on('click', function () {
-                me.toggle($obj)
+                me.toggle($obj);
             });
-            me.data('$mergeObj', $obj)
+            me.data('$mergeObj', $obj);
         }
     },
     ok: function () {
@@ -149,7 +149,7 @@ UF.ui.define('modal', {
         me.hide();
     },
     getBodyContainer: function () {
-        return this.root().find('.ufui-modal-body')
+        return this.root().find('.ufui-modal-body');
     }
 });
 

@@ -86,7 +86,7 @@ var browser = UF.browser = function () {
 
         browser.ie9above = version > 8;
 
-        browser.ie9below = version < 9
+        browser.ie9below = version < 9;
     }
 
     // Gecko.

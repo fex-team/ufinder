@@ -83,5 +83,5 @@ UF.registerModule("uploadmodule", function () {
                 uf.webuploader && uf.webuploader.option('server', uf.getOption('URL') + '/server/ufinder.php?cmd=upload&target=' + path);
             }
         }
-    }
+    };
 });

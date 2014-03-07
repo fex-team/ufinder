@@ -12,7 +12,7 @@ UF.registerModule("renamemodule", function () {
 
                     if (target) {
                         // name = prompt('重命名', target.replace(/^.*\//, ''));
-                        uf.fire('renameFileTitle', target, function(name, callback){
+                        uf.fire('renameFileTitle', target, function (name, callback) {
                             console.log('|******** rename done ********|');
                             fullname = uf.getCurrentPath() + name;
                             if (name && target != fullname) {

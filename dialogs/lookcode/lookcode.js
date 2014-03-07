@@ -33,7 +33,7 @@
 
             me.root().html('').append($textWrap);
             $.get(url, {}, function(r){
-                $text.text(r || '文件内容为空...')
+                $text.text(r || '文件内容为空...');
             });
         },
         initEvent: function (editor, $w) {

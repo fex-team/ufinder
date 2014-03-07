@@ -5,7 +5,7 @@ UF.extendClass(Finder, {
     addShortcutKeys: function (cmd, keys) {
         var obj = {};
         if (keys) {
-            obj[ cmd ] = keys
+            obj[ cmd ] = keys;
         } else {
             obj = cmd;
         }

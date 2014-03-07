@@ -13,7 +13,7 @@ UF.registerUI('open pathparent pathbackward pathforward touch mkdir rename remov
 
         me.on('selectionchange ready focus blur currentpathchange', function () {
             var state = me.queryCommandState(name);
-            $btn.ufui().disabled(state == -1).active(state == 1)
+            $btn.ufui().disabled(state == -1).active(state == 1);
         });
         return $btn;
     }

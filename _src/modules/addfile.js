@@ -9,7 +9,7 @@ UF.registerModule("addfilemodule", function () {
         "commands": {
             "touch": {
                 execute: function (name) {
-                    uf.fire('newFileTitle', '', function(name, callback){
+                    uf.fire('newFileTitle', '', function (name, callback) {
                         console.log('|******** touch done ********|');
                         var fullname = uf.getCurrentPath() + name;
                         if (name) {
@@ -40,7 +40,7 @@ UF.registerModule("addfilemodule", function () {
 //                        name = '新建文件夹';
 //                    }
 
-                    uf.fire('newFileTitle', 'dir', function(name, callback){
+                    uf.fire('newFileTitle', 'dir', function (name, callback) {
                         console.log('|******** mkdir done ********|');
                         var fullname = uf.getCurrentPath() + name;
                         if (name) {
@@ -69,5 +69,5 @@ UF.registerModule("addfilemodule", function () {
         },
         "events": {
         }
-    }
+    };
 });

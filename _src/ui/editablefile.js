@@ -11,7 +11,7 @@ UF.ui.define('file', {
         title: '',
         path: '',
         pers: 'wr',
-        onRenameFinish: function(){
+        onRenameFinish: function () {
 
         }
     },

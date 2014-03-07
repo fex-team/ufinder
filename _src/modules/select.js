@@ -48,5 +48,5 @@ UF.registerModule("selectmodule", function () {
 
             }
         }
-    }
+    };
 });

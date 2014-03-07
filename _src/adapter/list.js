@@ -11,13 +11,13 @@ UF.registerUI('list',
                     if (Utils.getParentPath(file.path) == currentPath) {
                         var type = Utils.getPathExt(file.path);
                         ufList.addItem({
-                            type: file.type == 'dir' ? 'dir':type,
+                            type: file.type == 'dir' ? 'dir' : type,
                             title: file.name,
                             path: file.path,
                             pers: (file.write ? 'w' : 'nw') + (file.read ? 'r' : 'nr')
                         });
 
-                        if(Utils.isImagePath(file.path)) {
+                        if (Utils.isImagePath(file.path)) {
                             var realPath = me.serverOption.realRootUrl + file.path;
                             ufList.getItem(file.path).setPreviewImg(realPath);
                         }
@@ -50,9 +50,9 @@ UF.registerUI('list',
                     me.execCommand('open', path);
                 }
             } else {
-                if(Utils.isImagePath(path)) {
+                if (Utils.isImagePath(path)) {
                     me.execCommand('lookimage', path);
-                } else if(Utils.isCodePath(path)) {
+                } else if (Utils.isCodePath(path)) {
                     me.execCommand('lookcode', path);
                 }
             }
@@ -125,7 +125,6 @@ UF.registerUI('list',
         });
 
 
-
         /* 新增文件 */
         me.on('addFiles', function (type, files) {
             addFile(files);
@@ -149,7 +148,7 @@ UF.registerUI('list',
             clearAllSelectedFiles();
             $.each($.isArray(paths) ? paths : [paths], function (i, path) {
                 var ufFile = ufList.getItem(path);
-                if(ufFile) {
+                if (ufFile) {
                     ufFile.active(true);
 
                     /* 滚动到选中文件 */
@@ -173,19 +172,19 @@ UF.registerUI('list',
             $.each($.isArray(paths) ? paths : [paths], function (i, path) {
                 var ufFile = ufList.getItem(path);
                 ufFile && ufFile.disabled(false);
-            })
+            });
         });
 
         /* 文件进入重命名 */
         me.on('renameFileTitle', function (type, path, callback) {
             var ufFile = ufList.getItem(path);
-            if(ufFile) {
-                ufFile.editabled(true, function(name){
-                    callback(name, function(isSuccess){
+            if (ufFile) {
+                ufFile.editabled(true, function (name) {
+                    callback(name, function (isSuccess) {
                         /* 重命名失败 */
-                        if(!isSuccess) {
+                        if (!isSuccess) {
                             var file = me.dataTree.getFileInfo(path);
-                            if(file){
+                            if (file) {
                                 ufFile.setTitle(file.name);
                             }
                         }
@@ -196,7 +195,7 @@ UF.registerUI('list',
 
         /* 进入新建文件 */
         me.on('newFileTitle', function (type, filetype, callback) {
-            var tmpName = filetype == 'dir' ? '新建文件夹':'新建文件',
+            var tmpName = filetype == 'dir' ? '新建文件夹' : '新建文件',
                 tmpPath = me.getCurrentPath() + tmpName,
                 tmpUfFile;
             addFile({
@@ -207,8 +206,8 @@ UF.registerUI('list',
                 write: true
             });
             tmpUfFile = ufList.getItem(tmpPath);
-            tmpUfFile.editabled(true, function(name){
-                callback(name, function(isSuccess){
+            tmpUfFile.editabled(true, function (name) {
+                callback(name, function (isSuccess) {
                     ufList.removeItem(tmpPath);
                 });
             });

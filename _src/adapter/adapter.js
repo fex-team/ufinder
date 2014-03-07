@@ -110,18 +110,18 @@ $.extend(UFinder, (function () {
         delUFinder: function (id) {
         },
         registerWidget: function (name, pro, cb) {
-            _widgetData[name] = $.extend2(pro,{
-                $root : '',
-                _preventDefault:false,
-                root:function($el){
+            _widgetData[name] = $.extend2(pro, {
+                $root: '',
+                _preventDefault: false,
+                root: function ($el) {
                     return this.$root || (this.$root = $el);
                 },
-                preventDefault:function(){
+                preventDefault: function () {
                     this._preventDefault = true;
                 },
-                clear:false
+                clear: false
             });
-            if(cb){
+            if (cb) {
                 _widgetCallBack[name] = cb;
             }
         },
@@ -129,45 +129,45 @@ $.extend(UFinder, (function () {
             return _widgetData[name];
         },
         setWidgetBody: function (name, $widget, finder) {
-            if(!finder._widgetData){
+            if (!finder._widgetData) {
 
-                Utils.extend(finder,{
-                    _widgetData : {},
-                    getWidgetData : function(name){
+                Utils.extend(finder, {
+                    _widgetData: {},
+                    getWidgetData: function (name) {
                         return this._widgetData[name];
                     },
-                    getWidgetCallback : function(widgetName){
+                    getWidgetCallback: function (widgetName) {
                         var me = this;
-                        return function(){
-                            return  _widgetCallBack[widgetName].apply(me,[me,$widget].concat(Array.prototype.slice.call(arguments,0)))
-                        }
+                        return function () {
+                            return  _widgetCallBack[widgetName].apply(me, [me, $widget].concat(Array.prototype.slice.call(arguments, 0)));
+                        };
                     }
-                })
+                });
 
             }
             var pro = _widgetData[name];
-            if(!pro){
+            if (!pro) {
                 return null;
             }
             pro = finder._widgetData[name];
-            if(!pro){
+            if (!pro) {
                 pro = _widgetData[name];
                 pro = finder._widgetData[name] = $.type(pro) == 'function' ? pro : Utils.clone(pro);
             }
 
             pro.root($widget.ufui().getBodyContainer());
 
-            pro.initContent(finder,$widget);
-            if(!pro._preventDefault){
-                pro.initEvent(finder,$widget);
+            pro.initContent(finder, $widget);
+            if (!pro._preventDefault) {
+                pro.initEvent(finder, $widget);
             }
 
-            pro.width &&  $widget.width(pro.width);
+            pro.width && $widget.width(pro.width);
 
         },
         createEditor: function (id, opt) {
         },
         createToolbar: function (options, editor) {
         }
-    }
+    };
 })());

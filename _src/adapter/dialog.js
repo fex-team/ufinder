@@ -1,4 +1,4 @@
-UF.registerUI('lookimage lookcode',function(name){
+UF.registerUI('lookimage lookcode', function (name) {
 
     var me = this, currentRange, $dialog,
         labelMap = me.getOption('labelMap'),
@@ -12,31 +12,31 @@ UF.registerUI('lookimage lookcode',function(name){
         title: this.getLang('labelMap')[name] || ''
     });
     //加载模版数据
-    Utils.loadFile(document,{
+    Utils.loadFile(document, {
         src: opt.url,
         tag: "script",
         type: "text/javascript",
         defer: "defer"
-    },function(){
+    }, function () {
         //调整数据
         var data = UF.getWidgetData(name);
-        if(data.buttons){
+        if (data.buttons) {
             var ok = data.buttons.ok;
-            if(ok){
+            if (ok) {
                 opt.oklabel = ok.label || me.getLang('ok');
-                if(ok.exec){
-                    opt.okFn = function(){
-                        return $.proxy(ok.exec,null,me,$dialog)()
-                    }
+                if (ok.exec) {
+                    opt.okFn = function () {
+                        return $.proxy(ok.exec, null, me, $dialog)();
+                    };
                 }
             }
             var cancel = data.buttons.cancel;
-            if(cancel){
+            if (cancel) {
                 opt.cancellabel = cancel.label || me.getLang('cancel');
-                if(cancel.exec){
-                    opt.cancelFn = function(){
-                        return $.proxy(cancel.exec,null,me,$dialog)()
-                    }
+                if (cancel.exec) {
+                    opt.cancelFn = function () {
+                        return $.proxy(cancel.exec, null, me, $dialog)();
+                    };
                 }
             }
         }
@@ -50,7 +50,7 @@ UF.registerUI('lookimage lookcode',function(name){
 
         $dialog.ufui().on('beforehide',function () {
 
-        }).on('beforeshow', function () {
+        }).on('beforeshow',function () {
                 var $root = this.root(),
                     win = null,
                     offset = null;
@@ -59,11 +59,11 @@ UF.registerUI('lookimage lookcode',function(name){
                 }
 
                 //IE6下 特殊处理, 通过计算进行定位
-                if( $.IE6 ) {
+                if ($.IE6) {
 
                     win = {
-                        width: $( window ).width(),
-                        height: $( window ).height()
+                        width: $(window).width(),
+                        height: $(window).height()
                     };
                     offset = $root.parents(".ufui-toolbar")[0].getBoundingClientRect();
                     $root.css({
@@ -74,13 +74,13 @@ UF.registerUI('lookimage lookcode',function(name){
                     });
 
                 }
-                UF.setWidgetBody(name,$dialog,me);
-        }).on('afterbackdrop',function(){
-            this.$backdrop.css('zIndex',me.getOption('zIndex')+1).appendTo(me.$container.find('.ufui-dialog-container'))
-            $dialog.css('zIndex',me.getOption('zIndex')+2)
-        }).on('beforeok',function(){
+                UF.setWidgetBody(name, $dialog, me);
+            }).on('afterbackdrop',function () {
+                this.$backdrop.css('zIndex', me.getOption('zIndex') + 1).appendTo(me.$container.find('.ufui-dialog-container'));
+                $dialog.css('zIndex', me.getOption('zIndex') + 2);
+            }).on('beforeok',function () {
 
-        }).attachTo($btn)
+            }).attachTo($btn);
     });
 
     me.on('selectionchange ready focus blur currentpathchange', function () {

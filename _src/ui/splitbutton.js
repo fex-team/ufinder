@@ -22,12 +22,12 @@ UF.ui.define('splitbutton', {
         });
         me.root().find('.ufui-dropdown-toggle').click(function () {
             if (!me.disabled()) {
-                me.trigger('arrowclick')
+                me.trigger('arrowclick');
             }
         });
         me.root().hover(function () {
             if (!me.root().hasClass("ufui-disabled")) {
-                me.root().toggleClass('ufui-hover')
+                me.root().toggleClass('ufui-hover');
             }
         });
 
@@ -35,20 +35,20 @@ UF.ui.define('splitbutton', {
     },
     wrapclick: function (fn, evt) {
         if (!this.disabled()) {
-            $.proxy(fn, this, evt)()
+            $.proxy(fn, this, evt)();
         }
         return this;
     },
     disabled: function (state) {
         if (state === undefined) {
-            return this.root().hasClass('ufui-disabled')
+            return this.root().hasClass('ufui-disabled');
         }
         this.root().toggleClass('ufui-disabled', state).find('.ufui-btn').toggleClass('ufui-disabled', state);
         return this;
     },
     active: function (state) {
         if (state === undefined) {
-            return this.root().hasClass('ufui-active')
+            return this.root().hasClass('ufui-active');
         }
         this.root().toggleClass('ufui-active', state).find('.ufui-btn:first').toggleClass('ufui-active', state);
         return this;
@@ -63,10 +63,10 @@ UF.ui.define('splitbutton', {
         me.root().delegate('.ufui-dropdown-toggle', 'click', function () {
             me.wrapclick(function () {
                 $obj.ufui().show();
-            })
+            });
         });
         me.register('click', me.root().find('.ufui-dropdown-toggle'), function (evt) {
-            $obj.hide()
+            $obj.hide();
         });
     }
 });

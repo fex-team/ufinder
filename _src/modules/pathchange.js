@@ -13,17 +13,17 @@ UF.registerModule("pathchangemodule", function () {
                     uf.setCurrentPath(parentPath);
                 },
                 queryState: function () {
-                    return uf.getCurrentPath().length > 2 ? 0:-1;
+                    return uf.getCurrentPath().length > 2 ? 0 : -1;
                 }
             },
             "pathbackward": {
                 execute: function () {
-                    if(uf._pathHistoryIndex > 0) {
+                    if (uf._pathHistoryIndex > 0) {
                         uf.setCurrentPath(uf._pathHistory[uf._pathHistoryIndex--]);
                     }
                 },
                 queryState: function () {
-                    return uf._pathHistoryIndex > 1 ? 0:-1;
+                    return uf._pathHistoryIndex > 1 ? 0 : -1;
                 }
             },
             "pathforward": {
@@ -31,7 +31,7 @@ UF.registerModule("pathchangemodule", function () {
 
                 },
                 queryState: function () {
-                    return uf._pathHistory.length > (uf._pathHistoryIndex + 1) ? 0:-1;
+                    return uf._pathHistory.length > (uf._pathHistoryIndex + 1) ? 0 : -1;
                 }
             }
         },
@@ -40,5 +40,5 @@ UF.registerModule("pathchangemodule", function () {
                 uf._pathHistory.splice(uf._pathHistoryIndex, uf._pathHistory.length, path);
             }
         }
-    }
+    };
 });

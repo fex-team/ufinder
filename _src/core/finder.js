@@ -43,7 +43,7 @@ var Finder = UF.Finder = UF.createClass('Finder', {
     getLang: function (path) {
         var lang = UF.LANG[this.getOption('lang')];
         if (!lang) {
-            throw Error("not import language file");
+            throw new Error("not import language file");
         }
         path = (path || "").split(".");
         for (var i = 0, ci; ci = path[i++];) {
@@ -52,7 +52,7 @@ var Finder = UF.Finder = UF.createClass('Finder', {
         }
         return lang;
     },
-    getRealPath: function(){
+    getRealPath: function () {
 
     }
 });
