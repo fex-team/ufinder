@@ -34,8 +34,10 @@
 }
 
 .ufui-file-title{
-    padding: 3px 0;
+    padding: 0;
+    margin: 3px 0 0 0;
     font-size: 12px;
+    height: 13px;
     color: #555555;
     text-align: center;
     width: 90px;
@@ -43,6 +45,12 @@
     word-break:keep-all;
     overflow:hidden;
     text-overflow:ellipsis;
+}
+.ufui-file-title.ufui-file-title-editable{
+    margin: 3px 4px 0 4px;
+    width: 82px;
+    overflow:hidden;
+    text-overflow: clip;
 }
 
 .ufui-file-pers{

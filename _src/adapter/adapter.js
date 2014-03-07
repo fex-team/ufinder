@@ -110,10 +110,60 @@ $.extend(UFinder, (function () {
         delUFinder: function (id) {
         },
         registerWidget: function (name, pro, cb) {
+            _widgetData[name] = $.extend2(pro,{
+                $root : '',
+                _preventDefault:false,
+                root:function($el){
+                    return this.$root || (this.$root = $el);
+                },
+                preventDefault:function(){
+                    this._preventDefault = true;
+                },
+                clear:false
+            });
+            if(cb){
+                _widgetCallBack[name] = cb;
+            }
         },
         getWidgetData: function (name) {
+            return _widgetData[name];
         },
-        setWidgetBody: function (name, $widget, km) {
+        setWidgetBody: function (name, $widget, finder) {
+            if(!finder._widgetData){
+
+                Utils.extend(finder,{
+                    _widgetData : {},
+                    getWidgetData : function(name){
+                        return this._widgetData[name];
+                    },
+                    getWidgetCallback : function(widgetName){
+                        var me = this;
+                        return function(){
+                            return  _widgetCallBack[widgetName].apply(me,[me,$widget].concat(Array.prototype.slice.call(arguments,0)))
+                        }
+                    }
+                })
+
+            }
+            var pro = _widgetData[name];
+            if(!pro){
+                return null;
+            }
+            pro = finder._widgetData[name];
+            if(!pro){
+                pro = _widgetData[name];
+                pro = finder._widgetData[name] = $.type(pro) == 'function' ? pro : Utils.clone(pro);
+            }
+
+            pro.root($widget.ufui().getBodyContainer());
+
+            pro.initContent(finder,$widget);
+            if(!pro._preventDefault){
+                pro.initEvent(finder,$widget);
+            }
+
+            pro.width &&  $widget.width(pro.width);
+
         },
         createEditor: function (id, opt) {
         },

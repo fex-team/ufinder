@@ -33,9 +33,8 @@ UF.ui.define('button', {
     wrapclick: function (fn, evt) {
         if (!this.disabled()) {
             this.root().trigger('wrapclick');
-            $.proxy(fn, this, evt)()
+            return $.proxy(fn, this, evt)()
         }
-        return this;
     },
     label: function (text) {
         if (text === undefined) {

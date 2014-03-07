@@ -8,6 +8,42 @@ var Utils = UFinder.Utils = {
     getParentPath: function (path) {
         return path.replace(/[^\/]+\/?$/, '');
     },
+    getPathExt: function(path){
+        var index = path.lastIndexOf('.');
+        return path.substr((index == -1 ? path.length: index) + 1);
+    },
+    isImagePath: function(path){
+        return path && 'png gif bmp jpg jpeg'.split(' ').indexOf(Utils.getPathExt(path)) != -1;
+    },
+    isCodePath: function(path){
+        return path && 'txt js css html htm php asp jsp md json'.split(' ').indexOf(Utils.getPathExt(path)) != -1;
+    },
+    extend:function (t, s, b) {
+        if (s) {
+            for (var k in s) {
+                if (!b || !t.hasOwnProperty(k)) {
+                    t[k] = s[k];
+                }
+            }
+        }
+        return t;
+    },
+    clone:function (source, target) {
+        var tmp;
+        target = target || {};
+        for (var i in source) {
+            if (source.hasOwnProperty(i)) {
+                tmp = source[i];
+                if (typeof tmp == 'object') {
+                    target[i] = Utils.isArray(tmp) ? [] : {};
+                    Utils.clone(source[i], target[i])
+                } else {
+                    target[i] = tmp;
+                }
+            }
+        }
+        return target;
+    },
     loadFile: (function () {
         var tmpList = [];
 

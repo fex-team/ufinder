@@ -34,7 +34,7 @@
 }
 .ufui-modal-body {
     position: relative;
-    max-height: 400px;
+    max-height: 500px;
     font-size: 12px;
     overflow-y: auto;
 }

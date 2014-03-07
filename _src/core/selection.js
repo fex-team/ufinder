@@ -3,7 +3,7 @@ var Selection = UF.Selection = UF.createClass("Selection", {
         this.finder = finder;
         this._selectedFiles = finder._selectedFiles || [];
     },
-    getSelectedFile: function (lastFile) {
+    getSelectedFile: function () {
         return this._selectedFiles[0];
     },
     getSelectedFiles: function () {

@@ -9,7 +9,7 @@ UF.registerUI('list',
                 var currentPath = me.getCurrentPath();
                 $.each($.isArray(filelist) ? filelist : [filelist], function (k, file) {
                     if (Utils.getParentPath(file.path) == currentPath) {
-                        var type = file.name.substr((file.name.lastIndexOf('.') + 1) || file.name.length);
+                        var type = Utils.getPathExt(file.path);
                         ufList.addItem({
                             type: file.type == 'dir' ? 'dir':type,
                             title: file.name,
@@ -17,7 +17,7 @@ UF.registerUI('list',
                             pers: (file.write ? 'w' : 'nw') + (file.read ? 'r' : 'nr')
                         });
 
-                        if('gif bmp png jpg jpeg'.split(' ').indexOf(type) != -1) {
+                        if(Utils.isImagePath(file.path)) {
                             var realPath = me.serverOption.realRootUrl + file.path;
                             ufList.getItem(file.path).setPreviewImg(realPath);
                         }
@@ -40,14 +40,20 @@ UF.registerUI('list',
                 });
             };
 
-        /* 双击文件夹 */
+        /* 双击文件 */
         $list.delegate('.ufui-file', 'dblclick', function (e) {
-            var ufFile = $(this).ufui();
+            var ufFile = $(this).ufui(),
+                path = ufFile.getPath();
             if (ufFile.getType() == 'dir') {
-                var path = ufFile.getPath(),
-                    file = me.dataTree.getFileInfo(path);
+                var file = me.dataTree.getFileInfo(path);
                 if (file.read && !file.locked) {
                     me.execCommand('open', path);
+                }
+            } else {
+                if(Utils.isImagePath(path)) {
+                    me.execCommand('lookimage', path);
+                } else if(Utils.isCodePath(path)) {
+                    me.execCommand('lookcode', path);
                 }
             }
         });
@@ -143,7 +149,12 @@ UF.registerUI('list',
             clearAllSelectedFiles();
             $.each($.isArray(paths) ? paths : [paths], function (i, path) {
                 var ufFile = ufList.getItem(path);
-                ufFile && ufFile.active(true);
+                if(ufFile) {
+                    ufFile.active(true);
+
+                    /* 滚动到选中文件 */
+//                    var $c = $list.find('.ufui-list-container').scrollTop(ufFile.root().offset().top - 3);
+                }
             });
             updateSelection();
         });
@@ -156,12 +167,51 @@ UF.registerUI('list',
             });
         });
 
+
         /* 解锁文件 */
         me.on('unlockFiles', function (type, paths) {
             $.each($.isArray(paths) ? paths : [paths], function (i, path) {
                 var ufFile = ufList.getItem(path);
                 ufFile && ufFile.disabled(false);
             })
+        });
+
+        /* 文件进入重命名 */
+        me.on('renameFileTitle', function (type, path, callback) {
+            var ufFile = ufList.getItem(path);
+            if(ufFile) {
+                ufFile.editabled(true, function(name){
+                    callback(name, function(isSuccess){
+                        /* 重命名失败 */
+                        if(!isSuccess) {
+                            var file = me.dataTree.getFileInfo(path);
+                            if(file){
+                                ufFile.setTitle(file.name);
+                            }
+                        }
+                    });
+                });
+            }
+        });
+
+        /* 进入新建文件 */
+        me.on('newFileTitle', function (type, filetype, callback) {
+            var tmpName = filetype == 'dir' ? '新建文件夹':'新建文件',
+                tmpPath = me.getCurrentPath() + tmpName,
+                tmpUfFile;
+            addFile({
+                type: filetype,
+                path: tmpPath,
+                name: tmpName,
+                read: true,
+                write: true
+            });
+            tmpUfFile = ufList.getItem(tmpPath);
+            tmpUfFile.editabled(true, function(name){
+                callback(name, function(isSuccess){
+                    ufList.removeItem(tmpPath);
+                });
+            });
         });
 
         return $list;

@@ -3,8 +3,10 @@ UF.registerUI('open touch mkdir rename remove',
         var me = this;
         var $btn = $.ufuibutton({
             icon: name,
-            click: function () {
+            click: function (evt) {
                 me.execCommand(name);
+                evt.preventDefault();
+                return false;
             },
             title: me.getLang('labelMap')[name] || ''
         });
