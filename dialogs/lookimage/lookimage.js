@@ -32,7 +32,7 @@
         initEvent: function (editor, $w) {
         },
         buttons: {},
-        width: 500,
+        width: 700,
         height: 300
     });
 })();

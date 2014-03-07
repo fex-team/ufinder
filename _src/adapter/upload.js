@@ -29,4 +29,3 @@ UF.registerUI('upload',
         return $btn;
     }
 );
-

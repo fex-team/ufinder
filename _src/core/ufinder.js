@@ -3,7 +3,7 @@ var UFinder =
         window.UFinder = function () {
             var instanceMap = {}, instanceId = 0;
             return {
-                version: '1.0.0',
+                version: '1.0.1',
                 createFinder: function (renderTarget, options) {
                     options = options || {};
                     options.renderTo = Utils.isString(renderTarget) ? document.getElementById(renderTarget) : renderTarget;
