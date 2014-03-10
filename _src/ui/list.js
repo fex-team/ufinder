@@ -25,12 +25,14 @@ UF.ui.define('list', {
             return 0;
         } else if (type1 != 'dir' && type2 == 'dir') {
             return 1;
+        } else if (type1 != type2) {
+            return type1 > type2;
         } else {
             return title1 > title2;
         }
     },
     getItem: function (path) {
-        for (i = 0; i < this._ufItems.length; i++) {
+        for (var i = 0; i < this._ufItems.length; i++) {
             if (this._ufItems[i].getPath() == path) return this._ufItems[i];
         }
         return null;

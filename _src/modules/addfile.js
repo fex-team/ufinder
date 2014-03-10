@@ -9,23 +9,22 @@ UF.registerModule("addfilemodule", function () {
         "commands": {
             "touch": {
                 execute: function (name) {
-                    if (name === undefined) {
-                        name = prompt('新建文件', '新建文件');
-                    } else if (name == '') {
-                        name = '新建文件';
-                    }
-
-                    if (name) {
-                        uf.proxy.touch(uf.getCurrentPath() + name, function (d) {
-                            if (d.state == 0) {
-                                var file = (d && d.data && d.data.file);
-                                uf.dataTree.addFile(file);
-                                uf.fire('selectfiles', file.path);
-                            } else {
-                                uf.fire('showmessage', {title: d.message, timeout: 3000});
-                            }
-                        });
-                    }
+                    uf.fire('newFileTitle', '', function (name, callback) {
+                        console.log('|******** touch done ********|');
+                        var fullname = uf.getCurrentPath() + name;
+                        if (name) {
+                            uf.proxy.touch(fullname, function (d) {
+                                callback && callback(d.state == 0);
+                                if (d.state == 0) {
+                                    var file = (d && d.data && d.data.file);
+                                    uf.dataTree.addFile(file);
+                                    uf.fire('selectfiles', file.path);
+                                } else {
+                                    uf.fire('showmessage', {title: d.message, timeout: 3000});
+                                }
+                            });
+                        }
+                    });
                 },
                 queryState: function () {
                     var info, path = uf.getCurrentPath();
@@ -35,23 +34,28 @@ UF.registerModule("addfilemodule", function () {
             },
             "mkdir": {
                 execute: function (name) {
-                    if (name === undefined) {
-                        name = prompt('新建文件夹', '新建文件夹');
-                    } else if (name == '') {
-                        name = '新建文件夹';
-                    }
+//                    if (name === undefined) {
+//                        name = prompt('新建文件夹', '新建文件夹');
+//                    } else if (name == '') {
+//                        name = '新建文件夹';
+//                    }
 
-                    if (name) {
-                        uf.proxy.mkdir(uf.getCurrentPath() + name, function (d) {
-                            if (d.state == 0) {
-                                var file = (d && d.data && d.data.file);
-                                uf.dataTree.addFile(file);
-                                uf.fire('selectfiles', file.path);
-                            } else {
-                                uf.fire('showmessage', {title: d.message, timeout: 3000});
-                            }
-                        });
-                    }
+                    uf.fire('newFileTitle', 'dir', function (name, callback) {
+                        console.log('|******** mkdir done ********|');
+                        var fullname = uf.getCurrentPath() + name;
+                        if (name) {
+                            uf.proxy.mkdir(fullname, function (d) {
+                                callback && callback(d.state == 0);
+                                if (d.state == 0) {
+                                    var file = (d && d.data && d.data.file);
+                                    uf.dataTree.addFile(file);
+                                    uf.fire('selectfiles', file.path);
+                                } else {
+                                    uf.fire('showmessage', {title: d.message, timeout: 3000});
+                                }
+                            });
+                        }
+                    });
                 },
                 queryState: function () {
                     var info, path = uf.getCurrentPath();
@@ -65,5 +69,5 @@ UF.registerModule("addfilemodule", function () {
         },
         "events": {
         }
-    }
+    };
 });

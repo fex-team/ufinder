@@ -4,8 +4,8 @@ UF.extendClass(Finder, {
     },
     _initDomEvent: function () {
         var me = this,
-            $container = me.$container;
-        $keyListener = $('<input class="ufui-key-listener">');
+            $container = me.$container,
+            $keyListener = $('<input class="ufui-key-listener">');
 
         $container.append($('<div class="ufui-event-helper" style="position:absolute;left:0;top:0;height:0;width:0;overflow: hidden;"></div>').append($keyListener));
         me._proxyDomEvent = $.proxy(me._proxyDomEvent, me);
@@ -14,14 +14,13 @@ UF.extendClass(Finder, {
         me._initKeyListener($container, $keyListener);
 
         /* 键盘事件 */
-        $keyListener.on('keydown keyup keypress', me._proxyDomEvent);
+        $(document).on('keydown keyup keypress', me._proxyDomEvent);
 
         /* 鼠标事件 */
-        $container.on('click contextmenu mouseup mousemove mouseover mouseout selectstart', me._proxyDomEvent);
+        $container.on('click mousedown mouseup mousemove mouseover mouseout contextmenu selectstart', me._proxyDomEvent);
 
     },
     _proxyDomEvent: function (evt) {
-//        if(['mouseover', 'mousemove', 'mouseout'].indexOf(evt.type)==-1) console.log(evt.type);
         var me = this;
         if (evt.originalEvent) {
             var $target = $(evt.originalEvent.target);
@@ -37,27 +36,30 @@ UF.extendClass(Finder, {
     _initKeyListener: function ($container, $keyListener) {
         var me = this;
         /* 点击让ufinder获得焦点,帮助获取键盘事件 */
-        $container.on('click mousedown', function (evt) {
+        $container.on('click', function (evt) {
             var target = evt.target;
-            if (target.tagName != 'INPUT' && target.tagName != 'TEXTAREA'
-                && target.contenteditable != true) {
+            if (target.tagName != 'INPUT' && target.tagName != 'TEXTAREA' &&
+                target.contentEditable != true) {
+                // console.log('ufinder focus');
                 $keyListener.focus();
                 me.isFocused == false && me.setFocus();
             }
         });
         /* 点击document除掉当前ufinder的位置,让ufinder失去焦点 */
-        $(document).on('click mousedown', function (evt) {
+        $(document).on('click', function (evt) {
             /* 忽略代码触发的点击事件 */
             if (evt.originalEvent) {
                 var $ufContainer = $(evt.originalEvent.target).parents('.ufui-container');
                 if ($ufContainer[0] != $container[0]) {
-                    $keyListener.focus();
+                    $keyListener.blur();
                     me.isFocused == true && me.setBlur();
                 }
             }
         });
-        me.on('afterexeccommand', function () {
-            $keyListener.focus();
+        me.on('afterexeccommand', function (type, cmd) {
+            if (['rename', 'touch', 'mkdir'].indexOf(cmd) == -1) {
+                $keyListener.focus();
+            }
         });
     },
     setFocus: function () {
@@ -118,6 +120,6 @@ UF.extendClass(Finder, {
                 break;
             }
         }
-        return this;
+        return res;
     }
 });

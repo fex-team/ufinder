@@ -21,5 +21,5 @@ UF.registerModule("initmodule", function () {
                 uf.execCommand('open', '/');
             }
         }
-    }
+    };
 });

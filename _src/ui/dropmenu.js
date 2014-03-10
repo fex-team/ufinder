@@ -23,29 +23,29 @@ UF.ui.define('dropmenu', {
         };
 
         this.root($($.parseTmpl(this.tmpl, options))).on('click', 'li[class!="ufui-disabled ufui-divider ufui-dropdown-submenu"]',function (evt) {
-            $.proxy(options.click, me, evt, $(this).data('value'), $(this))()
+            $.proxy(options.click, me, evt, $(this).data('value'), $(this))();
         }).find('li').each(function (i, el) {
                 var $this = $(this);
                 if (!$this.hasClass("ufui-disabled ufui-divider ufui-dropdown-submenu")) {
                     var data = options.data[i];
                     $.each(eventName, function (k) {
                         data[k] && $this[k](function (evt) {
-                            $.proxy(data[k], el)(evt, data, me.root)
-                        })
-                    })
+                            $.proxy(data[k], el)(evt, data, me.root);
+                        });
+                    });
                 }
-            })
+            });
 
     },
     disabled: function (cb) {
         $('li[class!=ufui-divider]', this.root()).each(function () {
             var $el = $(this);
             if (cb === true) {
-                $el.addClass('ufui-disabled')
+                $el.addClass('ufui-disabled');
             } else if ($.isFunction(cb)) {
-                $el.toggleClass('ufui-disabled', cb(li))
+                $el.toggleClass('ufui-disabled', cb(li));
             } else {
-                $el.removeClass('ufui-disabled')
+                $el.removeClass('ufui-disabled');
             }
 
         });
@@ -57,14 +57,14 @@ UF.ui.define('dropmenu', {
             if (val === undefined) {
                 if ($el.find('em.ufui-dropmenu-checked').length) {
                     currentVal = $el.data('value');
-                    return false
+                    return false;
                 }
             } else {
-                $el.find('em').toggleClass('ufui-dropmenu-checked', $el.data('value') == val)
+                $el.find('em').toggleClass('ufui-dropmenu-checked', $el.data('value') == val);
             }
         });
         if (val === undefined) {
-            return currentVal
+            return currentVal;
         }
     },
     addSubmenu: function (label, menu, index) {

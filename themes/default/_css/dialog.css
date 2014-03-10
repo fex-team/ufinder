@@ -1,7 +1,7 @@
 .ufui-modal {
     position: fixed;
     _position: absolute;
-    top: 10%;
+    top: 50%;
     left: 50%;
     border: 1px solid #acacac;
     box-shadow: 2px 2px 5px #d3d6da;
@@ -34,7 +34,7 @@
 }
 .ufui-modal-body {
     position: relative;
-    max-height: 400px;
+    max-height: 500px;
     font-size: 12px;
     overflow-y: auto;
 }

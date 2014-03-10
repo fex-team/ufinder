@@ -41,13 +41,13 @@
 
                 me.data('button', btnWidget);
 
-                me.attachTo(btnWidget)
+                me.attachTo(btnWidget);
 
             },
             button: function () {
                 return this.data('button');
             }
-        }
+        };
 
     })(), 'combobox');
 

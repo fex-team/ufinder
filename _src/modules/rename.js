@@ -5,27 +5,31 @@ UF.registerModule("renamemodule", function () {
         },
         "commands": {
             "rename": {
-                execute: function () {
+                execute: function (name) {
                     var name,
                         fullname,
                         target = uf.getSelection().getSelectedFile();
 
                     if (target) {
-                        name = prompt('重命名', target.replace(/^.*\//, ''));
-                        fullname = uf.getCurrentPath() + name;
-                        if (name && target != fullname) {
-                            uf.dataTree.lockFile(target);
-                            var req = uf.proxy.rename(target, fullname, function (d) {
-                                if (d.state == 0) {
-                                    var file = (d && d.data && d.data.file);
-                                    uf.dataTree.updateFile(target, file);
-                                    uf.fire('selectfiles', file.path);
-                                } else {
-                                    uf.fire('updatemessage', {title: d.message, timeout: 3000, id: req.id});
-                                }
-                                uf.dataTree.unLockFile(target);
-                            });
-                        }
+                        // name = prompt('重命名', target.replace(/^.*\//, ''));
+                        uf.fire('renameFileTitle', target, function (name, callback) {
+                            console.log('|******** rename done ********|');
+                            fullname = uf.getCurrentPath() + name;
+                            if (name && target != fullname) {
+                                uf.dataTree.lockFile(target);
+                                var req = uf.proxy.rename(target, fullname, function (d) {
+                                    callback && callback(d.state == 0);
+                                    if (d.state == 0) {
+                                        var file = (d && d.data && d.data.file);
+                                        uf.dataTree.updateFile(target, file);
+                                        uf.fire('selectfiles', file.path);
+                                    } else {
+                                        uf.fire('updatemessage', {title: d.message, timeout: 3000, id: req.id});
+                                    }
+                                    uf.dataTree.unLockFile(target);
+                                });
+                            }
+                        });
                     }
                 },
                 queryState: function () {

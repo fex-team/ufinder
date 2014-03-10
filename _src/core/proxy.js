@@ -11,6 +11,15 @@ var Proxy = UF.Proxy = UF.createClass("Proxy", {
             'cmd': 'init'
         }, callback);
     },
+    getRequestUrl: function(options){
+        var url = this._url + '?';
+        $.each(options || {}, function(k, v){
+            url += (k + '=' + v + '&');
+        });
+        if(url.charAt(url.length - 1) == '&') url = url.substr(0, url.length - 1);
+        if(url.charAt(url.length - 1) == '?') url = url.substr(0, url.length - 1);
+        return url;
+    },
     'ls': function (target, callback) {
         return this._get({
             'cmd': 'ls',
@@ -79,7 +88,7 @@ var Proxy = UF.Proxy = UF.createClass("Proxy", {
                 type: type,
                 webuploader: me.finder.webuploader,
                 data: data,
-                process: function(p){
+                process: function (p) {
                     me.finder.fire('updatemessage', {
                         loadedPercent: p,
                         request: request,

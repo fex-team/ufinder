@@ -19,23 +19,22 @@ UF.ui.define('button', {
 
         me.root($($.parseTmpl(me.tpl, options)))
             .click(function (evt) {
-                me.wrapclick(options.click, evt)
+                me.wrapclick(options.click, evt);
             });
 
         me.root().hover(function () {
             if (!me.root().hasClass("ufui-disabled")) {
-                me.root().toggleClass('ufui-hover')
+                me.root().toggleClass('ufui-hover');
             }
-        })
+        });
 
         return me;
     },
     wrapclick: function (fn, evt) {
         if (!this.disabled()) {
             this.root().trigger('wrapclick');
-            $.proxy(fn, this, evt)()
+            return $.proxy(fn, this, evt)();
         }
-        return this;
     },
     label: function (text) {
         if (text === undefined) {
@@ -47,19 +46,19 @@ UF.ui.define('button', {
     },
     disabled: function (state) {
         if (state === undefined) {
-            return this.root().hasClass('ufui-disabled')
+            return this.root().hasClass('ufui-disabled');
         }
         this.root().toggleClass('ufui-disabled', state);
         if (this.root().hasClass('ufui-disabled')) {
-            this.root().removeClass('ufui-hover')
+            this.root().removeClass('ufui-hover');
         }
         return this;
     },
     active: function (state) {
         if (state === undefined) {
-            return this.root().hasClass('ufui-active')
+            return this.root().hasClass('ufui-active');
         }
-        this.root().toggleClass('ufui-active', state)
+        this.root().toggleClass('ufui-active', state);
 
         return this;
     },
@@ -73,9 +72,9 @@ UF.ui.define('button', {
         me.on('click',function () {
             me.wrapclick(function () {
                 $obj.ufui().show();
-            })
+            });
         }).register('click', me.root(), function (evt) {
-                $obj.hide()
+                $obj.hide();
             });
     }
 });

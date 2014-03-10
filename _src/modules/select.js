@@ -22,31 +22,29 @@ UF.registerModule("selectmodule", function () {
                 }
             },
             "selectnext": {
-                execute: function (name) {
-                    uf.fire('selectfiles', paths);
+                execute: function (paths) {
                 },
                 queryState: function () {
                 }
             },
             "selectprevious": {
-                execute: function (name) {
-                    uf.fire('selectfiles', paths);
+                execute: function (paths) {
                 },
                 queryState: function () {
                 }
             }
         },
         "shortcutKeys": {
-            "selectall": "ctrl+65", //selectAll ctrl+A
-            "selectup": "37", //selectAll ctrl+up
-            "selectprevious": "38", //selectAll ctrl+left
-            "selectnext": "39", //selectAll ctrl+right
-            "selectdown": "40" //selectAll ctrl+down
+//            "selectall": "ctrl+65", //selectAll ctrl+A
+//            "selectup": "37", //selectAll ctrl+up
+//            "selectprevious": "38", //selectAll ctrl+left
+//            "selectnext": "39", //selectAll ctrl+right
+//            "selectdown": "40" //selectAll ctrl+down
         },
         "events": {
             'list.click': function () {
 
             }
         }
-    }
+    };
 });

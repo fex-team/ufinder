@@ -84,7 +84,7 @@ switch($cmd){
         $uploadConfig = array(
             "savePath" => $ROOT.$target,          //存储文件夹
             "maxSize" => 200000,                   //允许的文件最大尺寸，单位KB
-            "allowFiles" => array(".rar", ".zip", ".rar", ".7z", "tar", "gz",
+            "allowFiles" => array(".rar", ".zip", ".7z", "tar", "gz",
                 ".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx",
                 "", ".txt", ".pdf",
                 ".bmp", ".gif", ".jpg", ".jpeg", ".png", ".psd",
@@ -99,6 +99,11 @@ switch($cmd){
         } else {
             echo getJson('1', $info["state"], array('file' => getFileInfo($target.$info["name"], $ROOT)));
         }
+        break;
+    case 'download':
+        $path = $ROOT.$target;
+        $info = getFileInfo($target, $ROOT);
+        downloadFile($path, $info['name']);
         break;
     case 'info':
         echo getJson('0', 'success', array('file' => getFileInfo($target, $ROOT)));
@@ -198,6 +203,18 @@ function removeDir($dirName) {
     }
     closedir($handle);
     return rmdir($dirName) ;
+}
+
+function downloadFile($path, $name)
+{
+    ob_start();
+    $filename=$path;
+    $name = $name ? $name:date("Ymd-H:i:m");
+    header( "Content-type: application/octet-stream ");
+    header( "Accept-Ranges: bytes ");
+    header( "Content-Disposition: attachment; filename= $name" );
+    $size=readfile($filename);
+    header( "Accept-Length: " .$size);
 }
 
 ?>

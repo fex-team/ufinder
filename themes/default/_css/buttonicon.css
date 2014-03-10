@@ -1,13 +1,13 @@
 .ufui-btn-toolbar .ufui-btn .ufui-icon-open {
     background-position: 0 0;
 }
-.ufui-btn-toolbar .ufui-btn .ufui-icon-fileup {
+.ufui-btn-toolbar .ufui-btn .ufui-icon-pathparent {
     background-position: -20px 0;
 }
-.ufui-btn-toolbar .ufui-btn .ufui-icon-filebackward {
+.ufui-btn-toolbar .ufui-btn .ufui-icon-pathbackward {
     background-position: -40px 0;
 }
-.ufui-btn-toolbar .ufui-btn .ufui-icon-fileforward {
+.ufui-btn-toolbar .ufui-btn .ufui-icon-pathforward {
     background-position: -60px 0;
 }
 .ufui-btn-toolbar .ufui-btn .ufui-icon-touch {
@@ -28,6 +28,14 @@
 .ufui-btn-toolbar .ufui-btn .ufui-icon-rename {
     background-position: -180px 0;
 }
+.ufui-btn-toolbar .ufui-btn.ufui-btn-lookimage {
+    display: none;
+}
+.ufui-btn-toolbar .ufui-btn.ufui-btn-lookcode {
+    display: none;
+}
+
+/* uploader */
 .ufui-btn-toolbar .ufui-btn.ufui-btn-upload div {
     top: 0;
     left: 0;

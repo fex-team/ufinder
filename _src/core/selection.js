@@ -3,14 +3,14 @@ var Selection = UF.Selection = UF.createClass("Selection", {
         this.finder = finder;
         this._selectedFiles = finder._selectedFiles || [];
     },
-    getSelectedFile: function (lastFile) {
+    getSelectedFile: function () {
         return this._selectedFiles[0];
     },
     getSelectedFiles: function () {
         return this._selectedFiles;
     },
     removeSelectedFiles: function (paths) {
-        var uf = this.ufinder;
+        var me = this;
         $.each($.isArray(paths) ? paths : [paths], function (i, p) {
             var index;
             if (( index = me._selectedFiles.indexOf(p) ) === -1) return;

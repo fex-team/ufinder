@@ -11,7 +11,7 @@ var Uploader = UF.Uploader = UF.createClass("Uploader", {
     _initEvents: function () {
         var me = this, r,
             handler = function (file) {
-                if(file.id == me.file.id) {
+                if (file.id == me.file.id) {
                     console.log(r);
                     try {
                         me.responseJson = JSON ? JSON.parse(r) : eval(r);
@@ -25,7 +25,7 @@ var Uploader = UF.Uploader = UF.createClass("Uploader", {
                 }
             };
 
-        me.webuploader.on('uploadProgress', function(file, percent){
+        me.webuploader.on('uploadProgress', function (file, percent) {
             me.process && me.process(percent);
         });
         me.webuploader.on('uploadSuccess', function (file, ret) {
@@ -44,9 +44,9 @@ var Uploader = UF.Uploader = UF.createClass("Uploader", {
         this.webuploader.upload(this.file);
     },
     pause: function () {
-        webuploader.stop();
+        this.webuploader.stop();
     },
     cancel: function () {
-        webuploader.stop(true);
+        this.webuploader.stop(true);
     }
 });

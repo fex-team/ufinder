@@ -20,10 +20,8 @@ UF.registerUI('upload',
         });
 
         $btn.attr('id', id);
-
         /* 绑定按钮到uploader */
         me.on('initUploader', function () {
-            console.log('addButton');
             me.webuploader.addButton({
                 id: '#' + id
             });
@@ -31,4 +29,3 @@ UF.registerUI('upload',
         return $btn;
     }
 );
-

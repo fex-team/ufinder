@@ -64,5 +64,5 @@ UF.registerModule("openmodule", function () {
         "events": {
 
         }
-    }
+    };
 });

@@ -15,22 +15,72 @@ UF.ui.define('file', {
     init: function (options) {
         var me = this;
         me.root($($.parseTmpl(me.tpl, options)));
-
+        me.root().find('.ufui-file-title').on('focus blur', function (evt) {
+//            console.log(+new Date(), evt.type, evt)
+        });
         return me;
+    },
+    editabled: function (state, callback) {
+        var me = this,
+            $title = this.root().find('.ufui-file-title');
+
+        if (state === undefined) {
+            return $title.attr('contenteditable');
+        } else if (!state) {
+            $title.removeClass('ufui-file-title-editable').attr('contenteditable', 'false');
+            me.renameFlag = false;
+        } else {
+            if (me.renameFlag) return this;
+
+            var isExit = false,
+                finishHandler = function (evt) {
+                    callback($title.text());
+                    $title.focus().off('blur keydown', renameHandler);
+                    me.editabled(false);
+                    me.renameFlag = false;
+                    evt.preventDefault();
+                    return false;
+                },
+                renameHandler = function (evt) {
+                    console.log('---', evt.type, evt.keyCode);
+                    if (evt.type == 'blur' && !isExit) {
+                        return finishHandler(evt);
+                    } else if (evt.type == 'keydown') {
+                        if (evt.keyCode == 27) { //Esc取消
+                            isExit = true;
+                        } else if (evt.keyCode == 13) { //Enter提交
+                            return finishHandler(evt);
+                        }
+                    } else if (evt.type == 'click') {
+                        evt.preventDefault();
+                        return false;
+                    }
+                };
+            $title.addClass('ufui-file-title-editable').attr('contenteditable', 'true');
+
+            me.renameFlag = true;
+            setTimeout(function () {
+                $title.focus();
+                setTimeout(function () {
+                    $title.on('keydown click blur', renameHandler);
+                }, 100);
+            }, 100);
+        }
+        return this;
     },
     disabled: function (state) {
         if (state === undefined) {
-            return this.root().hasClass('ufui-disabled')
+            return this.root().hasClass('ufui-disabled');
         }
         this.root().toggleClass('ufui-disabled', state);
         if (this.root().hasClass('ufui-disabled')) {
-            this.root().removeClass('ufui-hover')
+            this.root().removeClass('ufui-hover');
         }
         return this;
     },
     active: function (state) {
         if (state === undefined) {
-            return this.root().hasClass('ufui-active')
+            return this.root().hasClass('ufui-active');
         }
         this.root().toggleClass('ufui-active', state);
 
@@ -69,13 +119,13 @@ UF.ui.define('file', {
             read = $root.hasClass('ufui-file-w-r') || $root.hasClass('ufui-file-w-nr');
         return {'write': write, 'read': read};
     },
-    setPreviewImg: function(src){
+    setPreviewImg: function (src) {
         var me = this;
-        $('<img src="' + src + '" style="display:none;">').appendTo(document.body).on('load', function(){
+        $('<img src="' + src + '" style="display:none;">').appendTo(document.body).on('load', function () {
             var $target = $(this);
             me.root().find('.ufui-file-icon i').css({
                 'background-image': 'url("' + src + '")',
-                'background-size': $target.width() > $target.height() ? 'auto 100%':'100% auto',
+                'background-size': $target.width() > $target.height() ? 'auto 100%' : '100% auto',
                 'background-position': 'center center',
                 'background-repeat': 'no-repeat no-repeat',
                 'border-radius': '3px',

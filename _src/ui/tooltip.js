@@ -9,7 +9,7 @@ UF.ui.define('tooltip', {
         var me = this,
             title = $(e.currentTarget).attr("data-original-title");
 
-        me.root().find('.ufui-tooltip-inner')['text'](title);
+        me.root().find('.ufui-tooltip-inner').text(title);
     },
     position: function (e) {
         var me = this,
@@ -18,7 +18,7 @@ UF.ui.define('tooltip', {
         me.root().css($.extend({display: 'block'}, $obj ? {
             top: $obj.outerHeight(),
             left: (($obj.outerWidth() - me.root().outerWidth()) / 2)
-        } : {}))
+        } : {}));
     },
     show: function (e) {
         if ($(e.currentTarget).hasClass('ufui-disabled')) return;
@@ -31,7 +31,7 @@ UF.ui.define('tooltip', {
     },
     hide: function () {
         var me = this;
-        me.root().css('display', 'none')
+        me.root().css('display', 'none');
     },
     attachTo: function ($obj) {
         var me = this;
@@ -48,7 +48,7 @@ UF.ui.define('tooltip', {
             $obj.each(function () {
                 if ($(this).attr("data-original-title")) {
                     $(this).on('mouseenter', $.proxy(me.show, me))
-                        .on('mouseleave click', $.proxy(me.hide, me))
+                        .on('mouseleave click', $.proxy(me.hide, me));
 
                 }
             });
@@ -58,7 +58,7 @@ UF.ui.define('tooltip', {
         if ($.type($obj) === "undefined") {
             $("[data-original-title]").each(function (i, el) {
                 tmp.call(me, $(el));
-            })
+            });
 
         } else {
             if (!$obj.data('tooltip')) {
