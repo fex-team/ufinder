@@ -49,6 +49,9 @@
                     //todo jscoverage
             }, window._$jscoverage || null ]);
         }
+        for(var i = 0;i<$('.description').length;i++){
+            $('.description').eq(i).attr('href',$('.description').eq(i).attr('href')+'&case='+caseName);
+        }
     }
     jasmine.Runner.prototype.finishCallback = function(){
         f.apply(this, arguments);

@@ -16,6 +16,7 @@ require_once "caseSource.php";
 $c = new Kiss( $_GET[ 'case' ] );
 $title = $c->name;
 $cov = array_key_exists( 'cov' , $_GET );
+print "<script type='text/javascript'>var caseName = '".$_GET[ 'case' ] ."';</script>\n";
 ?>
 <html>
 <head>
