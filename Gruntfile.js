@@ -21,7 +21,9 @@ module.exports = function (grunt) {
         ' * ====================================================\n' +
         ' */\n\n',
         buildPath = 'index.html',
-        srcDir = '_src/';
+        srcDir = '_src/',
+        serverPort = 9001,
+        livereloadPort = 35729;
 
     var getPath = function ( readFile, srcDir) {
             var sources = require("fs").readFileSync(readFile);
@@ -66,13 +68,13 @@ module.exports = function (grunt) {
 
         /* Start [Task liverload] ------------------------------------*/
         livereload: {
-            port: 35729 // Default livereload listening port.
+            port: livereloadPort // Default livereload listening port.
         },
         connect: {
             livereload: {
                 options: {
                     hostname: '*',
-                    port: 9001,
+                    port: serverPort,
                     base: '.',
                     middleware: function(connect, options, middlewares) {
                         return [

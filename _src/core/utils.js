@@ -18,6 +18,9 @@ var Utils = UFinder.Utils = {
     isCodePath: function (path) {
         return path && 'txt md json js css html htm xml php asp jsp'.split(' ').indexOf(Utils.getPathExt(path)) != -1;
     },
+    isWebPagePath: function (path) {
+        return path && 'html php asp jsp'.split(' ').indexOf(Utils.getPathExt(path)) != -1;
+    },
     extend: function (t, s, b) {
         if (s) {
             for (var k in s) {

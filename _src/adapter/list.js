@@ -5,6 +5,8 @@ UF.registerUI('list',
             $list = $.ufuilist(),
             ufList = $list.ufui(),
             $preCliskFile,
+            singleClickTimer,
+            singleClickTarget,
             addFile = function (filelist) {
                 var currentPath = me.getCurrentPath();
                 $.each($.isArray(filelist) ? filelist : [filelist], function (k, file) {
@@ -54,12 +56,25 @@ UF.registerUI('list',
                     me.execCommand('lookimage', path);
                 } else if (Utils.isCodePath(path)) {
                     me.execCommand('lookcode', path);
+                } else if (Utils.isWebPagePath(path)) {
+                } else {
+                    me.execCommand('download', path);
                 }
             }
         });
 
         /* 点击选文件 */
         $list.delegate('.ufui-file', 'click', function (e) {
+
+            /* 解决双击单个文件时,不选中问题 */
+            if(singleClickTimer && singleClickTarget == e.target) {
+                return;
+            } else {
+                singleClickTimer = setTimeout(function(){
+                    singleClickTimer = 0;
+                }, 500);
+                singleClickTarget = e.target;
+            }
 
             var $file = $(this);
             /* 点击选中文件 */
