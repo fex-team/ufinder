@@ -23,6 +23,7 @@
                     me.$widget.ufui().autoCenter();
                 }).on('click', function(){
                     me.finder.getWidgetData(widgetName).reset();
+                    return false;
                 });
                 me.root().html('').css('over-flow', 'hidden').height(me.height).append($img);
             }
