@@ -67,7 +67,7 @@ UF.registerUI('list',
         $list.delegate('.ufui-file', 'click', function (e) {
 
             /* 解决双击单个文件时,不选中问题 */
-            if(singleClickTimer && singleClickTarget == e.target) {
+            if(singleClickTimer && singleClickTarget == e.target && !(e.shiftKey || e.ctrlKey || e.metaKey)) {
                 return;
             } else {
                 singleClickTimer = setTimeout(function(){

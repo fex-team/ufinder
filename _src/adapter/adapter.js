@@ -130,7 +130,6 @@ $.extend(UFinder, (function () {
         },
         setWidgetBody: function (name, $widget, finder) {
             if (!finder._widgetData) {
-
                 Utils.extend(finder, {
                     _widgetData: {},
                     getWidgetData: function (name) {

@@ -20,6 +20,7 @@
                         width = $target.width(),
                         height = $target.height();
                     me.root().height(me.width * height / width);
+                    me.$widget.ufui().autoCenter();
                 }).on('click', function(){
                     me.finder.getWidgetData(widgetName).reset();
                 });

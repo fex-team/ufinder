@@ -1,6 +1,6 @@
 UF.registerUI('lookimage lookcode', function (name) {
 
-    var me = this, currentRange, $dialog,
+    var me = this, $dialog,
         labelMap = me.getOption('labelMap'),
         opt = {
             title: (labelMap && labelMap[name]) || me.getLang("labelMap." + name),
@@ -11,14 +11,15 @@ UF.registerUI('lookimage lookcode', function (name) {
         icon: name,
         title: this.getLang('labelMap')[name] || ''
     });
-    //加载模版数据
+
+    /* 加载dialog模版数据 */
     Utils.loadFile(document, {
         src: opt.url,
         tag: "script",
         type: "text/javascript",
         defer: "defer"
     }, function () {
-        //调整数据
+        /* 调整数据 */
         var data = UF.getWidgetData(name);
         if (data.buttons) {
             var ok = data.buttons.ok;
@@ -58,7 +59,7 @@ UF.registerUI('lookimage lookcode', function (name) {
                     me.$container.find('.ufui-dialog-container').append($root);
                 }
 
-                //IE6下 特殊处理, 通过计算进行定位
+                /* IE6下 特殊处理, 通过计算进行定位 */
                 if ($.IE6) {
 
                     win = {

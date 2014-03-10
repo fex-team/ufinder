@@ -78,7 +78,12 @@ UF.ui.define('modal', {
     },
     autoCenter: function () {
         //ie6下不用处理了
-        !$.IE6 && this.root().css("margin-left", -(this.root().width() / 2));
+        if(!$.IE6) {
+            /* 调整宽度 */
+            this.root().css("margin-left", -(this.root().width() / 2));
+            /* 调整高度 */
+            this.root().css("margin-top", -(this.root().height() / 2));
+        }
     },
     hide: function () {
         var me = this;
