@@ -75,19 +75,10 @@
         }
 
         $(function () {
-            var uf = window.uf = UF.getUFinder('container');
-
-            /* 测试消息的泡泡 */
-//        uf.fire('showmessage', {title: 'test', timeout: 3000});
-
-            /* 测试点击事件 */
-//        uf.on('click tree.click list.click toolbar.click', function(type){
-//            console.log(type);
-//        });
+            window.uf = UF.getUFinder('container');
         });
     })()
 </script>
 <script src="lang/zh-cn/zh-cn.js"></script>
-<!--<script src="http://localhost:35729/livereload.js?snipver=1"></script>-->
 </body>
 </html>
