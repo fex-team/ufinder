@@ -44,8 +44,8 @@ UF.registerModule("uploadmodule", function () {
         },
         "defaultOptions": {
             'uploaderFileName': 'file',
-            'uploaderSwfUrl': uf.getOption('URL') + '/webuploader/dist/Uploader.swf',
-            'uploaderJsUrl': uf.getOption('URL') + '/webuploader/dist/webuploader.js'
+            'uploaderSwfUrl': uf.getOption('URL') + '/lib/webuploader/dist/Uploader.swf',
+            'uploaderJsUrl': uf.getOption('URL') + '/lib/webuploader/dist/webuploader.js'
         },
         "commands": {
             "upload": {
