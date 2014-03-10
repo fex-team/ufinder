@@ -44,9 +44,9 @@ var Uploader = UF.Uploader = UF.createClass("Uploader", {
         this.webuploader.upload(this.file);
     },
     pause: function () {
-        webuploader.stop();
+        this.webuploader.stop();
     },
     cancel: function () {
-        webuploader.stop(true);
+        this.webuploader.stop(true);
     }
 });

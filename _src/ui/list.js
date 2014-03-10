@@ -32,7 +32,7 @@ UF.ui.define('list', {
         }
     },
     getItem: function (path) {
-        for (i = 0; i < this._ufItems.length; i++) {
+        for (var i = 0; i < this._ufItems.length; i++) {
             if (this._ufItems[i].getPath() == path) return this._ufItems[i];
         }
         return null;

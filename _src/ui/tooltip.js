@@ -9,7 +9,7 @@ UF.ui.define('tooltip', {
         var me = this,
             title = $(e.currentTarget).attr("data-original-title");
 
-        me.root().find('.ufui-tooltip-inner')['text'](title);
+        me.root().find('.ufui-tooltip-inner').text(title);
     },
     position: function (e) {
         var me = this,

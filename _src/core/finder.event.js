@@ -4,8 +4,8 @@ UF.extendClass(Finder, {
     },
     _initDomEvent: function () {
         var me = this,
-            $container = me.$container;
-        $keyListener = $('<input class="ufui-key-listener">');
+            $container = me.$container,
+            $keyListener = $('<input class="ufui-key-listener">');
 
         $container.append($('<div class="ufui-event-helper" style="position:absolute;left:0;top:0;height:0;width:0;overflow: hidden;"></div>').append($keyListener));
         me._proxyDomEvent = $.proxy(me._proxyDomEvent, me);
@@ -38,8 +38,8 @@ UF.extendClass(Finder, {
         /* 点击让ufinder获得焦点,帮助获取键盘事件 */
         $container.on('click', function (evt) {
             var target = evt.target;
-            if (target.tagName != 'INPUT' && target.tagName != 'TEXTAREA'
-                && target.contentEditable != true) {
+            if (target.tagName != 'INPUT' && target.tagName != 'TEXTAREA' &&
+                target.contentEditable != true) {
                 // console.log('ufinder focus');
                 $keyListener.focus();
                 me.isFocused == false && me.setFocus();

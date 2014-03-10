@@ -22,15 +22,13 @@ UF.registerModule("selectmodule", function () {
                 }
             },
             "selectnext": {
-                execute: function (name) {
-                    uf.fire('selectfiles', paths);
+                execute: function (paths) {
                 },
                 queryState: function () {
                 }
             },
             "selectprevious": {
-                execute: function (name) {
-                    uf.fire('selectfiles', paths);
+                execute: function (paths) {
                 },
                 queryState: function () {
                 }

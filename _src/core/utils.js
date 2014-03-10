@@ -64,7 +64,7 @@ var Utils = UFinder.Utils = {
         }
 
         return function (doc, obj, fn) {
-            var item = getItem(doc, obj);
+            var p, item = getItem(doc, obj);
             if (item) {
                 if (item.ready) {
                     fn && fn();
@@ -80,7 +80,7 @@ var Utils = UFinder.Utils = {
             });
             if (!doc.body) {
                 var html = [];
-                for (var p in obj) {
+                for (p in obj) {
                     if (p == 'tag')continue;
                     html.push(p + '="' + obj[p] + '"');
                 }
@@ -92,7 +92,7 @@ var Utils = UFinder.Utils = {
             }
             var element = doc.createElement(obj.tag);
             delete obj.tag;
-            for (var p in obj) {
+            for (p in obj) {
                 element.setAttribute(p, obj[p]);
             }
             element.onload = element.onreadystatechange = function () {

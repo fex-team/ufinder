@@ -10,7 +10,7 @@ var Selection = UF.Selection = UF.createClass("Selection", {
         return this._selectedFiles;
     },
     removeSelectedFiles: function (paths) {
-        var uf = this.ufinder;
+        var me = this;
         $.each($.isArray(paths) ? paths : [paths], function (i, p) {
             var index;
             if (( index = me._selectedFiles.indexOf(p) ) === -1) return;
