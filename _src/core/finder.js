@@ -15,7 +15,7 @@ var Finder = UF.Finder = UF.createClass('Finder', {
         this.proxy = new Proxy(this);
         this.isFocused = false;
         this.serverOption = {
-            realRootUrl: location.protocol + '//' + location.host + location.port + '/ufinder/server/files'
+            realRootUrl: this.getOption('realUrl')
         };
         this.setCurrentPath('/');
     },
@@ -52,7 +52,7 @@ var Finder = UF.Finder = UF.createClass('Finder', {
         }
         return lang;
     },
-    getRealPath: function () {
-
+    getRealPath: function (path) {
+        return this.serverOption.realRootUrl + path;
     }
 });
