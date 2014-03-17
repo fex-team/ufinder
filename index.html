@@ -7,45 +7,129 @@
     <meta name="description" content="Ufinder : 基于页面级的文件管理应用"/>
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+    <link rel="shortcut icon" href="./images/favicon-large.ico" />
+
+    <!-- ufinder start -->
+    <script src="./lib/jquery-1.11.0.min.js"></script>
+    <script src="./lib/ufinder/ufinder.config.js"></script>
+    <script src="./lib/ufinder/ufinder.min.js"></script>
+    <script src="./lib/ufinder/lang/zh-cn/zh-cn.js"></script>
+    <link rel="stylesheet" href="./lib/ufinder/themes/css/ufinder.css"/>
+    <!-- ufinder end -->
 
     <title>Ufinder</title>
+
+
+    <style>
+        /* wrap */
+        #main_content_wrap{
+            background: #212121;
+            border-bottom: 0;
+        }
+        #footer_wrap{
+            border-top: 1px solid #111;
+        }
+        /* main */
+        .left{
+            float: left;
+            width: 32%;
+            margin: 0;
+            padding: 0;
+        }
+        .right{
+            float: right;
+            width: 68%;
+            margin: 0;
+            padding: 0;
+        }
+        .clearfix{
+            clear: both;
+        }
+        /* detail */
+        .header h1,
+        .header h2,
+        .header h3{
+            color: #ffffff;
+            margin:0;
+        }
+        .buttons{
+            margin: 30px 0;
+        }
+        .btn-forkme,
+        .btn-download {
+            padding: 10px 50px 10px 10px;
+            color: #fff;
+            font-weight: 700;
+            box-shadow: 0 0 10px rgba(0,0,0,.5);
+            display: block;
+            width:150px;
+            border-radius:3px;
+            position: relative;
+            margin-top: 10px;
+        }
+        .btn-forkme{
+            background: url('./images/blacktocat.png') #0090ff no-repeat 95% 50%;
+        }
+        .btn-download{
+            background: url('./images/icon_download.png') #5cb85c no-repeat 95% 50%;
+        }
+        .footer{
+            padding-top: 0;
+            padding-bottom: 0;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .footer p{
+            padding: 10px 0;
+            margin: 0;
+            color: #ccc;
+        }
+        .footer a{
+            color: #0090ff;
+            text-decoration: none;
+        }
+    </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
-<div id="header_wrap" class="outer">
-    <header class="inner">
-        <a id="forkme_banner" href="https://github.com/fex-team/ufinder">View on GitHub</a>
-
-        <h1 id="project_title">Ufinder</h1>
-
-        <h2 id="project_tagline">基于页面级的文件管理应用</h2>
-
-        <section id="downloads">
-            <a class="zip_download_link" href="https://github.com/fex-team/ufinder/zipball/master">Download this project
-                as a .zip file</a>
-            <a class="tar_download_link" href="https://github.com/fex-team/ufinder/tarball/master">Download this project
-                as a tar.gz file</a>
-        </section>
-    </header>
-</div>
-
 <!-- MAIN CONTENT -->
 <div id="main_content_wrap" class="outer">
     <section id="main_content" class="inner">
-        <h3>Ufinder Demoz.</h3>
-        <div id=""></div>
+        <!--<h3>Ufinder Demoz.</h3>-->
+        <div class="left">
+            <section class="header">
+                <h1>Ufinder</h1>
+                <h3>基于页面级的文件管理应用</h3>
+                <div class="buttons">
+                    <a class="btn-forkme" target="_blank" href="https://github.com/fex-team/ufinder">Fork me on GitHub</a>
+                    <a class="btn-download" target="_blank" href="https://github.com/fex-team/ufinder/zipball/master">Download Ufinder</a>
+                </div>
+            </section>
+        </div>
+        <div class="right">
+            <div id="ufinderContainer"></div>
+        </div>
+        <div class="clearfix"></div>
     </section>
 </div>
 
 <!-- FOOTER  -->
 <div id="footer_wrap" class="outer">
-    <footer class="inner">
-        <p class="copyright">Ufinder maintained by <a href="https://github.com/fex-team">fex-team</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+    <footer class="inner footer">
+        <p class="copyright">
+            Ufinder由<a href="https://github.com/fex-team">fex-team</a>团队负责维护
+            &nbsp;&nbsp; ©2013-2018 Baidu Fex Team
+        </p>
     </footer>
 </div>
+
+<script>
+    $(function(){
+        UF.getUFinder('ufinderContainer');
+    });
+</script>
+
 
 </body>
 </html>
