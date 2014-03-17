@@ -1,0 +1,69 @@
+/* wrap */
+#main_content_wrap{
+    background: #212121;
+    border-bottom: 0;
+}
+#footer_wrap{
+    border-top: 1px solid #111;
+}
+/* main */
+.left{
+    float: left;
+    width: 32%;
+    margin: 0;
+    padding: 0;
+}
+.right{
+    float: right;
+    width: 68%;
+    margin: 0;
+    padding: 0;
+}
+.clearfix{
+    clear: both;
+}
+/* detail */
+.header h1,
+.header h2,
+.header h3{
+    color: #ffffff;
+    margin:0;
+}
+.buttons{
+    margin: 30px 0;
+}
+.btn-forkme,
+.btn-download {
+    padding: 10px 50px 10px 10px;
+    color: #fff;
+    font-weight: 700;
+    box-shadow: 0 0 10px rgba(0,0,0,.5);
+    display: block;
+    width:150px;
+    border-radius:3px;
+    position: relative;
+    margin-top: 10px;
+    height:24px;
+    line-height:24px;
+}
+.btn-forkme{
+    background: url('../images/forkme.png') #0090ff no-repeat 95% 50%;
+}
+.btn-download{
+    background: url('../images/download.png') #5cb85c no-repeat 95% 50%;
+}
+.footer{
+    padding-top: 0;
+    padding-bottom: 0;
+    margin: 0 auto;
+    text-align: center;
+}
+.footer p{
+    padding: 10px 0;
+    margin: 0;
+    color: #ccc;
+}
+.footer a{
+    color: #0090ff;
+    text-decoration: none;
+}
