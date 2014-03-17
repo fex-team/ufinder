@@ -57,7 +57,7 @@
 <script>
     $(function(){
         var URL = UFINDER_CONFIG.URL;
-        UF.getUFinder('ufinderContainer', {
+        window.uf = UF.getUFinder('ufinderContainer', {
             'serverUrl': 'http://ufinder.duapp.com/lib/ufinder/server/ufinder.php',
             'realUrl': 'http://ufinder.duapp.com/lib/ufinder/server/files/',
             'uploaderSwfUrl': URL + '/lib/webuploader/Uploader.swf',
