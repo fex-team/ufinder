@@ -1,0 +1,159 @@
+.ufui-file{
+    display: block;
+    float: left;
+    width: 90px;
+    height: 90px;
+    margin: 10px 0 0 10px;
+    padding: 2px;
+    list-style: none;
+    overflow: hidden;
+}
+.ufui-file.ufui-active{
+    border: 2px solid #2e80dc;
+    padding: 0;
+}
+.ufui-container.ufui-disabled .ufui-file.ufui-active{
+    border: 2px solid #cccccc;
+}
+.ufui-file.ufui-disabled .ufui-file-icon,
+.ufui-file.ufui-disabled .ufui-file-icon{
+    opacity: .35;
+    filter: alpha(opacity=35);
+    background-image: none;
+}
+.ufui-file-icon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 0 auto;
+    overflow: hidden;
+}
+.ufui-file-icon i{
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.ufui-file-title{
+    padding: 0;
+    margin: 3px 0 0 0;
+    font-size: 12px;
+    height: 13px;
+    color: #555555;
+    text-align: center;
+    width: 90px;
+    white-space:nowrap;
+    word-break:keep-all;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+.ufui-file-title.ufui-file-title-editable{
+    margin: 3px 4px 0 4px;
+    width: 82px;
+    overflow:hidden;
+    text-overflow: clip;
+}
+
+.ufui-file-pers{
+}
+.ufui-file-nwr .ufui-file-pers{
+    float: right;
+    margin: -16px 0 0 0;
+    width: 16px;
+    height: 16px;
+    background-image: url("../images/icons.png");
+    background-position: 0 -64px;
+}
+.ufui-file-wnr .ufui-file-pers,
+.ufui-file-nwnr .ufui-file-pers{
+    float: right;
+    margin: -16px 0 0 0;
+    width: 16px;
+    height: 16px;
+    background-image: url("../images/icons.png");
+    background-position: 0 -96px;
+}
+
+/* filetype style */
+.ufui-file-icon i{
+    background-image: url("../images/file-icons.png");
+    background-position: -140px center;
+}
+.ufui-file-icon .ufui-file-icon-dir{
+    background-position: 0 center;
+}
+.ufui-file-icon .ufui-file-icon-zip{
+    background-position: -70px center;
+}
+.ufui-file-icon .ufui-file-icon-file{
+    background-position: -140px center;
+}
+.ufui-file-icon .ufui-file-icon-filelist{
+    background-position: -210px center;
+}
+.ufui-file-icon .ufui-file-icon-rar,
+.ufui-file-icon .ufui-file-icon-7z,
+.ufui-file-icon .ufui-file-icon-tar,
+.ufui-file-icon .ufui-file-icon-gz{
+    background-position: -280px center;
+}
+.ufui-file-icon .ufui-file-icon-xls,
+.ufui-file-icon .ufui-file-icon-xlsx{
+    background-position: -350px center;
+}
+.ufui-file-icon .ufui-file-icon-doc,
+.ufui-file-icon .ufui-file-icon-docx{
+    background-position: -420px center;
+}
+.ufui-file-icon .ufui-file-icon-ppt,
+.ufui-file-icon .ufui-file-icon-pptx{
+    background-position: -490px center;
+}
+.ufui-file-icon .ufui-file-icon-vsd{
+    background-position: -560px center;
+}
+.ufui-file-icon .ufui-file-icon-pdf{
+    background-position: -630px center;
+}
+.ufui-file-icon .ufui-file-icon-txt,
+.ufui-file-icon .ufui-file-icon-md,
+.ufui-file-icon .ufui-file-icon-json,
+.ufui-file-icon .ufui-file-icon-htm,
+.ufui-file-icon .ufui-file-icon-xml,
+.ufui-file-icon .ufui-file-icon-html,
+.ufui-file-icon .ufui-file-icon-js,
+.ufui-file-icon .ufui-file-icon-css,
+.ufui-file-icon .ufui-file-icon-php,
+.ufui-file-icon .ufui-file-icon-jsp,
+.ufui-file-icon .ufui-file-icon-asp{
+    background-position: -700px center;
+}
+.ufui-file-icon .ufui-file-icon-apk{
+    background-position: -770px center;
+}
+.ufui-file-icon .ufui-file-icon-exe{
+    background-position: -840px center;
+}
+.ufui-file-icon .ufui-file-icon-ipa{
+    background-position: -910px center;
+}
+.ufui-file-icon .ufui-file-icon-mp4,
+.ufui-file-icon .ufui-file-icon-mov,
+.ufui-file-icon .ufui-file-icon-mpeg,
+.ufui-file-icon .ufui-file-icon-rm,
+.ufui-file-icon .ufui-file-icon-rmvb{
+    background-position: -980px center;
+}
+.ufui-file-icon .ufui-file-icon-wav,
+.ufui-file-icon .ufui-file-icon-wmv,
+.ufui-file-icon .ufui-file-icon-mid,
+.ufui-file-icon .ufui-file-icon-mp3{
+    background-position: -1050px center;
+}
+.ufui-file-icon .ufui-file-icon-jpg,
+.ufui-file-icon .ufui-file-icon-jpeg,
+.ufui-file-icon .ufui-file-icon-gif,
+.ufui-file-icon .ufui-file-icon-bmp,
+.ufui-file-icon .ufui-file-icon-png,
+.ufui-file-icon .ufui-file-icon-psd{
+    background-position: -140px center;
+}

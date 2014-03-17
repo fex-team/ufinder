@@ -1,0 +1,186 @@
+.ufui-combobox-menu{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    display: none;
+    list-style: none;
+    text-decoration: none;
+    margin: 0;
+    padding:5px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    font-size: 12px;
+    box-shadow: 2px 2px 5px #d3d6da;
+    min-width: 160px;
+    _width: 160px;
+}
+
+.ufui-combobox-menu .ufui-combobox-item {
+    display: block;
+    border: 1px solid white;
+}
+
+.ufui-combobox-menu .ufui-combobox-item-label {
+    height: 25px;
+    line-height: 25px;
+    display: inline-block;
+    _display: inline;
+    _zoom: 1;
+    margin-left: 10px;
+}
+
+.ufui-combobox-menu .ufui-combobox-item:hover, .ufui-combobox-menu .ufui-combobox-stack-item:hover, .ufui-combobox-menu .ufui-combobox-item-hover {
+    background-color: #d5e1f2;
+    padding: 0;
+    border: 1px solid #a3bde3;
+}
+
+.ufui-combobox-menu .ufui-combobox-item .ufui-combobox-icon {
+    display: inline-block;
+    *zoom: 1;
+    *display: inline;
+    width: 24px;
+    height: 25px;
+    background: red;
+    vertical-align: bottom;
+    background: url(../images/ok.gif) no-repeat 1000px 1000px;
+}
+
+.ufui-combobox-menu .ufui-combobox-checked .ufui-combobox-icon {
+    background-position: 10px 7px;
+}
+
+
+.ufui-combobox-menu .ufui-combobox-item-separator {
+    min-width: 160px;
+    height: 1px;
+    line-height: 1px;
+    overflow: hidden;
+    background: #d3d3d3;
+    margin: 5px 0;
+    *margin-top: -8px;
+}
+
+/* 字体样式校正 */
+
+.ufui-combobox-fontsize .ufui-combobox-item-0.ufui-combobox-checked .ufui-combobox-icon {
+    background-position: 10px 7px;
+}
+
+.ufui-combobox-fontsize .ufui-combobox-item-1.ufui-combobox-checked .ufui-combobox-icon {
+    background-position: 10px 7px;
+}
+
+.ufui-combobox-fontsize .ufui-combobox-item-2.ufui-combobox-checked .ufui-combobox-icon {
+    background-position: 10px 7px;
+}
+
+.ufui-combobox-fontsize .ufui-combobox-item-3.ufui-combobox-checked .ufui-combobox-icon {
+    background-position: 10px 7px;
+}
+
+/* 24 */
+.ufui-combobox-fontsize .ufui-combobox-item-4 .ufui-combobox-item-label {
+    height: 27px;
+    line-height: 27px;
+}
+
+.ufui-combobox-fontsize .ufui-combobox-item-4.ufui-combobox-checked .ufui-combobox-icon {
+    background-position: 10px 5px;
+}
+
+/* 32 */
+.ufui-combobox-fontsize .ufui-combobox-item-5 .ufui-combobox-item-label {
+    height: 31px;
+    line-height: 31px;
+}
+
+.ufui-combobox-fontsize .ufui-combobox-item-5.ufui-combobox-checked .ufui-combobox-icon {
+    background-position: 10px 4px;
+}
+
+
+/* 48 */
+.ufui-combobox-fontsize .ufui-combobox-item-6 .ufui-combobox-item-label {
+    height: 47px;
+    line-height: 47px;
+}
+
+/*.ufui-combobox-fontsize .ufui-combobox-item-6 .ufui-combobox-icon {*/
+    /*height: 25px;*/
+    /*margin-bottom: 11px;*/
+/*}*/
+
+/*.ufui-combobox-fontsize .ufui-combobox-item-6.ufui-combobox-checked .ufui-combobox-icon {*/
+    /*background-position: 10px 7px;*/
+/*}*/
+
+
+/* 段落样式校正 */
+/* h1 */
+.ufui-combobox-paragraph .ufui-combobox-item-1 .ufui-combobox-item-label {
+    font-size: 32px;
+    height: 36px;
+    line-height: 36px;
+}
+
+.ufui-combobox-paragraph .ufui-combobox-item-1 .ufui-combobox-icon {
+    height: 25px;
+    margin-bottom: 5px;
+}
+
+.ufui-combobox-paragraph .ufui-combobox-item-1.ufui-combobox-checked .ufui-combobox-icon {
+    background-position: 10px 7px;
+}
+
+/* h2 */
+.ufui-combobox-paragraph .ufui-combobox-item-2 .ufui-combobox-item-label {
+    font-size: 28px;
+    height: 27px;
+    line-height: 27px;
+}
+
+.ufui-combobox-paragraph .ufui-combobox-item-2 .ufui-combobox-icon {
+    margin-bottom: 5px;
+}
+
+.ufui-combobox-paragraph .ufui-combobox-item-2.ufui-combobox-checked .ufui-combobox-icon {
+    background-position: 10px 10px;
+}
+
+/* h3 */
+.ufui-combobox-paragraph .ufui-combobox-item-3 .ufui-combobox-item-label {
+    font-size: 24px;
+    height: 25px;
+    line-height: 25px;
+}
+
+.ufui-combobox-paragraph .ufui-combobox-item-3 .ufui-combobox-icon {
+    height: 25px;
+    margin-bottom: 5px;
+}
+
+.ufui-combobox-paragraph .ufui-combobox-item-3.ufui-combobox-checked .ufui-combobox-icon {
+    background-position: 10px 11px;
+}
+
+/* h4 */
+.ufui-combobox-paragraph .ufui-combobox-item-4 .ufui-combobox-item-label {
+    font-size: 18px;
+    height: 25px;
+    line-height: 25px;
+}
+
+.ufui-combobox-paragraph .ufui-combobox-item-4.ufui-combobox-checked .ufui-combobox-icon {
+    background-position: 10px 6px;
+}
+
+/* h5 */
+.ufui-combobox-paragraph .ufui-combobox-item-5 .ufui-combobox-item-label {
+    font-size: 16px;
+}
+
+/* h6 */
+.ufui-combobox-paragraph .ufui-combobox-item-6 .ufui-combobox-item-label {
+    font-size: 12px;
+}
