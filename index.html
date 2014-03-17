@@ -56,7 +56,13 @@
 
 <script>
     $(function(){
-        UF.getUFinder('ufinderContainer');
+        var URL = UFINDER_CONFIG.URL;
+        UF.getUFinder('ufinderContainer', {
+            'serverUrl': 'http://ufinder.duapp.com/ufinder/lib/ufinder/server/ufinder.php',
+            'realUrl': 'http://ufinder.duapp.com/ufinder/lib/ufinder/server/files/',
+            'uploaderSwfUrl': URL + '/lib/webuploader/Uploader.swf',
+            'uploaderJsUrl': URL + '/lib/webuploader/webuploader.js'
+        });
     });
 </script>
 

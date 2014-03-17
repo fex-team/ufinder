@@ -1,5 +1,6 @@
 <?php
 header("Content-Type:text/html;charset=utf-8");
+header("Access-Control-Allow-Origin: *");
 error_reporting( E_ERROR | E_WARNING );
 date_default_timezone_set("Asia/chongqing");
 
