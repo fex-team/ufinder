@@ -20,7 +20,7 @@ UF.registerUI('list',
                         });
 
                         if (Utils.isImagePath(file.path)) {
-                            var realPath = me.serverOption.realRootUrl + file.path;
+                            var realPath = me.getRealPath(file.path);
                             ufList.getItem(file.path).setPreviewImg(realPath);
                         }
                     }
