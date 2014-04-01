@@ -2,6 +2,7 @@
 // Generated on Wed Oct 09 2013 19:20:49 GMT+0800 (中国标准时间)
 
 module.exports = function(config) {
+    var base_path = '../';
   config.set({
 
     // base path, that will be used to resolve files and exclude
@@ -14,24 +15,24 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-        './jquery-1.11.0.min.js',
-        './ufinder.config.js',
-        './_src/core/ufinder.js',
-        './_src/core/ufinder.*.js',
-        './_src/core/class.js',
-        './_src/core/utils.js',
-        './_src/core/finder.js',
-        './_src/core/finder.*.js',
-        './_src/core/selection.js',
-        './_src/core/datatree.js',
-        './_src/core/request.js',
-        './_src/core/uploader.js',
-        './_src/core/proxy.js',
-        './_src/adapter/*.js',
-        './_spec/tools/js/UserAction.js',
+        base_path+'jquery-1.11.0.min.js',
+        base_path+'ufinder.config.js',
+        base_path+'_src/core/ufinder.js',
+        base_path+'_src/core/ufinder.*.js',
+        base_path+'_src/core/class.js',
+        base_path+'_src/core/utils.js',
+        base_path+'_src/core/finder.js',
+        base_path+'_src/core/finder.*.js',
+        base_path+'_src/core/selection.js',
+        base_path+'_src/core/datatree.js',
+        base_path+'_src/core/request.js',
+        base_path+'_src/core/uploader.js',
+        base_path+'_src/core/proxy.js',
+        base_path+'_src/adapter/*.js',
+        base_path+'_spec/tools/js/UserAction.js',
 //        './spec/karmaConfig.js',
-        './_spec/SpecHelper.js',
-        './_spec/core/*.js'
+        base_path+'_spec/SpecHelper.js',
+        base_path+'_spec/core/*.js'
 //        ,'./spec/graphic/*.js'
     ],
 
@@ -72,7 +73,7 @@ module.exports = function(config) {
     // - Safari (only Mac)
     // - PhantomJS
     // - IE (only Windows)
-    browsers: ['Firefox'],//,'Chrome'
+    browsers: ['Firefox','Chrome'],//,'Chrome'
 
 
     // If browser does not capture in given timeout [ms], kill it
@@ -83,20 +84,21 @@ module.exports = function(config) {
     // if true, it capture browsers, run tests and exit
     singleRun: true,
     //coverage
-//    reporters: ['progress', 'coverage'],
-
       reporters: ['progress', 'coverage','junit'],
           preprocessors: {
-        './_src/core/*.js': ['coverage']
+//        '../_src/core/*.js': ['coverage']
+              '../_src/core/finder.js': ['coverage'],
+              '../_src/adapter/adapter.js': ['coverage']
+
           }
       ,
     coverageReporter: {
           type: 'text',
-          dir: './_spec/coverage'
+          dir: './coverage/json_files/'
     }
-      ,
-      junitReporter: {
-          outputFile: 'test-results.xml'
-      }
+//      ,
+//      junitReporter: {
+//          outputFile: 'test-results.xml'
+//      }
   });
 };
