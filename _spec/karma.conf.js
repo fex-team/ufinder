@@ -15,7 +15,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-        base_path+'jquery-1.11.0.min.js',
+        base_path+'lib/jquery-1.11.0.min.js',
         base_path+'ufinder.config.js',
         base_path+'_src/core/ufinder.js',
         base_path+'_src/core/ufinder.*.js',
