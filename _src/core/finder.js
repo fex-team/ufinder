@@ -53,6 +53,6 @@ var Finder = UF.Finder = UF.createClass('Finder', {
         return lang;
     },
     getRealPath: function (path) {
-        return (this.serverOption.realRootUrl + path).replace('//', '/');
+        return (this.serverOption.realRootUrl + path).replace(/([^:])\/\//g, '$1/');
     }
 });
