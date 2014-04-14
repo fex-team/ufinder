@@ -49,6 +49,10 @@
                     //todo jscoverage
             }, window._$jscoverage || null ]);
         }
+        //针对展示页面中每个describe和it对应的链接,在原有的链接中加上case的字段,否则不能正确加载源文件和测试文件
+        for(var i = 0;i<$('.description').length;i++){
+            $('.description').eq(i).attr('href',$('.description').eq(i).attr('href')+'&case='+caseName);
+        }
     }
     jasmine.Runner.prototype.finishCallback = function(){
         f.apply(this, arguments);
