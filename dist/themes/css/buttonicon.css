@@ -1,0 +1,69 @@
+.ufui-btn-toolbar .ufui-btn .ufui-icon-open {
+    background-position: 0 0;
+}
+.ufui-btn-toolbar .ufui-btn .ufui-icon-pathparent {
+    background-position: -20px 0;
+}
+.ufui-btn-toolbar .ufui-btn .ufui-icon-pathbackward {
+    background-position: -40px 0;
+}
+.ufui-btn-toolbar .ufui-btn .ufui-icon-pathforward {
+    background-position: -60px 0;
+}
+.ufui-btn-toolbar .ufui-btn .ufui-icon-touch {
+    background-position: -80px 0;
+}
+.ufui-btn-toolbar .ufui-btn .ufui-icon-mkdir {
+    background-position: -100px 0;
+}
+.ufui-btn-toolbar .ufui-btn .ufui-icon-remove {
+    background-position: -120px 0;
+}
+.ufui-btn-toolbar .ufui-btn .ufui-icon-upload{
+    background-position: -140px 0;
+}
+.ufui-btn-toolbar .ufui-btn .ufui-icon-download {
+    background-position: -160px 0;
+}
+.ufui-btn-toolbar .ufui-btn .ufui-icon-rename {
+    background-position: -180px 0;
+}
+.ufui-btn-toolbar .ufui-btn.ufui-btn-lookimage {
+    display: none;
+}
+.ufui-btn-toolbar .ufui-btn.ufui-btn-lookcode {
+    display: none;
+}
+
+/* uploader */
+.ufui-btn-toolbar .ufui-btn.ufui-btn-upload div {
+    top: 0;
+    left: 0;
+}
+.ufui-btn-toolbar .ufui-btn.ufui-btn-upload{
+    width: 20px;
+    height: 20px;
+    overflow: hidden;
+}
+.ufui-btn-toolbar .ufui-btn.ufui-btn-upload .webuploader-pick {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-image: url("../images/toolbar-icons.png");
+    background-image: url("../images/toolbar-icons.gif") \9;
+    background-position: -140px 0;
+    background-size: auto 100%;
+}
+.ufui-btn-toolbar .ufui-btn.ufui-btn-upload div input {
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    padding: 0;
+}

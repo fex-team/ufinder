@@ -1,0 +1,62 @@
+.ufui-message-list{
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+.ufui-message{
+    width:180px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    background-color: #f7f7f7;
+    margin-bottom: 3px;
+    padding: 0;
+}
+.ufui-message-head{
+    height: 0;
+}
+.ufui-message-close{
+    display: block;
+    float: right;
+    margin: 3px 3px 0 0;
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+    background-image: url("../images/message-close.png");
+    background-size: 100% 100%;
+}
+.ufui-message-body{
+    padding: 5px;
+    height: 30px;
+}
+.ufui-message-icon{
+    display: block;
+    float: left;
+    width: 30px;
+    height: 30px;
+    margin-right: 3px;
+    background-image: url("../images/message-icon.png");
+    background-size: 100% 100%;
+}
+.ufui-message-info{
+    display: block;
+    color: #555555;
+    text-align: center;
+}
+.ufui-message-title{
+    text-align: left;
+    font-size: 14px;
+    display: block;
+}
+.ufui-message-loadbar{
+    margin: 4px 0 0 33px;
+    width: 78%;
+    height: 10px;
+    border: 1px solid #428bca;
+    border-radius: 5px;
+    background-color: #428bca;
+}
+.ufui-message-loadbar-percent{
+    width: 100%;
+    height: 100%;
+    background: #428bca;
+}

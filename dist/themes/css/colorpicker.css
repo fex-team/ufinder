@@ -1,0 +1,55 @@
+.ufui-splitbutton-color-label {
+    width: 16px;
+    height: 3px;
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    margin-left: -8px;
+    overflow: hidden;
+    line-height: 3px;
+}
+.ufui-popup .ufui-colorpicker {
+    margin: 10px;
+    font-size: 12px;
+}
+.ufui-colorpicker .ufui-colorpicker-topbar{
+    height: 27px;
+    width: 200px;
+    overflow: hidden;
+}
+.ufui-colorpicker .ufui-colorpicker-topbar .ufui-colorpicker-preview{
+    height: 20px;
+    border: 1px inset black;
+    margin-left: 1px;
+    width: 128px;
+    float: left;
+}
+.ufui-colorpicker .ufui-colorpicker-topbar .ufui-colorpicker-nocolor{
+    float: right;
+    margin-right: 1px;
+    font-size: 12px;
+    line-height: 14px;
+    height: 14px;
+    border: 1px solid #333;
+    padding: 3px 5px;
+    cursor: pointer;
+}
+.ufui-colorpicker table{
+    border-collapse: collapse;
+    border-spacing: 2px;
+}
+.ufui-colorpicker tr.ufui-colorpicker-firstrow{
+    height: 30px;
+}
+.ufui-colorpicker table td{
+    padding: 0 2px;
+}
+.ufui-colorpicker table td .ufui-colorpicker-colorcell{
+    display: block;
+    text-decoration: none;
+    color: black;
+    width: 14px;
+    height: 14px;
+    margin: 0;
+    cursor: pointer;
+}

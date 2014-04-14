@@ -1,0 +1,42 @@
+﻿.ufui-tree{
+    position: relative;
+    float: left;
+    width: 20%;
+    height: 500px;
+    overflow: auto;
+    background-color: #f7f7f7;
+}
+.ufui-tree-container{
+    border-right-width: 0;
+    margin: 10px;
+    padding: 0;
+    list-style: none;
+    overflow-y: scroll;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-user-select: none;
+}
+.ufui-tree-container li{
+    margin: 4px 0;
+    padding: 0;
+    list-style: none;
+    font-size: 14px;
+    color: #ff6a00;
+}
+/* 孩子容器样式 */
+.ufui-tree-branch{
+    list-style: none;
+    margin-left: 0;
+    padding-left: 13px;
+    display: block;
+}
+.ufui-tree-branch.ufui-tree-branch-root{
+    margin: 8px 2px;
+    padding-left: 0;
+    display: block;
+}
+.ufui-tree-branch.ufui-tree-branch-opened{
+    display: block;
+}
+.ufui-tree-branch.ufui-tree-branch-closed{
+    display: none;
+}

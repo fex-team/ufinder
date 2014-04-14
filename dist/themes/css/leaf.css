@@ -1,0 +1,64 @@
+/* 跟节点样式 */
+.ufui-leaf.ufui-tree-leaf-root{
+    margin-left: 0;
+    padding-left: 0;
+}
+/* 节点内容样式 */
+.ufui-leaf-detail{
+    padding: 2px;
+    margin: 0;
+    clear: both;
+    white-space: nowrap;
+}
+.ufui-leaf-detail:hover{
+    background-color: #dddddd;
+    border-radius: 3px;
+}
+/* 展开收起图标 */
+.ufui-leaf-expand{
+    cursor: pointer;
+}
+.ufui-leaf-expand{
+    background-image: url("../images/tree-icon.png");
+    background-image: url("../images/tree-icon.png") \9;
+    background-position: center -48px;
+    width: 12px;
+    height: 16px;
+    display: block;
+    float: left;
+    cursor: pointer;
+}
+.ufui-leaf-detail.ufui-leaf-detail-opened .ufui-leaf-expand{
+    background-position: center -32px;
+}
+.ufui-leaf-detail.ufui-leaf-detail-closed .ufui-leaf-expand{
+    background-position: center -48px;
+}
+.ufui-leaf-detail.ufui-leaf-detail-empty .ufui-leaf-expand{
+    background-position: center -64px;
+}
+/* 文件夹图标 */
+.ufui-leaf-folder{
+    width: 16px;
+    height: 16px;
+    background-image: url("../images/tree-icon.png");
+    background-image: url("../images/tree-icon.png") \9;
+    background-position: 0 0;
+    display: block;
+    float: left;
+    cursor: pointer;
+}
+.ufui-leaf-folder:hover{
+    background-position: 0 -16px;
+}
+.ufui-leaf-detail.ufui-leaf-detail-opened .ufui-leaf-folder{
+    background-position: 0 -16px;
+}
+/* 文件名称 */
+.ufui-leaf-title{
+    line-height: 16px;
+    height: 16px;
+    cursor: pointer;
+    font-size: 12px;
+    color: #555555;
+}

@@ -1,0 +1,27 @@
+.ufui-list{
+    position: relative;
+    float: right;
+    width: 80%;
+    height: 500px;
+}
+.ufui-list-container{
+    height: 100%;
+    border-left: 1px solid #eeeeee;
+    padding: 0;
+    list-style: none;
+    overflow-y: auto;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-user-select: none;
+}
+.ufui-list-container li{
+    margin: 5px;
+    padding: 5px;
+    list-style: none;
+    border: 1px dotted #eeeeee;
+}
+.ufui-list-container .ufui-list-item {
+    display: block;
+    float: left;
+    width: 80px;
+    height: 80px;
+}

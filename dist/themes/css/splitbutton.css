@@ -1,0 +1,38 @@
+.ufui-btn-toolbar .ufui-splitbutton{
+    position: relative;
+    display: inline-block ;
+    vertical-align: top;
+    *display: inline ;
+    *zoom:1;
+    margin:0 2px;
+}
+.ufui-splitbutton .ufui-btn{
+    margin: 0;
+}
+.ufui-splitbutton .ufui-caret{
+    position: relative;
+    display: inline-block ;
+    vertical-align: top;
+    *display: inline ;
+    *zoom:1;
+    width: 8px;
+    height: 20px;
+    background: url(../images/icons.png) -741px 0;
+    _background: url(../images/icons.gif) -741px 0;
+}
+
+.ufui-btn-toolbar .ufui-splitbutton,
+.ufui-btn-toolbar .ufui-splitbutton{
+    _border: none;
+}
+
+/*状态反射*/
+.ufui-btn-toolbar .ufui-splitbutton.ufui-hover .ufui-btn{
+    background-color: #d5e1f2;
+}
+
+.ufui-btn-toolbar .ufui-splitbutton.ufui-disabled{
+    opacity: 0.3;
+    filter: alpha(opacity = 30);
+}
+
