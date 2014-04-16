@@ -25,7 +25,7 @@
 /* 孩子容器样式 */
 .ufui-tree-branch{
     list-style: none;
-    margin-left: 0;
+    margin: 0;
     padding-left: 13px;
     display: block;
 }

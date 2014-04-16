@@ -1,7 +1,8 @@
 (function () {
     var widgetName = 'lookimage';
     UF.registerWidget(widgetName, {
-        tpl: '<div class="ufui-dialog-lookimage-body"></div>',
+        tpl: '<style type="text/css">.ufui-dialog-lookimage-body img{margin:0;padding:0;border:0;min-width:auto;min-height:auto;}</style>' +
+            '<div class="ufui-dialog-lookimage-body"></div>',
         initContent: function (finder, $widget) {
 
             var me = this,
@@ -13,7 +14,7 @@
             me.root().html($.parseTmpl(me.tpl, $.extend({}, lang['static'])));
 
             var src, $img, path = me.finder.getSelection().getSelectedFile();
-            if(path && Utils.isImagePath(path)) {
+            if(path && UF.Utils.isImagePath(path)) {
                 src = me.finder.serverOption.realRootUrl + path;
                 $img = $('<img src="' + src + '" width="100%" />').on('load', function(){
                     var $target = $(this),
