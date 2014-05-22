@@ -234,7 +234,7 @@ function getParam($name, $medthod = 'GET'){
     } else {
         $res = null;
     }
-    return htmlspecialchars($res[$name]);
+    return htmlspecialchars($res);
 }
 
 function isPathIllegal($path, $allowFiles){
