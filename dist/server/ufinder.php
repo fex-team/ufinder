@@ -3,11 +3,12 @@ header("Content-Type:text/html;charset=utf-8");
 error_reporting( E_ERROR | E_WARNING );
 date_default_timezone_set("Asia/chongqing");
 
+global $CONFIG;
 $CONFIG = include('./config.php');
 $ROOT = './files';
 
-$cmd = $_GET['cmd'];
-$target = $_GET['target'];
+$cmd = getParam('cmd');
+$target = getParam('target');
 
 switch($cmd){
     case 'init':
@@ -17,14 +18,16 @@ switch($cmd){
         ));
         break;
     case 'ls':
-        if(isset($_GET['target'])) $target = $_GET['target'];
-        else $target = '';
+        if(!$target) $target = '';
         $list = listFile($target, $ROOT);
         echo getJson('0', 'success', array('files' => $list));
         break;
     case 'rename':
-        $name = $_GET['name'];
-        if( file_exists($ROOT.$name) ) {
+        $name = getParam('name');
+        if (isPathIllegal($target, $CONFIG['allowFiles'])) {
+            $res = false;
+            $msg = 'filename Illegal';
+        } else if( file_exists($ROOT.$name) ) {
             $res = false;
             $msg = 'file exist';
         } else {
@@ -53,7 +56,10 @@ switch($cmd){
         }
         break;
     case 'touch':
-        if(!file_exists($ROOT.$target)) {
+        if (isPathIllegal($target, $CONFIG['allowFiles'])) {
+            $res = false;
+            $msg = 'filename Illegal';
+        } else if(!file_exists($ROOT.$target)) {
             file_put_contents($ROOT.$target, '');
             $res = file_exists($ROOT.$target);
         } else {
@@ -67,7 +73,10 @@ switch($cmd){
         }
         break;
     case 'mkdir':
-        if(!file_exists($ROOT.$target)) {
+        if (isPathIllegal($target, $CONFIG['allowFiles'])) {
+            $res = false;
+            $msg = 'filename Illegal';
+        } else if(!file_exists($ROOT.$target)) {
             $res = mkdir($ROOT.$target);
         } else {
             $res = false;
@@ -215,6 +224,22 @@ function downloadFile($path, $name)
     header( "Content-Disposition: attachment; filename= $name" );
     $size=readfile($filename);
     header( "Accept-Length: " .$size);
+}
+
+function getParam($name, $medthod = 'GET'){
+    if ($medthod == 'POST') {
+        $res = $_POST[$name];
+    } else if ($medthod == 'GET') {
+        $res = $_GET[$name];
+    } else {
+        $res = null;
+    }
+    return htmlspecialchars($res[$name]);
+}
+
+function isPathIllegal($path, $allowFiles){
+    $ext = strtolower( strrchr( $path , '.' ) );
+    return $ext && in_array($ext, $allowFiles);
 }
 
 ?>

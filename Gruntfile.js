@@ -22,6 +22,7 @@ module.exports = function (grunt) {
         ' */\n\n',
         buildPath = 'index.html',
         srcDir = '_src/',
+        distDir = 'dist/',
         serverPort = 9001,
         livereloadPort = 35729;
 
@@ -53,16 +54,29 @@ module.exports = function (grunt) {
                     }
                 },
                 src: getPath( buildPath, srcDir ),
-                dest: 'dist/ufinder.js'
+                dest: distDir + 'ufinder.js'
             }
 
         },
 
         uglify: {
             minimize: {
-                files: {
-                    'dist/ufinder.min.js': 'dist/ufinder.js'
-                }
+                files: (function (){
+                    var o = {};
+                    o[distDir + 'ufinder.min.js'] = distDir + 'ufinder.js';
+                    return o;
+                })()
+            }
+        },
+
+        copy: {
+            base: {
+                files: [
+                    {
+                        src: ['dialogs/**', 'lang/**', 'lib/**', 'server/**', 'themes/**'],
+                        dest: distDir
+                    }
+                ]
             }
         },
 
@@ -100,8 +114,9 @@ module.exports = function (grunt) {
     /* [Build plugin & task ] ------------------------------------*/
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-copy');
     // Build task(s).
-    grunt.registerTask( 'default', [ 'concat:js', 'uglify:minimize' ] );
+    grunt.registerTask( 'default', [ 'concat:js', 'uglify:minimize', 'copy' ] );
 
     /* [liverload plugin & task ] ------------------------------------*/
     grunt.loadNpmTasks('grunt-regarde');
