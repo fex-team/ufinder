@@ -3,7 +3,7 @@ header("Content-Type:text/html;charset=utf-8");
 error_reporting( E_ERROR | E_WARNING );
 date_default_timezone_set("Asia/chongqing");
 
-$config = include('./config.php');
+$CONFIG = include('./config.php');
 $ROOT = './files';
 
 $cmd = $_GET['cmd'];
