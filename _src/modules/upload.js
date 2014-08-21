@@ -80,7 +80,7 @@ UF.registerModule("uploadmodule", function () {
                 }, initWebUploader);
             },
             'currentpathchange': function (type, path) {
-                uf.webuploader && uf.webuploader.option('server', uf.getOption('URL') + '/server/ufinder.php?cmd=upload&target=' + path);
+                uf.webuploader && uf.webuploader.option('server', uf.getOption('serverUrl') + '?cmd=upload&target=' + path);
             }
         }
     };
