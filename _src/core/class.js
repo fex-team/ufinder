@@ -41,14 +41,14 @@
     // 提供 base 调用支持
     Class.prototype.base = function (name) {
         var caller = arguments.callee.caller;
-        var method = caller.__UFinderMethodClass.__UFinderBaseClass.prototype[ name ];
+        var method = caller.__UFinderMethodClass.__UFinderBaseClass.prototype[name];
         return method.apply(this, Array.prototype.slice.call(arguments, 1));
     };
 
     // 直接调用 base 类的同名方法
     Class.prototype.callBase = function () {
         var caller = arguments.callee.caller;
-        var method = caller.__UFinderMethodClass.__UFinderBaseClass.prototype[ caller.__UFinderMethodName ];
+        var method = caller.__UFinderMethodClass.__UFinderBaseClass.prototype[caller.__UFinderMethodName];
         return method.apply(this, arguments);
     };
 
@@ -58,7 +58,7 @@
         if (!mixins) {
             return this;
         }
-        var method = mixins[ name ];
+        var method = mixins[name];
         return method.apply(this, Array.prototype.slice.call(arguments, 1));
     };
 
@@ -69,10 +69,10 @@
         if (!mixins) {
             return this;
         }
-        var method = mixins[ methodName ];
+        var method = mixins[methodName];
         if (methodName == 'constructor') {
             for (var i = 0, l = method.length; i < l; i++) {
-                method[ i ].call(this);
+                method[i].call(this);
             }
             return this;
         } else {
@@ -111,18 +111,18 @@
 
     function inherit(constructor, BaseClass, classname) {
         var UFinderClass = eval('(function UFinder' + classname + '( __inherit__flag ) {' +
-            'if( __inherit__flag != FINDER_INHERIT_FLAG ) {' +
-            'UFinderClass.__UFinderConstructor.apply(this, arguments);' +
-            '}' +
-            'this.__UFinderClassName = UFinderClass.__UFinderClassName;' +
-            '})');
+        'if( __inherit__flag != FINDER_INHERIT_FLAG ) {' +
+        'UFinderClass.__UFinderConstructor.apply(this, arguments);' +
+        '}' +
+        'this.__UFinderClassName = UFinderClass.__UFinderClassName;' +
+        '})');
         UFinderClass.__UFinderConstructor = constructor;
 
         UFinderClass.prototype = new BaseClass(FINDER_INHERIT_FLAG);
 
         for (var methodName in BaseClass.prototype) {
             if (BaseClass.prototype.hasOwnProperty(methodName) && methodName.indexOf('__UFinder') !== 0) {
-                UFinderClass.prototype[ methodName ] = BaseClass.prototype[ methodName ];
+                UFinderClass.prototype[methodName] = BaseClass.prototype[methodName];
             }
         }
 
@@ -144,7 +144,7 @@
         };
 
         for (i = 0; i < length; i++) {
-            proto = mixins[ i ].prototype;
+            proto = mixins[i].prototype;
 
             for (method in proto) {
                 if (false === proto.hasOwnProperty(method) || method.indexOf('__UFinder') === 0) {
@@ -152,9 +152,9 @@
                 }
                 if (method === 'constructor') {
                     // constructor 特殊处理
-                    NewClass.__UFinderMixins.constructor.push(proto[ method ]);
+                    NewClass.__UFinderMixins.constructor.push(proto[method]);
                 } else {
-                    NewClass.prototype[ method ] = NewClass.__UFinderMixins[ method ] = proto[ method ];
+                    NewClass.prototype[method] = NewClass.__UFinderMixins[method] = proto[method];
                 }
             }
         }
@@ -170,7 +170,7 @@
             if (extension.hasOwnProperty(methodName) &&
                 methodName.indexOf('__UFinder') &&
                 methodName != 'constructor') {
-                var method = BaseClass.prototype[ methodName ] = extension[ methodName ];
+                var method = BaseClass.prototype[methodName] = extension[methodName];
                 method.__UFinderMethodClass = BaseClass;
                 method.__UFinderMethodName = methodName;
             }
@@ -182,7 +182,7 @@
         var constructor, NewClass, BaseClass;
 
         if (arguments.length === 1) {
-            defines = arguments[ 0 ];
+            defines = arguments[0];
             classname = 'AnonymousClass';
         }
 

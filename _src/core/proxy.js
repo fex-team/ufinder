@@ -11,13 +11,13 @@ var Proxy = UF.Proxy = UF.createClass("Proxy", {
             'cmd': 'init'
         }, callback);
     },
-    getRequestUrl: function(options){
+    getRequestUrl: function (options) {
         var url = this._url + '?';
-        $.each(options || {}, function(k, v){
+        $.each(options || {}, function (k, v) {
             url += (k + '=' + v + '&');
         });
-        if(url.charAt(url.length - 1) == '&') url = url.substr(0, url.length - 1);
-        if(url.charAt(url.length - 1) == '?') url = url.substr(0, url.length - 1);
+        if (url.charAt(url.length - 1) == '&') url = url.substr(0, url.length - 1);
+        if (url.charAt(url.length - 1) == '?') url = url.substr(0, url.length - 1);
         return url;
     },
     'ls': function (target, callback) {

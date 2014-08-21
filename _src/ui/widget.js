@@ -1,9 +1,9 @@
 (function ($) {
     //对jquery的扩展
     $.parseTmpl = function parse(str, data) {
-        var tmpl = 'var __p=[],print=function(){__p.push.apply(__p,arguments);};' + 'with(obj||{}){__p.push(\'' + str.replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/<%=([\s\S]+?)%>/g,function (match, code) {
-            return "'," + code.replace(/\\'/g, "'") + ",'";
-        }).replace(/<%([\s\S]+?)%>/g,function (match, code) {
+        var tmpl = 'var __p=[],print=function(){__p.push.apply(__p,arguments);};' + 'with(obj||{}){__p.push(\'' + str.replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/<%=([\s\S]+?)%>/g, function (match, code) {
+                return "'," + code.replace(/\\'/g, "'") + ",'";
+            }).replace(/<%([\s\S]+?)%>/g, function (match, code) {
                 return "');" + code.replace(/\\'/g, "'").replace(/[\r\n\t]/g, ' ') + "__p.push('";
             }).replace(/\r/g, '\\r').replace(/\n/g, '\\n').replace(/\t/g, '\\t') + "');}return __p.join('');";
         var func = new Function('obj', tmpl);
@@ -41,7 +41,7 @@
             return this;
         },
         trigger: function (ev, data) {
-            return  this.root().trigger(ev, data) === false ? false : this;
+            return this.root().trigger(ev, data) === false ? false : this;
         },
         root: function ($el) {
             return this._$el || (this._$el = $el);

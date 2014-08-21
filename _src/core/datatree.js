@@ -1,12 +1,30 @@
+/**
+ * 存放所有文件的树形结构体
+ * @class UF.DataTree
+ * @constructor
+ */
 var DataTree = UF.DataTree = UF.createClass("DataTree", {
+
+    /**
+     * 创建 DataTree 实例
+     * @constructor
+     * @param { UF.Finder } finder - 绑定的 finder 实例
+     */
     constructor: function (finder) {
         this.finder = finder;
         this.root = null;
     },
+
+    /**
+     * 创建 DataTree 实例
+     * @method 设置跟节点
+     * @param { Object } data 跟节点的 FileNode 内容
+     */
     setRoot: function (data) {
         this.root = new FileNode(data);
         this.finder.fire('dataReady', data);
     },
+
     _getFileNode: function (path) {
         var current = this.root,
             pathArr = path.split('/');
@@ -19,6 +37,12 @@ var DataTree = UF.DataTree = UF.createClass("DataTree", {
         }
         return current;
     },
+
+    /**
+     * 创建 DataTree 实例
+     * @method 设置跟节点
+     * @param { Object } data 跟节点的 FileNode 内容
+     */
     getFileInfo: function (path) {
         var info = this._getFileNode(path);
         return info ? info.getInfo() : null;

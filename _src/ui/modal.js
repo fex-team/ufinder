@@ -1,20 +1,20 @@
 /*modal 类*/
 UF.ui.define('modal', {
     tpl: '<div class="ufui-modal" tabindex="-1" >' +
-        '<div class="ufui-modal-header">' +
-        '<div class="ufui-close" data-hide="modal"></div>' +
-        '<h3 class="ufui-title"><%=title%></h3>' +
-        '</div>' +
-        '<div class="ufui-modal-body"  style="<%if(width){%>width:<%=width%>px;<%}%>' +
-        '<%if(height){%>height:<%=height%>px;<%}%>">' +
-        ' </div>' +
-        '<% if(cancellabel || oklabel) {%>' +
-        '<div class="ufui-modal-footer">' +
-        '<div class="ufui-modal-tip"></div>' +
-        '<%if(oklabel){%><div class="ufui-btn ufui-btn-primary" data-ok="modal"><%=oklabel%></div><%}%>' +
-        '<%if(cancellabel){%><div class="ufui-btn" data-hide="modal"><%=cancellabel%></div><%}%>' +
-        '</div>' +
-        '<%}%></div>',
+    '<div class="ufui-modal-header">' +
+    '<div class="ufui-close" data-hide="modal"></div>' +
+    '<h3 class="ufui-title"><%=title%></h3>' +
+    '</div>' +
+    '<div class="ufui-modal-body"  style="<%if(width){%>width:<%=width%>px;<%}%>' +
+    '<%if(height){%>height:<%=height%>px;<%}%>">' +
+    ' </div>' +
+    '<% if(cancellabel || oklabel) {%>' +
+    '<div class="ufui-modal-footer">' +
+    '<div class="ufui-modal-tip"></div>' +
+    '<%if(oklabel){%><div class="ufui-btn ufui-btn-primary" data-ok="modal"><%=oklabel%></div><%}%>' +
+    '<%if(cancellabel){%><div class="ufui-btn" data-hide="modal"><%=cancellabel%></div><%}%>' +
+    '</div>' +
+    '<%}%></div>',
     defaultOpt: {
         title: "",
         cancellabel: "",
@@ -78,7 +78,7 @@ UF.ui.define('modal', {
     },
     autoCenter: function () {
         //ie6下不用处理了
-        if(!$.IE6) {
+        if (!$.IE6) {
             /* 调整宽度 */
             this.root().css("margin-left", -(this.root().width() / 2));
             /* 调整高度 */

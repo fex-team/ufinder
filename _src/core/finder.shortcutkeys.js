@@ -5,7 +5,7 @@ UF.extendClass(Finder, {
     addShortcutKeys: function (cmd, keys) {
         var obj = {};
         if (keys) {
-            obj[ cmd ] = keys;
+            obj[cmd] = keys;
         } else {
             obj = cmd;
         }
@@ -21,15 +21,15 @@ UF.extendClass(Finder, {
             var keyCode = e.keyCode || e.which;
 
             for (var i in shortcutkeys) {
-                var tmp = shortcutkeys[ i ].split(',');
-                for (var t = 0, ti; ti = tmp[ t++ ];) {
+                var tmp = shortcutkeys[i].split(',');
+                for (var t = 0, ti; ti = tmp[t++];) {
                     ti = ti.split(':');
-                    var key = ti[ 0 ],
-                        param = ti[ 1 ];
+                    var key = ti[0],
+                        param = ti[1];
                     if (/^(ctrl)(\+shift)?\+(\d+)$/.test(key.toLowerCase()) || /^(\d+)$/.test(key)) {
-                        if (( ( RegExp.$1 == 'ctrl' ? ( e.ctrlKey || e.metaKey ) : 0 ) && ( RegExp.$2 != "" ? e[ RegExp.$2.slice(1) + "Key" ] : 1 ) && keyCode == RegExp.$3 ) ||
+                        if (( ( RegExp.$1 == 'ctrl' ? ( e.ctrlKey || e.metaKey ) : 0 ) && ( RegExp.$2 != "" ? e[RegExp.$2.slice(1) + "Key"] : 1 ) && keyCode == RegExp.$3 ) ||
                             keyCode == RegExp.$1
-                            ) {
+                        ) {
 
                             if (me.queryCommandState(i, param) != -1)
                                 me.execCommand(i, param);

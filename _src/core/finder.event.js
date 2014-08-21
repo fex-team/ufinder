@@ -71,13 +71,13 @@ UF.extendClass(Finder, {
         this.fire('blur');
     },
     _listen: function (type, callback) {
-        var callbacks = this._eventCallbacks[ type ] || ( this._eventCallbacks[ type ] = [] );
+        var callbacks = this._eventCallbacks[type] || ( this._eventCallbacks[type] = [] );
         callbacks.push(callback);
     },
     on: function (name, callback) {
         var types = name.split(' ');
         for (var i = 0; i < types.length; i++) {
-            this._listen(types[ i ].toLowerCase(), callback);
+            this._listen(types[i].toLowerCase(), callback);
         }
         return this;
     },
@@ -95,7 +95,7 @@ UF.extendClass(Finder, {
         var types = name.split(' ');
         var i, j, callbacks, removeIndex;
         for (i = 0; i < types.length; i++) {
-            callbacks = this._eventCallbacks[ types[ i ].toLowerCase() ];
+            callbacks = this._eventCallbacks[types[i].toLowerCase()];
             if (callbacks) {
                 removeIndex = null;
                 for (j = 0; j < callbacks.length; j++) {
@@ -110,12 +110,12 @@ UF.extendClass(Finder, {
         }
     },
     fire: function (type) {
-        var callbacks = this._eventCallbacks[ type.toLowerCase() ];
+        var callbacks = this._eventCallbacks[type.toLowerCase()];
         if (!callbacks) {
             return;
         }
         for (var i = 0; i < callbacks.length; i++) {
-            var res = callbacks[ i ].apply(this, arguments);
+            var res = callbacks[i].apply(this, arguments);
             if (res == false) {
                 break;
             }

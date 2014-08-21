@@ -67,10 +67,10 @@ UF.registerUI('list',
         $list.delegate('.ufui-file', 'click', function (e) {
 
             /* 解决双击单个文件时,不选中问题 */
-            if(singleClickTimer && singleClickTarget == e.target && !(e.shiftKey || e.ctrlKey || e.metaKey)) {
+            if (singleClickTimer && singleClickTarget == e.target && !(e.shiftKey || e.ctrlKey || e.metaKey)) {
                 return;
             } else {
-                singleClickTimer = setTimeout(function(){
+                singleClickTimer = setTimeout(function () {
                     singleClickTimer = 0;
                 }, 500);
                 singleClickTarget = e.target;

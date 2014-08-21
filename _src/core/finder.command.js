@@ -1,13 +1,13 @@
 UF.extendClass(Finder, {
     _getCommand: function (name) {
-        return this._commands[ name.toLowerCase() ];
+        return this._commands[name.toLowerCase()];
     },
     _queryCommand: function (name, type, args) {
         var cmd = this._getCommand(name);
         if (cmd) {
-            var queryCmd = cmd[ 'query' + type ];
+            var queryCmd = cmd['query' + type];
             if (queryCmd)
-                return queryCmd.apply(cmd, [ this ].concat(args));
+                return queryCmd.apply(cmd, [this].concat(args));
         }
         return 0;
     },

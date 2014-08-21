@@ -1,13 +1,13 @@
 //dropmenu 类
 UF.ui.define('dropmenu', {
     tmpl: '<ul class="ufui-dropdown-menu" aria-labelledby="dropdownMenu" >' +
-        '<%for(var i=0,ci;ci=data[i++];){%>' +
-        '<%if(ci.divider){%><li class="ufui-divider"></li><%}else{%>' +
-        '<li <%if(ci.active||ci.disabled){%>class="<%= ci.active|| \'\' %> <%=ci.disabled||\'\' %>" <%}%> data-value="<%= ci.value%>">' +
-        '<a href="#" tabindex="-1"><em class="ufui-dropmenu-checkbox"><i class="ufui-icon-ok"></i></em><%= ci.label%></a>' +
-        '</li><%}%>' +
-        '<%}%>' +
-        '</ul>',
+    '<%for(var i=0,ci;ci=data[i++];){%>' +
+    '<%if(ci.divider){%><li class="ufui-divider"></li><%}else{%>' +
+    '<li <%if(ci.active||ci.disabled){%>class="<%= ci.active|| \'\' %> <%=ci.disabled||\'\' %>" <%}%> data-value="<%= ci.value%>">' +
+    '<a href="#" tabindex="-1"><em class="ufui-dropmenu-checkbox"><i class="ufui-icon-ok"></i></em><%= ci.label%></a>' +
+    '</li><%}%>' +
+    '<%}%>' +
+    '</ul>',
     defaultOpt: {
         data: [],
         click: function () {
@@ -22,19 +22,19 @@ UF.ui.define('dropmenu', {
             mouseout: 1
         };
 
-        this.root($($.parseTmpl(this.tmpl, options))).on('click', 'li[class!="ufui-disabled ufui-divider ufui-dropdown-submenu"]',function (evt) {
+        this.root($($.parseTmpl(this.tmpl, options))).on('click', 'li[class!="ufui-disabled ufui-divider ufui-dropdown-submenu"]', function (evt) {
             $.proxy(options.click, me, evt, $(this).data('value'), $(this))();
         }).find('li').each(function (i, el) {
-                var $this = $(this);
-                if (!$this.hasClass("ufui-disabled ufui-divider ufui-dropdown-submenu")) {
-                    var data = options.data[i];
-                    $.each(eventName, function (k) {
-                        data[k] && $this[k](function (evt) {
-                            $.proxy(data[k], el)(evt, data, me.root);
-                        });
+            var $this = $(this);
+            if (!$this.hasClass("ufui-disabled ufui-divider ufui-dropdown-submenu")) {
+                var data = options.data[i];
+                $.each(eventName, function (k) {
+                    data[k] && $this[k](function (evt) {
+                        $.proxy(data[k], el)(evt, data, me.root);
                     });
-                }
-            });
+                });
+            }
+        });
 
     },
     disabled: function (cb) {

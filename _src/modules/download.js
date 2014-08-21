@@ -9,8 +9,8 @@ UF.registerModule("downloadmodule", function () {
                         'cmd': 'download',
                         'target': path
                     });
-                    var $downloadIframe = $('<iframe src="' + downloadUrl + '">').hide().appendTo(document.body).load(function(){
-                        setTimeout(function(){
+                    var $downloadIframe = $('<iframe src="' + downloadUrl + '">').hide().appendTo(document.body).load(function () {
+                        setTimeout(function () {
                             $downloadIframe.remove();
                         }, 3000);
                     });

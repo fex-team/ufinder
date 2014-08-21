@@ -1,3 +1,0 @@
-[submodule "lib/webuploader"]
-	path = lib/webuploader
-	url = https://github.com/fex-team/webuploader.git

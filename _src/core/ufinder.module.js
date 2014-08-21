@@ -6,7 +6,7 @@
         if (!_modules) {
             _modules = {};
         }
-        _modules[ name ] = module;
+        _modules[name] = module;
     };
     UF.getModules = function () {
         return _modules;

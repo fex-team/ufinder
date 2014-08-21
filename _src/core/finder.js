@@ -38,7 +38,7 @@ var Finder = UF.Finder = UF.createClass('Finder', {
         $.extend(this._options, obj, true);
     },
     getOption: function (key) {
-        return this._options[ key ];
+        return this._options[key];
     },
     getLang: function (path) {
         var lang = UF.LANG[this.getOption('lang')];

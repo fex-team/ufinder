@@ -8,7 +8,7 @@ $.extend(UFinder, (function () {
     return {
         registerUI: function (uiname, fn) {
             $.each(uiname.split(/\s+/), function (i, name) {
-                _ufinderUI[ name ] = fn;
+                _ufinderUI[name] = fn;
             });
         },
         _createContainer: function (id) {
@@ -30,8 +30,8 @@ $.extend(UFinder, (function () {
                         if (name == '|') {
                             $.ufuiseparator && btns.push($.ufuiseparator());
                         } else {
-                            if (_ufinderUI[ name ]) {
-                                var ui = _ufinderUI[ name ].call(uf, name);
+                            if (_ufinderUI[name]) {
+                                var ui = _ufinderUI[name].call(uf, name);
                                 ui && btns.push(ui);
                             }
                         }
@@ -92,11 +92,11 @@ $.extend(UFinder, (function () {
                 uf = this.getFinder($container, options);
 
             uf.$container = $container;
-            uf.on('focus',function () {
+            uf.on('focus', function () {
                 $container.removeClass('ufui-disabled');
             }).on('blur', function () {
-                    $container.addClass('ufui-disabled');
-                });
+                $container.addClass('ufui-disabled');
+            });
 
             this._createToolbar(uf);
             this._createtree(uf);
@@ -138,7 +138,7 @@ $.extend(UFinder, (function () {
                     getWidgetCallback: function (widgetName) {
                         var me = this;
                         return function () {
-                            return  _widgetCallBack[widgetName].apply(me, [me, $widget].concat(Array.prototype.slice.call(arguments, 0)));
+                            return _widgetCallBack[widgetName].apply(me, [me, $widget].concat(Array.prototype.slice.call(arguments, 0)));
                         };
                     }
                 });

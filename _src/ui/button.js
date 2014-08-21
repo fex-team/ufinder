@@ -1,9 +1,9 @@
 //button 类
 UF.ui.define('button', {
     tpl: '<<%if(!texttype){%>div class="ufui-btn ufui-btn-<%=icon%> <%if(name){%>ufui-btn-name-<%=name%><%}%>" unselectable="on" onmousedown="return false" <%}else{%>a class="ufui-text-btn"<%}%><% if(title) {%>title="<%=title%>" data-original-title="<%=title%>" <%};%>> ' +
-        '<% if(icon) {%><div unselectable="on" class="ufui-icon-<%=icon%> ufui-icon"></div><% }; %><%if(text) {%><span unselectable="on" onmousedown="return false" class="ufui-button-label"><%=text%></span><%}%>' +
-        '<%if(caret && text){%><span class="ufui-button-spacing"></span><%}%>' +
-        '<% if(caret) {%><span unselectable="on" onmousedown="return false" class="ufui-caret"></span><% };%></<%if(!texttype){%>div<%}else{%>a<%}%>>',
+    '<% if(icon) {%><div unselectable="on" class="ufui-icon-<%=icon%> ufui-icon"></div><% }; %><%if(text) {%><span unselectable="on" onmousedown="return false" class="ufui-button-label"><%=text%></span><%}%>' +
+    '<%if(caret && text){%><span class="ufui-button-spacing"></span><%}%>' +
+    '<% if(caret) {%><span unselectable="on" onmousedown="return false" class="ufui-caret"></span><% };%></<%if(!texttype){%>div<%}else{%>a<%}%>>',
     defaultOpt: {
         text: '',
         title: '',
@@ -69,12 +69,12 @@ UF.ui.define('button', {
         if (!$.contains(document.body, $obj[0])) {
             $obj.appendTo(me.root());
         }
-        me.on('click',function () {
+        me.on('click', function () {
             me.wrapclick(function () {
                 $obj.ufui().show();
             });
         }).register('click', me.root(), function (evt) {
-                $obj.hide();
-            });
+            $obj.hide();
+        });
     }
 });

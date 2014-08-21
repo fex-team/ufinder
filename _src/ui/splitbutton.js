@@ -2,10 +2,10 @@
 ///import button
 UF.ui.define('splitbutton', {
     tpl: '<div class="ufui-splitbutton <%if (name){%>ufui-splitbutton-<%= name %><%}%>"  unselectable="on" <%if(title){%>data-original-title="<%=title%>"<%}%>><div class="ufui-btn"  unselectable="on" ><%if(icon){%><div  unselectable="on" class="ufui-icon-<%=icon%> ufui-icon"></div><%}%><%if(text){%><%=text%><%}%></div>' +
-        '<div  unselectable="on" class="ufui-btn ufui-dropdown-toggle" >' +
-        '<div  unselectable="on" class="ufui-caret"><\/div>' +
-        '</div>' +
-        '</div>',
+    '<div  unselectable="on" class="ufui-btn ufui-dropdown-toggle" >' +
+    '<div  unselectable="on" class="ufui-caret"><\/div>' +
+    '</div>' +
+    '</div>',
     defaultOpt: {
         text: '',
         title: '',

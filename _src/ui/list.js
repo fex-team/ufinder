@@ -1,7 +1,7 @@
 UF.ui.define('list', {
     tpl: '<div class="ufui-list">' +
-        '<div class="ufui-list-container"></div>' +
-        '</div>',
+    '<div class="ufui-list-container"></div>' +
+    '</div>',
     defaultOpt: {
         sort: 'title'
     },

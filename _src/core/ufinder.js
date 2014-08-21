@@ -18,7 +18,7 @@ var UFinder =
                     } else {
                         id = target.id || ( "UF_INSTANCE_" + instanceId++ );
                     }
-                    instanceMap[ id ] = finder;
+                    instanceMap[id] = finder;
                 },
                 getFinder: function (target, options) {
                     var id;
@@ -27,7 +27,7 @@ var UFinder =
                     } else {
                         id = target.id || ( "UF_INSTANCE_" + instanceId++ );
                     }
-                    return instanceMap[ id ] || this.createFinder(target, options);
+                    return instanceMap[id] || this.createFinder(target, options);
                 },
                 //挂接多语言
                 LANG: {}

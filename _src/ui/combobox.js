@@ -18,25 +18,25 @@
 
         return {
             tpl: "<ul class=\"dropdown-menu ufui-combobox-menu<%if (comboboxName!=='') {%> ufui-combobox-<%=comboboxName%><%}%>\" unselectable=\"on\" onmousedown=\"return false\" role=\"menu\" aria-labelledby=\"dropdownMenu\">" +
-                "<%if(autoRecord) {%>" +
-                "<%for( var i=0, len = recordStack.length; i<len; i++ ) {%>" +
-                "<%var index = recordStack[i];%>" +
-                "<li class=\"<%=itemClassName%><%if( selected == index ) {%> ufui-combobox-checked<%}%>\" data-item-index=\"<%=index%>\" unselectable=\"on\" onmousedown=\"return false\">" +
-                "<span class=\"ufui-combobox-icon\" unselectable=\"on\" onmousedown=\"return false\"></span>" +
-                "<label class=\"<%=labelClassName%>\" style=\"<%=itemStyles[ index ]%>\" unselectable=\"on\" onmousedown=\"return false\"><%=items[index]%></label>" +
-                "</li>" +
-                "<%}%>" +
-                "<%if( i ) {%>" +
-                "<li class=\"ufui-combobox-item-separator\"></li>" +
-                "<%}%>" +
-                "<%}%>" +
-                "<%for( var i=0, label; label = items[i]; i++ ) {%>" +
-                "<li class=\"<%=itemClassName%><%if( selected == i ) {%> ufui-combobox-checked<%}%> ufui-combobox-item-<%=i%>\" data-item-index=\"<%=i%>\" unselectable=\"on\" onmousedown=\"return false\">" +
-                "<span class=\"ufui-combobox-icon\" unselectable=\"on\" onmousedown=\"return false\"></span>" +
-                "<label class=\"<%=labelClassName%>\" style=\"<%=itemStyles[ i ]%>\" unselectable=\"on\" onmousedown=\"return false\"><%=label%></label>" +
-                "</li>" +
-                "<%}%>" +
-                "</ul>",
+            "<%if(autoRecord) {%>" +
+            "<%for( var i=0, len = recordStack.length; i<len; i++ ) {%>" +
+            "<%var index = recordStack[i];%>" +
+            "<li class=\"<%=itemClassName%><%if( selected == index ) {%> ufui-combobox-checked<%}%>\" data-item-index=\"<%=index%>\" unselectable=\"on\" onmousedown=\"return false\">" +
+            "<span class=\"ufui-combobox-icon\" unselectable=\"on\" onmousedown=\"return false\"></span>" +
+            "<label class=\"<%=labelClassName%>\" style=\"<%=itemStyles[ index ]%>\" unselectable=\"on\" onmousedown=\"return false\"><%=items[index]%></label>" +
+            "</li>" +
+            "<%}%>" +
+            "<%if( i ) {%>" +
+            "<li class=\"ufui-combobox-item-separator\"></li>" +
+            "<%}%>" +
+            "<%}%>" +
+            "<%for( var i=0, label; label = items[i]; i++ ) {%>" +
+            "<li class=\"<%=itemClassName%><%if( selected == i ) {%> ufui-combobox-checked<%}%> ufui-combobox-item-<%=i%>\" data-item-index=\"<%=i%>\" unselectable=\"on\" onmousedown=\"return false\">" +
+            "<span class=\"ufui-combobox-icon\" unselectable=\"on\" onmousedown=\"return false\"></span>" +
+            "<label class=\"<%=labelClassName%>\" style=\"<%=itemStyles[ i ]%>\" unselectable=\"on\" onmousedown=\"return false\"><%=label%></label>" +
+            "</li>" +
+            "<%}%>" +
+            "</ul>",
             defaultOpt: {
                 //记录栈初始列表
                 recordStack: [],
@@ -93,7 +93,7 @@
                     me.trigger('comboboxselect', {
                         index: index,
                         label: $li.find(labelClass).text(),
-                        value: me.data('options').value[ index ]
+                        value: me.data('options').value[index]
                     }).select(index);
 
                     me.hide();
@@ -109,10 +109,10 @@
                     mouseleave: 'removeClass'
                 };
                 if ($.IE6) {
-                    this.root().delegate('.' + itemClassName, 'mouseenter mouseleave',function (evt) {
-                        $(this)[ fn[ evt.type ] ](HOVER_CLASS);
+                    this.root().delegate('.' + itemClassName, 'mouseenter mouseleave', function (evt) {
+                        $(this)[fn[evt.type]](HOVER_CLASS);
                     }).one('afterhide', function () {
-                        });
+                    });
                 }
             },
             /**
@@ -143,11 +143,11 @@
 
                 }
 
-                this.trigger('changebefore', items[ index ]);
+                this.trigger('changebefore', items[index]);
 
                 this._update(index);
 
-                this.trigger('changeafter', items[ index ]);
+                this.trigger('changeafter', items[index]);
 
                 return null;
 
@@ -158,11 +158,11 @@
                     me = this,
                     index = null;
 
-                !$.isArray(label) && ( label = [ label ] );
+                !$.isArray(label) && ( label = [label] );
 
                 $.each(label, function (i, item) {
 
-                    index = itemMapping[ item ];
+                    index = itemMapping[item];
 
                     if (index !== undefined) {
 
@@ -185,7 +185,7 @@
 
                 $.each(options.recordStack, function (index, item) {
 
-                    itemIndex = options.itemMapping[ item ];
+                    itemIndex = options.itemMapping[item];
 
                     if ($.isNumeric(itemIndex)) {
 
@@ -232,16 +232,16 @@
                     };
 
                 $.each(items, function (index, item) {
-                    temp[ item ] = index;
+                    temp[item] = index;
                 });
 
                 result.itemMapping = temp;
 
                 $.each(stackItem, function (index, item) {
 
-                    if (temp[ item ] !== undefined) {
-                        result.recordStack.push(temp[ item ]);
-                        result.mapping[ item ] = temp[ item ];
+                    if (temp[item] !== undefined) {
+                        result.recordStack.push(temp[item]);
+                        result.mapping[item] = temp[item];
                     }
 
                 });

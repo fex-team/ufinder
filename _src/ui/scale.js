@@ -1,15 +1,15 @@
 //scale 类
 UF.ui.define('scale', {
     tpl: '<div class="ufui-scale" unselectable="on">' +
-        '<span class="ufui-scale-hand0"></span>' +
-        '<span class="ufui-scale-hand1"></span>' +
-        '<span class="ufui-scale-hand2"></span>' +
-        '<span class="ufui-scale-hand3"></span>' +
-        '<span class="ufui-scale-hand4"></span>' +
-        '<span class="ufui-scale-hand5"></span>' +
-        '<span class="ufui-scale-hand6"></span>' +
-        '<span class="ufui-scale-hand7"></span>' +
-        '</div>',
+    '<span class="ufui-scale-hand0"></span>' +
+    '<span class="ufui-scale-hand1"></span>' +
+    '<span class="ufui-scale-hand2"></span>' +
+    '<span class="ufui-scale-hand3"></span>' +
+    '<span class="ufui-scale-hand4"></span>' +
+    '<span class="ufui-scale-hand5"></span>' +
+    '<span class="ufui-scale-hand6"></span>' +
+    '<span class="ufui-scale-hand7"></span>' +
+    '</div>',
     defaultOpt: {
         $doc: $(document),
         $wrap: $(document)
@@ -25,15 +25,15 @@ UF.ui.define('scale', {
     },
     initStyle: function () {
         utils.cssRule('ufui-style-scale', '.ufui-scale{display:none;position:absolute;border:1px solid #38B2CE;cursor:hand;}' +
-            '.ufui-scale span{position:absolute;left:0;top:0;width:7px;height:7px;overflow:hidden;font-size:0px;display:block;background-color:#3C9DD0;}' +
-            '.ufui-scale .ufui-scale-hand0{cursor:nw-resize;top:0;margin-top:-4px;left:0;margin-left:-4px;}' +
-            '.ufui-scale .ufui-scale-hand1{cursor:n-resize;top:0;margin-top:-4px;left:50%;margin-left:-4px;}' +
-            '.ufui-scale .ufui-scale-hand2{cursor:ne-resize;top:0;margin-top:-4px;left:100%;margin-left:-3px;}' +
-            '.ufui-scale .ufui-scale-hand3{cursor:w-resize;top:50%;margin-top:-4px;left:0;margin-left:-4px;}' +
-            '.ufui-scale .ufui-scale-hand4{cursor:e-resize;top:50%;margin-top:-4px;left:100%;margin-left:-3px;}' +
-            '.ufui-scale .ufui-scale-hand5{cursor:sw-resize;top:100%;margin-top:-3px;left:0;margin-left:-4px;}' +
-            '.ufui-scale .ufui-scale-hand6{cursor:s-resize;top:100%;margin-top:-3px;left:50%;margin-left:-4px;}' +
-            '.ufui-scale .ufui-scale-hand7{cursor:se-resize;top:100%;margin-top:-3px;left:100%;margin-left:-3px;}');
+        '.ufui-scale span{position:absolute;left:0;top:0;width:7px;height:7px;overflow:hidden;font-size:0px;display:block;background-color:#3C9DD0;}' +
+        '.ufui-scale .ufui-scale-hand0{cursor:nw-resize;top:0;margin-top:-4px;left:0;margin-left:-4px;}' +
+        '.ufui-scale .ufui-scale-hand1{cursor:n-resize;top:0;margin-top:-4px;left:50%;margin-left:-4px;}' +
+        '.ufui-scale .ufui-scale-hand2{cursor:ne-resize;top:0;margin-top:-4px;left:100%;margin-left:-3px;}' +
+        '.ufui-scale .ufui-scale-hand3{cursor:w-resize;top:50%;margin-top:-4px;left:0;margin-left:-4px;}' +
+        '.ufui-scale .ufui-scale-hand4{cursor:e-resize;top:50%;margin-top:-4px;left:100%;margin-left:-3px;}' +
+        '.ufui-scale .ufui-scale-hand5{cursor:sw-resize;top:100%;margin-top:-3px;left:0;margin-left:-4px;}' +
+        '.ufui-scale .ufui-scale-hand6{cursor:s-resize;top:100%;margin-top:-3px;left:50%;margin-left:-4px;}' +
+        '.ufui-scale .ufui-scale-hand7{cursor:se-resize;top:100%;margin-top:-3px;left:100%;margin-left:-3px;}');
     },
     _eventHandler: function (e) {
         var me = this,

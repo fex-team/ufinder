@@ -75,7 +75,7 @@ var browser = UF.browser = function () {
          * @grammar     UM.browser.ie7Compat  => true|false
          */
         browser.ie7Compat = ( ( version == 7 && !document.documentMode )
-            || document.documentMode == 7 );
+        || document.documentMode == 7 );
 
         /**
          * 检测浏览器是否IE6模式或怪异模式
@@ -148,12 +148,12 @@ var browser = UF.browser = function () {
      */
     browser.isCompatible =
         !browser.mobile && (
-            ( browser.ie && version >= 6 ) ||
-                ( browser.gecko && version >= 10801 ) ||
-                ( browser.opera && version >= 9.5 ) ||
-                ( browser.air && version >= 1 ) ||
-                ( browser.webkit && version >= 522 ) ||
-                false );
+        ( browser.ie && version >= 6 ) ||
+        ( browser.gecko && version >= 10801 ) ||
+        ( browser.opera && version >= 9.5 ) ||
+        ( browser.air && version >= 1 ) ||
+        ( browser.webkit && version >= 522 ) ||
+        false );
     return browser;
 }();
 //快捷方式

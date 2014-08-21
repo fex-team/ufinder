@@ -14,7 +14,7 @@ UF.extendClass(Finder, {
             if (!modulesPool.hasOwnProperty(name)) continue;
 
             //执行模块初始化，抛出后续处理对象
-            moduleDeals = modulesPool[ name ].call(me);
+            moduleDeals = modulesPool[name].call(me);
             this._modules[name] = moduleDeals;
             if (moduleDeals.init) {
                 moduleDeals.init.call(me, this._options);
@@ -35,7 +35,7 @@ UF.extendClass(Finder, {
             dealEvents = moduleDeals.events;
             if (dealEvents) {
                 for (var type in dealEvents) {
-                    me.on(type, dealEvents[ type ]);
+                    me.on(type, dealEvents[type]);
                 }
             }
 

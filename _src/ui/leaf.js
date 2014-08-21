@@ -1,12 +1,12 @@
 UF.ui.define('leaf', {
     tpl: '<li class="ufui-leaf" data-path="<%=path%>">' +
-        '   <div class="ufui-leaf-detail ufui-leaf-detail-closed">' +
-        '       <div class="ufui-leaf-expand"></div>' +
-        '       <div class="ufui-leaf-folder"><i class="ufui-leaf-folder-<%=type%>"></i></div>' +
-        '       <div class="ufui-leaf-title"><%=title%></div>' +
-        '   </div>' +
-        '   <ul class="ufui-tree-branch ufui-tree-branch-closed"></ul>' +
-        '</li>',
+    '   <div class="ufui-leaf-detail ufui-leaf-detail-closed">' +
+    '       <div class="ufui-leaf-expand"></div>' +
+    '       <div class="ufui-leaf-folder"><i class="ufui-leaf-folder-<%=type%>"></i></div>' +
+    '       <div class="ufui-leaf-title"><%=title%></div>' +
+    '   </div>' +
+    '   <ul class="ufui-tree-branch ufui-tree-branch-closed"></ul>' +
+    '</li>',
     defaultOpt: {
         type: 'dir',
         title: '',

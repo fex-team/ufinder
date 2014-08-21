@@ -1,14 +1,14 @@
 UF.ui.define('message', {
     tpl: '<div class="ufui-message">' +
-        '   <div class="ufui-message-head"><div class="ufui-message-close"></div></div>' +
-        '   <div class="ufui-message-body">' +
-        '       <div class="ufui-message-icon"><i class="ufui-message-icon-<%=icon%>"></i></div>' +
-        '       <div class="ufui-message-info">' +
-        '           <div class="ufui-message-title"><%=title%></div>' +
-        '           <div class="ufui-message-loadbar"><div class="ufui-message-loadbar-percent"></div></div>' +
-        '       </div>' +
-        '   </div>' +
-        '</div>',
+    '   <div class="ufui-message-head"><div class="ufui-message-close"></div></div>' +
+    '   <div class="ufui-message-body">' +
+    '       <div class="ufui-message-icon"><i class="ufui-message-icon-<%=icon%>"></i></div>' +
+    '       <div class="ufui-message-info">' +
+    '           <div class="ufui-message-title"><%=title%></div>' +
+    '           <div class="ufui-message-loadbar"><div class="ufui-message-loadbar-percent"></div></div>' +
+    '       </div>' +
+    '   </div>' +
+    '</div>',
     defaultOpt: {
         icon: '',
         title: ''
