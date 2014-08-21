@@ -1,13 +1,13 @@
 var Finder = UF.Finder = UF.createClass('Finder', {
     constructor: function (options) {
-        this._options = $.extend(window.UFINDER_CONFIG || {}, options);
+        this._options = $.extend({}, window.UFINDER_CONFIG || {}, options);
         this.setDefaultOptions(UF.defaultOptions);
         this._initEvents();
         this._initSelection();
         this._initFinder();
         this._initShortcutKey();
         this._initModules();
-
+        window.UFINDER_CONFIG = $.extend(this._options, window.UFINDER_CONFIG || {}, options);
         this.fire('finderready');
     },
     _initFinder: function () {
