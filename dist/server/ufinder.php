@@ -234,7 +234,14 @@ function getParam($name, $medthod = 'GET'){
     } else {
         $res = null;
     }
-    return htmlspecialchars($res[$name]);
+    if(is_array($res)){
+        foreach ($res as $key => $value) {
+            $res[$key] = htmlspecialchars($value);
+        }
+    } else {
+        $res = htmlspecialchars($res);
+    }
+    return $res;
 }
 
 function isPathIllegal($path, $allowFiles){

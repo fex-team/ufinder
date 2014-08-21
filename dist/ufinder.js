@@ -1,6 +1,6 @@
 /*!
  * ====================================================
- * ufinder - v1.0.0 - 2014-05-22
+ * ufinder - v1.0.0 - 2014-08-21
  * https://github.com/fex-team/ufinder
  * GitHub: https://github.com/fex-team/ufinder.git 
  * Copyright (c) 2014 f-cube @ FEX; Licensed MIT
@@ -29,7 +29,7 @@ var UFinder =
                     } else {
                         id = target.id || ( "UF_INSTANCE_" + instanceId++ );
                     }
-                    instanceMap[ id ] = finder;
+                    instanceMap[id] = finder;
                 },
                 getFinder: function (target, options) {
                     var id;
@@ -38,7 +38,7 @@ var UFinder =
                     } else {
                         id = target.id || ( "UF_INSTANCE_" + instanceId++ );
                     }
-                    return instanceMap[ id ] || this.createFinder(target, options);
+                    return instanceMap[id] || this.createFinder(target, options);
                 },
                 //挂接多语言
                 LANG: {}
@@ -122,7 +122,7 @@ var browser = UF.browser = function () {
          * @grammar     UM.browser.ie7Compat  => true|false
          */
         browser.ie7Compat = ( ( version == 7 && !document.documentMode )
-            || document.documentMode == 7 );
+        || document.documentMode == 7 );
 
         /**
          * 检测浏览器是否IE6模式或怪异模式
@@ -195,12 +195,12 @@ var browser = UF.browser = function () {
      */
     browser.isCompatible =
         !browser.mobile && (
-            ( browser.ie && version >= 6 ) ||
-                ( browser.gecko && version >= 10801 ) ||
-                ( browser.opera && version >= 9.5 ) ||
-                ( browser.air && version >= 1 ) ||
-                ( browser.webkit && version >= 522 ) ||
-                false );
+        ( browser.ie && version >= 6 ) ||
+        ( browser.gecko && version >= 10801 ) ||
+        ( browser.opera && version >= 9.5 ) ||
+        ( browser.air && version >= 1 ) ||
+        ( browser.webkit && version >= 522 ) ||
+        false );
     return browser;
 }();
 //快捷方式
@@ -223,7 +223,7 @@ UF.defaultOptions = {
         if (!_modules) {
             _modules = {};
         }
-        _modules[ name ] = module;
+        _modules[name] = module;
     };
     UF.getModules = function () {
         return _modules;
@@ -396,14 +396,14 @@ $.each(['String', 'Function', 'Array', 'Number', 'RegExp', 'Object', 'Boolean'],
     // 提供 base 调用支持
     Class.prototype.base = function (name) {
         var caller = arguments.callee.caller;
-        var method = caller.__UFinderMethodClass.__UFinderBaseClass.prototype[ name ];
+        var method = caller.__UFinderMethodClass.__UFinderBaseClass.prototype[name];
         return method.apply(this, Array.prototype.slice.call(arguments, 1));
     };
 
     // 直接调用 base 类的同名方法
     Class.prototype.callBase = function () {
         var caller = arguments.callee.caller;
-        var method = caller.__UFinderMethodClass.__UFinderBaseClass.prototype[ caller.__UFinderMethodName ];
+        var method = caller.__UFinderMethodClass.__UFinderBaseClass.prototype[caller.__UFinderMethodName];
         return method.apply(this, arguments);
     };
 
@@ -413,7 +413,7 @@ $.each(['String', 'Function', 'Array', 'Number', 'RegExp', 'Object', 'Boolean'],
         if (!mixins) {
             return this;
         }
-        var method = mixins[ name ];
+        var method = mixins[name];
         return method.apply(this, Array.prototype.slice.call(arguments, 1));
     };
 
@@ -424,10 +424,10 @@ $.each(['String', 'Function', 'Array', 'Number', 'RegExp', 'Object', 'Boolean'],
         if (!mixins) {
             return this;
         }
-        var method = mixins[ methodName ];
+        var method = mixins[methodName];
         if (methodName == 'constructor') {
             for (var i = 0, l = method.length; i < l; i++) {
-                method[ i ].call(this);
+                method[i].call(this);
             }
             return this;
         } else {
@@ -466,18 +466,18 @@ $.each(['String', 'Function', 'Array', 'Number', 'RegExp', 'Object', 'Boolean'],
 
     function inherit(constructor, BaseClass, classname) {
         var UFinderClass = eval('(function UFinder' + classname + '( __inherit__flag ) {' +
-            'if( __inherit__flag != FINDER_INHERIT_FLAG ) {' +
-            'UFinderClass.__UFinderConstructor.apply(this, arguments);' +
-            '}' +
-            'this.__UFinderClassName = UFinderClass.__UFinderClassName;' +
-            '})');
+        'if( __inherit__flag != FINDER_INHERIT_FLAG ) {' +
+        'UFinderClass.__UFinderConstructor.apply(this, arguments);' +
+        '}' +
+        'this.__UFinderClassName = UFinderClass.__UFinderClassName;' +
+        '})');
         UFinderClass.__UFinderConstructor = constructor;
 
         UFinderClass.prototype = new BaseClass(FINDER_INHERIT_FLAG);
 
         for (var methodName in BaseClass.prototype) {
             if (BaseClass.prototype.hasOwnProperty(methodName) && methodName.indexOf('__UFinder') !== 0) {
-                UFinderClass.prototype[ methodName ] = BaseClass.prototype[ methodName ];
+                UFinderClass.prototype[methodName] = BaseClass.prototype[methodName];
             }
         }
 
@@ -499,7 +499,7 @@ $.each(['String', 'Function', 'Array', 'Number', 'RegExp', 'Object', 'Boolean'],
         };
 
         for (i = 0; i < length; i++) {
-            proto = mixins[ i ].prototype;
+            proto = mixins[i].prototype;
 
             for (method in proto) {
                 if (false === proto.hasOwnProperty(method) || method.indexOf('__UFinder') === 0) {
@@ -507,9 +507,9 @@ $.each(['String', 'Function', 'Array', 'Number', 'RegExp', 'Object', 'Boolean'],
                 }
                 if (method === 'constructor') {
                     // constructor 特殊处理
-                    NewClass.__UFinderMixins.constructor.push(proto[ method ]);
+                    NewClass.__UFinderMixins.constructor.push(proto[method]);
                 } else {
-                    NewClass.prototype[ method ] = NewClass.__UFinderMixins[ method ] = proto[ method ];
+                    NewClass.prototype[method] = NewClass.__UFinderMixins[method] = proto[method];
                 }
             }
         }
@@ -525,7 +525,7 @@ $.each(['String', 'Function', 'Array', 'Number', 'RegExp', 'Object', 'Boolean'],
             if (extension.hasOwnProperty(methodName) &&
                 methodName.indexOf('__UFinder') &&
                 methodName != 'constructor') {
-                var method = BaseClass.prototype[ methodName ] = extension[ methodName ];
+                var method = BaseClass.prototype[methodName] = extension[methodName];
                 method.__UFinderMethodClass = BaseClass;
                 method.__UFinderMethodName = methodName;
             }
@@ -537,7 +537,7 @@ $.each(['String', 'Function', 'Array', 'Number', 'RegExp', 'Object', 'Boolean'],
         var constructor, NewClass, BaseClass;
 
         if (arguments.length === 1) {
-            defines = arguments[ 0 ];
+            defines = arguments[0];
             classname = 'AnonymousClass';
         }
 
@@ -681,7 +681,7 @@ var Finder = UF.Finder = UF.createClass('Finder', {
         $.extend(this._options, obj, true);
     },
     getOption: function (key) {
-        return this._options[ key ];
+        return this._options[key];
     },
     getLang: function (path) {
         var lang = UF.LANG[this.getOption('lang')];
@@ -773,13 +773,13 @@ UF.extendClass(Finder, {
         this.fire('blur');
     },
     _listen: function (type, callback) {
-        var callbacks = this._eventCallbacks[ type ] || ( this._eventCallbacks[ type ] = [] );
+        var callbacks = this._eventCallbacks[type] || ( this._eventCallbacks[type] = [] );
         callbacks.push(callback);
     },
     on: function (name, callback) {
         var types = name.split(' ');
         for (var i = 0; i < types.length; i++) {
-            this._listen(types[ i ].toLowerCase(), callback);
+            this._listen(types[i].toLowerCase(), callback);
         }
         return this;
     },
@@ -797,7 +797,7 @@ UF.extendClass(Finder, {
         var types = name.split(' ');
         var i, j, callbacks, removeIndex;
         for (i = 0; i < types.length; i++) {
-            callbacks = this._eventCallbacks[ types[ i ].toLowerCase() ];
+            callbacks = this._eventCallbacks[types[i].toLowerCase()];
             if (callbacks) {
                 removeIndex = null;
                 for (j = 0; j < callbacks.length; j++) {
@@ -812,12 +812,12 @@ UF.extendClass(Finder, {
         }
     },
     fire: function (type) {
-        var callbacks = this._eventCallbacks[ type.toLowerCase() ];
+        var callbacks = this._eventCallbacks[type.toLowerCase()];
         if (!callbacks) {
             return;
         }
         for (var i = 0; i < callbacks.length; i++) {
-            var res = callbacks[ i ].apply(this, arguments);
+            var res = callbacks[i].apply(this, arguments);
             if (res == false) {
                 break;
             }
@@ -833,7 +833,7 @@ UF.extendClass(Finder, {
     addShortcutKeys: function (cmd, keys) {
         var obj = {};
         if (keys) {
-            obj[ cmd ] = keys;
+            obj[cmd] = keys;
         } else {
             obj = cmd;
         }
@@ -849,15 +849,15 @@ UF.extendClass(Finder, {
             var keyCode = e.keyCode || e.which;
 
             for (var i in shortcutkeys) {
-                var tmp = shortcutkeys[ i ].split(',');
-                for (var t = 0, ti; ti = tmp[ t++ ];) {
+                var tmp = shortcutkeys[i].split(',');
+                for (var t = 0, ti; ti = tmp[t++];) {
                     ti = ti.split(':');
-                    var key = ti[ 0 ],
-                        param = ti[ 1 ];
+                    var key = ti[0],
+                        param = ti[1];
                     if (/^(ctrl)(\+shift)?\+(\d+)$/.test(key.toLowerCase()) || /^(\d+)$/.test(key)) {
-                        if (( ( RegExp.$1 == 'ctrl' ? ( e.ctrlKey || e.metaKey ) : 0 ) && ( RegExp.$2 != "" ? e[ RegExp.$2.slice(1) + "Key" ] : 1 ) && keyCode == RegExp.$3 ) ||
+                        if (( ( RegExp.$1 == 'ctrl' ? ( e.ctrlKey || e.metaKey ) : 0 ) && ( RegExp.$2 != "" ? e[RegExp.$2.slice(1) + "Key"] : 1 ) && keyCode == RegExp.$3 ) ||
                             keyCode == RegExp.$1
-                            ) {
+                        ) {
 
                             if (me.queryCommandState(i, param) != -1)
                                 me.execCommand(i, param);
@@ -902,7 +902,7 @@ UF.extendClass(Finder, {
             if (!modulesPool.hasOwnProperty(name)) continue;
 
             //执行模块初始化，抛出后续处理对象
-            moduleDeals = modulesPool[ name ].call(me);
+            moduleDeals = modulesPool[name].call(me);
             this._modules[name] = moduleDeals;
             if (moduleDeals.init) {
                 moduleDeals.init.call(me, this._options);
@@ -923,7 +923,7 @@ UF.extendClass(Finder, {
             dealEvents = moduleDeals.events;
             if (dealEvents) {
                 for (var type in dealEvents) {
-                    me.on(type, dealEvents[ type ]);
+                    me.on(type, dealEvents[type]);
                 }
             }
 
@@ -938,14 +938,14 @@ UF.extendClass(Finder, {
 
 UF.extendClass(Finder, {
     _getCommand: function (name) {
-        return this._commands[ name.toLowerCase() ];
+        return this._commands[name.toLowerCase()];
     },
     _queryCommand: function (name, type, args) {
         var cmd = this._getCommand(name);
         if (cmd) {
-            var queryCmd = cmd[ 'query' + type ];
+            var queryCmd = cmd['query' + type];
             if (queryCmd)
-                return queryCmd.apply(cmd, [ this ].concat(args));
+                return queryCmd.apply(cmd, [this].concat(args));
         }
         return 0;
     },
@@ -1007,15 +1007,33 @@ var Selection = UF.Selection = UF.createClass("Selection", {
     }
 });
 
+/**
+ * 存放所有文件的树形结构体
+ * @class UF.DataTree
+ * @constructor
+ */
 var DataTree = UF.DataTree = UF.createClass("DataTree", {
+
+    /**
+     * 创建 DataTree 实例
+     * @constructor
+     * @param { UF.Finder } finder - 绑定的 finder 实例
+     */
     constructor: function (finder) {
         this.finder = finder;
         this.root = null;
     },
+
+    /**
+     * 创建 DataTree 实例
+     * @method 设置跟节点
+     * @param { Object } data 跟节点的 FileNode 内容
+     */
     setRoot: function (data) {
         this.root = new FileNode(data);
         this.finder.fire('dataReady', data);
     },
+
     _getFileNode: function (path) {
         var current = this.root,
             pathArr = path.split('/');
@@ -1028,6 +1046,12 @@ var DataTree = UF.DataTree = UF.createClass("DataTree", {
         }
         return current;
     },
+
+    /**
+     * 创建 DataTree 实例
+     * @method 设置跟节点
+     * @param { Object } data 跟节点的 FileNode 内容
+     */
     getFileInfo: function (path) {
         var info = this._getFileNode(path);
         return info ? info.getInfo() : null;
@@ -1207,13 +1231,13 @@ var Proxy = UF.Proxy = UF.createClass("Proxy", {
             'cmd': 'init'
         }, callback);
     },
-    getRequestUrl: function(options){
+    getRequestUrl: function (options) {
         var url = this._url + '?';
-        $.each(options || {}, function(k, v){
+        $.each(options || {}, function (k, v) {
             url += (k + '=' + v + '&');
         });
-        if(url.charAt(url.length - 1) == '&') url = url.substr(0, url.length - 1);
-        if(url.charAt(url.length - 1) == '?') url = url.substr(0, url.length - 1);
+        if (url.charAt(url.length - 1) == '&') url = url.substr(0, url.length - 1);
+        if (url.charAt(url.length - 1) == '?') url = url.substr(0, url.length - 1);
         return url;
     },
     'ls': function (target, callback) {
@@ -1710,7 +1734,7 @@ UF.registerModule("uploadmodule", function () {
                 }, initWebUploader);
             },
             'currentpathchange': function (type, path) {
-                uf.webuploader && uf.webuploader.option('server', uf.getOption('URL') + '/server/ufinder.php?cmd=upload&target=' + path);
+                uf.webuploader && uf.webuploader.option('server', uf.getOption('serverUrl') + '?cmd=upload&target=' + path);
             }
         }
     };
@@ -1808,8 +1832,8 @@ UF.registerModule("downloadmodule", function () {
                         'cmd': 'download',
                         'target': path
                     });
-                    var $downloadIframe = $('<iframe src="' + downloadUrl + '">').hide().appendTo(document.body).load(function(){
-                        setTimeout(function(){
+                    var $downloadIframe = $('<iframe src="' + downloadUrl + '">').hide().appendTo(document.body).load(function () {
+                        setTimeout(function () {
                             $downloadIframe.remove();
                         }, 3000);
                     });
@@ -1853,9 +1877,9 @@ UF.registerModule("initmodule", function () {
 (function ($) {
     //对jquery的扩展
     $.parseTmpl = function parse(str, data) {
-        var tmpl = 'var __p=[],print=function(){__p.push.apply(__p,arguments);};' + 'with(obj||{}){__p.push(\'' + str.replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/<%=([\s\S]+?)%>/g,function (match, code) {
-            return "'," + code.replace(/\\'/g, "'") + ",'";
-        }).replace(/<%([\s\S]+?)%>/g,function (match, code) {
+        var tmpl = 'var __p=[],print=function(){__p.push.apply(__p,arguments);};' + 'with(obj||{}){__p.push(\'' + str.replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/<%=([\s\S]+?)%>/g, function (match, code) {
+                return "'," + code.replace(/\\'/g, "'") + ",'";
+            }).replace(/<%([\s\S]+?)%>/g, function (match, code) {
                 return "');" + code.replace(/\\'/g, "'").replace(/[\r\n\t]/g, ' ') + "__p.push('";
             }).replace(/\r/g, '\\r').replace(/\n/g, '\\n').replace(/\t/g, '\\t') + "');}return __p.join('');";
         var func = new Function('obj', tmpl);
@@ -1893,7 +1917,7 @@ UF.registerModule("initmodule", function () {
             return this;
         },
         trigger: function (ev, data) {
-            return  this.root().trigger(ev, data) === false ? false : this;
+            return this.root().trigger(ev, data) === false ? false : this;
         },
         root: function ($el) {
             return this._$el || (this._$el = $el);
@@ -2029,9 +2053,9 @@ UF.registerModule("initmodule", function () {
 //button 类
 UF.ui.define('button', {
     tpl: '<<%if(!texttype){%>div class="ufui-btn ufui-btn-<%=icon%> <%if(name){%>ufui-btn-name-<%=name%><%}%>" unselectable="on" onmousedown="return false" <%}else{%>a class="ufui-text-btn"<%}%><% if(title) {%>title="<%=title%>" data-original-title="<%=title%>" <%};%>> ' +
-        '<% if(icon) {%><div unselectable="on" class="ufui-icon-<%=icon%> ufui-icon"></div><% }; %><%if(text) {%><span unselectable="on" onmousedown="return false" class="ufui-button-label"><%=text%></span><%}%>' +
-        '<%if(caret && text){%><span class="ufui-button-spacing"></span><%}%>' +
-        '<% if(caret) {%><span unselectable="on" onmousedown="return false" class="ufui-caret"></span><% };%></<%if(!texttype){%>div<%}else{%>a<%}%>>',
+    '<% if(icon) {%><div unselectable="on" class="ufui-icon-<%=icon%> ufui-icon"></div><% }; %><%if(text) {%><span unselectable="on" onmousedown="return false" class="ufui-button-label"><%=text%></span><%}%>' +
+    '<%if(caret && text){%><span class="ufui-button-spacing"></span><%}%>' +
+    '<% if(caret) {%><span unselectable="on" onmousedown="return false" class="ufui-caret"></span><% };%></<%if(!texttype){%>div<%}else{%>a<%}%>>',
     defaultOpt: {
         text: '',
         title: '',
@@ -2097,13 +2121,13 @@ UF.ui.define('button', {
         if (!$.contains(document.body, $obj[0])) {
             $obj.appendTo(me.root());
         }
-        me.on('click',function () {
+        me.on('click', function () {
             me.wrapclick(function () {
                 $obj.ufui().show();
             });
         }).register('click', me.root(), function (evt) {
-                $obj.hide();
-            });
+            $obj.hide();
+        });
     }
 });
 
@@ -2127,25 +2151,25 @@ UF.ui.define('button', {
 
         return {
             tpl: "<ul class=\"dropdown-menu ufui-combobox-menu<%if (comboboxName!=='') {%> ufui-combobox-<%=comboboxName%><%}%>\" unselectable=\"on\" onmousedown=\"return false\" role=\"menu\" aria-labelledby=\"dropdownMenu\">" +
-                "<%if(autoRecord) {%>" +
-                "<%for( var i=0, len = recordStack.length; i<len; i++ ) {%>" +
-                "<%var index = recordStack[i];%>" +
-                "<li class=\"<%=itemClassName%><%if( selected == index ) {%> ufui-combobox-checked<%}%>\" data-item-index=\"<%=index%>\" unselectable=\"on\" onmousedown=\"return false\">" +
-                "<span class=\"ufui-combobox-icon\" unselectable=\"on\" onmousedown=\"return false\"></span>" +
-                "<label class=\"<%=labelClassName%>\" style=\"<%=itemStyles[ index ]%>\" unselectable=\"on\" onmousedown=\"return false\"><%=items[index]%></label>" +
-                "</li>" +
-                "<%}%>" +
-                "<%if( i ) {%>" +
-                "<li class=\"ufui-combobox-item-separator\"></li>" +
-                "<%}%>" +
-                "<%}%>" +
-                "<%for( var i=0, label; label = items[i]; i++ ) {%>" +
-                "<li class=\"<%=itemClassName%><%if( selected == i ) {%> ufui-combobox-checked<%}%> ufui-combobox-item-<%=i%>\" data-item-index=\"<%=i%>\" unselectable=\"on\" onmousedown=\"return false\">" +
-                "<span class=\"ufui-combobox-icon\" unselectable=\"on\" onmousedown=\"return false\"></span>" +
-                "<label class=\"<%=labelClassName%>\" style=\"<%=itemStyles[ i ]%>\" unselectable=\"on\" onmousedown=\"return false\"><%=label%></label>" +
-                "</li>" +
-                "<%}%>" +
-                "</ul>",
+            "<%if(autoRecord) {%>" +
+            "<%for( var i=0, len = recordStack.length; i<len; i++ ) {%>" +
+            "<%var index = recordStack[i];%>" +
+            "<li class=\"<%=itemClassName%><%if( selected == index ) {%> ufui-combobox-checked<%}%>\" data-item-index=\"<%=index%>\" unselectable=\"on\" onmousedown=\"return false\">" +
+            "<span class=\"ufui-combobox-icon\" unselectable=\"on\" onmousedown=\"return false\"></span>" +
+            "<label class=\"<%=labelClassName%>\" style=\"<%=itemStyles[ index ]%>\" unselectable=\"on\" onmousedown=\"return false\"><%=items[index]%></label>" +
+            "</li>" +
+            "<%}%>" +
+            "<%if( i ) {%>" +
+            "<li class=\"ufui-combobox-item-separator\"></li>" +
+            "<%}%>" +
+            "<%}%>" +
+            "<%for( var i=0, label; label = items[i]; i++ ) {%>" +
+            "<li class=\"<%=itemClassName%><%if( selected == i ) {%> ufui-combobox-checked<%}%> ufui-combobox-item-<%=i%>\" data-item-index=\"<%=i%>\" unselectable=\"on\" onmousedown=\"return false\">" +
+            "<span class=\"ufui-combobox-icon\" unselectable=\"on\" onmousedown=\"return false\"></span>" +
+            "<label class=\"<%=labelClassName%>\" style=\"<%=itemStyles[ i ]%>\" unselectable=\"on\" onmousedown=\"return false\"><%=label%></label>" +
+            "</li>" +
+            "<%}%>" +
+            "</ul>",
             defaultOpt: {
                 //记录栈初始列表
                 recordStack: [],
@@ -2202,7 +2226,7 @@ UF.ui.define('button', {
                     me.trigger('comboboxselect', {
                         index: index,
                         label: $li.find(labelClass).text(),
-                        value: me.data('options').value[ index ]
+                        value: me.data('options').value[index]
                     }).select(index);
 
                     me.hide();
@@ -2218,10 +2242,10 @@ UF.ui.define('button', {
                     mouseleave: 'removeClass'
                 };
                 if ($.IE6) {
-                    this.root().delegate('.' + itemClassName, 'mouseenter mouseleave',function (evt) {
-                        $(this)[ fn[ evt.type ] ](HOVER_CLASS);
+                    this.root().delegate('.' + itemClassName, 'mouseenter mouseleave', function (evt) {
+                        $(this)[fn[evt.type]](HOVER_CLASS);
                     }).one('afterhide', function () {
-                        });
+                    });
                 }
             },
             /**
@@ -2252,11 +2276,11 @@ UF.ui.define('button', {
 
                 }
 
-                this.trigger('changebefore', items[ index ]);
+                this.trigger('changebefore', items[index]);
 
                 this._update(index);
 
-                this.trigger('changeafter', items[ index ]);
+                this.trigger('changeafter', items[index]);
 
                 return null;
 
@@ -2267,11 +2291,11 @@ UF.ui.define('button', {
                     me = this,
                     index = null;
 
-                !$.isArray(label) && ( label = [ label ] );
+                !$.isArray(label) && ( label = [label] );
 
                 $.each(label, function (i, item) {
 
-                    index = itemMapping[ item ];
+                    index = itemMapping[item];
 
                     if (index !== undefined) {
 
@@ -2294,7 +2318,7 @@ UF.ui.define('button', {
 
                 $.each(options.recordStack, function (index, item) {
 
-                    itemIndex = options.itemMapping[ item ];
+                    itemIndex = options.itemMapping[item];
 
                     if ($.isNumeric(itemIndex)) {
 
@@ -2341,16 +2365,16 @@ UF.ui.define('button', {
                     };
 
                 $.each(items, function (index, item) {
-                    temp[ item ] = index;
+                    temp[item] = index;
                 });
 
                 result.itemMapping = temp;
 
                 $.each(stackItem, function (index, item) {
 
-                    if (temp[ item ] !== undefined) {
-                        result.recordStack.push(temp[ item ]);
-                        result.mapping[ item ] = temp[ item ];
+                    if (temp[item] !== undefined) {
+                        result.recordStack.push(temp[item]);
+                        result.mapping[item] = temp[item];
                     }
 
                 });
@@ -2401,20 +2425,20 @@ UF.ui.define('button', {
 /*modal 类*/
 UF.ui.define('modal', {
     tpl: '<div class="ufui-modal" tabindex="-1" >' +
-        '<div class="ufui-modal-header">' +
-        '<div class="ufui-close" data-hide="modal"></div>' +
-        '<h3 class="ufui-title"><%=title%></h3>' +
-        '</div>' +
-        '<div class="ufui-modal-body"  style="<%if(width){%>width:<%=width%>px;<%}%>' +
-        '<%if(height){%>height:<%=height%>px;<%}%>">' +
-        ' </div>' +
-        '<% if(cancellabel || oklabel) {%>' +
-        '<div class="ufui-modal-footer">' +
-        '<div class="ufui-modal-tip"></div>' +
-        '<%if(oklabel){%><div class="ufui-btn ufui-btn-primary" data-ok="modal"><%=oklabel%></div><%}%>' +
-        '<%if(cancellabel){%><div class="ufui-btn" data-hide="modal"><%=cancellabel%></div><%}%>' +
-        '</div>' +
-        '<%}%></div>',
+    '<div class="ufui-modal-header">' +
+    '<div class="ufui-close" data-hide="modal"></div>' +
+    '<h3 class="ufui-title"><%=title%></h3>' +
+    '</div>' +
+    '<div class="ufui-modal-body"  style="<%if(width){%>width:<%=width%>px;<%}%>' +
+    '<%if(height){%>height:<%=height%>px;<%}%>">' +
+    ' </div>' +
+    '<% if(cancellabel || oklabel) {%>' +
+    '<div class="ufui-modal-footer">' +
+    '<div class="ufui-modal-tip"></div>' +
+    '<%if(oklabel){%><div class="ufui-btn ufui-btn-primary" data-ok="modal"><%=oklabel%></div><%}%>' +
+    '<%if(cancellabel){%><div class="ufui-btn" data-hide="modal"><%=cancellabel%></div><%}%>' +
+    '</div>' +
+    '<%}%></div>',
     defaultOpt: {
         title: "",
         cancellabel: "",
@@ -2478,7 +2502,7 @@ UF.ui.define('modal', {
     },
     autoCenter: function () {
         //ie6下不用处理了
-        if(!$.IE6) {
+        if (!$.IE6) {
             /* 调整宽度 */
             this.root().css("margin-left", -(this.root().width() / 2));
             /* 调整高度 */
@@ -2563,15 +2587,15 @@ UF.ui.define('modal', {
 //scale 类
 UF.ui.define('scale', {
     tpl: '<div class="ufui-scale" unselectable="on">' +
-        '<span class="ufui-scale-hand0"></span>' +
-        '<span class="ufui-scale-hand1"></span>' +
-        '<span class="ufui-scale-hand2"></span>' +
-        '<span class="ufui-scale-hand3"></span>' +
-        '<span class="ufui-scale-hand4"></span>' +
-        '<span class="ufui-scale-hand5"></span>' +
-        '<span class="ufui-scale-hand6"></span>' +
-        '<span class="ufui-scale-hand7"></span>' +
-        '</div>',
+    '<span class="ufui-scale-hand0"></span>' +
+    '<span class="ufui-scale-hand1"></span>' +
+    '<span class="ufui-scale-hand2"></span>' +
+    '<span class="ufui-scale-hand3"></span>' +
+    '<span class="ufui-scale-hand4"></span>' +
+    '<span class="ufui-scale-hand5"></span>' +
+    '<span class="ufui-scale-hand6"></span>' +
+    '<span class="ufui-scale-hand7"></span>' +
+    '</div>',
     defaultOpt: {
         $doc: $(document),
         $wrap: $(document)
@@ -2587,15 +2611,15 @@ UF.ui.define('scale', {
     },
     initStyle: function () {
         utils.cssRule('ufui-style-scale', '.ufui-scale{display:none;position:absolute;border:1px solid #38B2CE;cursor:hand;}' +
-            '.ufui-scale span{position:absolute;left:0;top:0;width:7px;height:7px;overflow:hidden;font-size:0px;display:block;background-color:#3C9DD0;}' +
-            '.ufui-scale .ufui-scale-hand0{cursor:nw-resize;top:0;margin-top:-4px;left:0;margin-left:-4px;}' +
-            '.ufui-scale .ufui-scale-hand1{cursor:n-resize;top:0;margin-top:-4px;left:50%;margin-left:-4px;}' +
-            '.ufui-scale .ufui-scale-hand2{cursor:ne-resize;top:0;margin-top:-4px;left:100%;margin-left:-3px;}' +
-            '.ufui-scale .ufui-scale-hand3{cursor:w-resize;top:50%;margin-top:-4px;left:0;margin-left:-4px;}' +
-            '.ufui-scale .ufui-scale-hand4{cursor:e-resize;top:50%;margin-top:-4px;left:100%;margin-left:-3px;}' +
-            '.ufui-scale .ufui-scale-hand5{cursor:sw-resize;top:100%;margin-top:-3px;left:0;margin-left:-4px;}' +
-            '.ufui-scale .ufui-scale-hand6{cursor:s-resize;top:100%;margin-top:-3px;left:50%;margin-left:-4px;}' +
-            '.ufui-scale .ufui-scale-hand7{cursor:se-resize;top:100%;margin-top:-3px;left:100%;margin-left:-3px;}');
+        '.ufui-scale span{position:absolute;left:0;top:0;width:7px;height:7px;overflow:hidden;font-size:0px;display:block;background-color:#3C9DD0;}' +
+        '.ufui-scale .ufui-scale-hand0{cursor:nw-resize;top:0;margin-top:-4px;left:0;margin-left:-4px;}' +
+        '.ufui-scale .ufui-scale-hand1{cursor:n-resize;top:0;margin-top:-4px;left:50%;margin-left:-4px;}' +
+        '.ufui-scale .ufui-scale-hand2{cursor:ne-resize;top:0;margin-top:-4px;left:100%;margin-left:-3px;}' +
+        '.ufui-scale .ufui-scale-hand3{cursor:w-resize;top:50%;margin-top:-4px;left:0;margin-left:-4px;}' +
+        '.ufui-scale .ufui-scale-hand4{cursor:e-resize;top:50%;margin-top:-4px;left:100%;margin-left:-3px;}' +
+        '.ufui-scale .ufui-scale-hand5{cursor:sw-resize;top:100%;margin-top:-3px;left:0;margin-left:-4px;}' +
+        '.ufui-scale .ufui-scale-hand6{cursor:s-resize;top:100%;margin-top:-3px;left:50%;margin-left:-4px;}' +
+        '.ufui-scale .ufui-scale-hand7{cursor:se-resize;top:100%;margin-top:-3px;left:100%;margin-left:-3px;}');
     },
     _eventHandler: function (e) {
         var me = this,
@@ -2730,10 +2754,10 @@ UF.ui.define('scale', {
 ///import button
 UF.ui.define('splitbutton', {
     tpl: '<div class="ufui-splitbutton <%if (name){%>ufui-splitbutton-<%= name %><%}%>"  unselectable="on" <%if(title){%>data-original-title="<%=title%>"<%}%>><div class="ufui-btn"  unselectable="on" ><%if(icon){%><div  unselectable="on" class="ufui-icon-<%=icon%> ufui-icon"></div><%}%><%if(text){%><%=text%><%}%></div>' +
-        '<div  unselectable="on" class="ufui-btn ufui-dropdown-toggle" >' +
-        '<div  unselectable="on" class="ufui-caret"><\/div>' +
-        '</div>' +
-        '</div>',
+    '<div  unselectable="on" class="ufui-btn ufui-dropdown-toggle" >' +
+    '<div  unselectable="on" class="ufui-caret"><\/div>' +
+    '</div>' +
+    '</div>',
     defaultOpt: {
         text: '',
         title: '',
@@ -2929,13 +2953,13 @@ UF.ui.define('tooltip', {
 //dropmenu 类
 UF.ui.define('dropmenu', {
     tmpl: '<ul class="ufui-dropdown-menu" aria-labelledby="dropdownMenu" >' +
-        '<%for(var i=0,ci;ci=data[i++];){%>' +
-        '<%if(ci.divider){%><li class="ufui-divider"></li><%}else{%>' +
-        '<li <%if(ci.active||ci.disabled){%>class="<%= ci.active|| \'\' %> <%=ci.disabled||\'\' %>" <%}%> data-value="<%= ci.value%>">' +
-        '<a href="#" tabindex="-1"><em class="ufui-dropmenu-checkbox"><i class="ufui-icon-ok"></i></em><%= ci.label%></a>' +
-        '</li><%}%>' +
-        '<%}%>' +
-        '</ul>',
+    '<%for(var i=0,ci;ci=data[i++];){%>' +
+    '<%if(ci.divider){%><li class="ufui-divider"></li><%}else{%>' +
+    '<li <%if(ci.active||ci.disabled){%>class="<%= ci.active|| \'\' %> <%=ci.disabled||\'\' %>" <%}%> data-value="<%= ci.value%>">' +
+    '<a href="#" tabindex="-1"><em class="ufui-dropmenu-checkbox"><i class="ufui-icon-ok"></i></em><%= ci.label%></a>' +
+    '</li><%}%>' +
+    '<%}%>' +
+    '</ul>',
     defaultOpt: {
         data: [],
         click: function () {
@@ -2950,19 +2974,19 @@ UF.ui.define('dropmenu', {
             mouseout: 1
         };
 
-        this.root($($.parseTmpl(this.tmpl, options))).on('click', 'li[class!="ufui-disabled ufui-divider ufui-dropdown-submenu"]',function (evt) {
+        this.root($($.parseTmpl(this.tmpl, options))).on('click', 'li[class!="ufui-disabled ufui-divider ufui-dropdown-submenu"]', function (evt) {
             $.proxy(options.click, me, evt, $(this).data('value'), $(this))();
         }).find('li').each(function (i, el) {
-                var $this = $(this);
-                if (!$this.hasClass("ufui-disabled ufui-divider ufui-dropdown-submenu")) {
-                    var data = options.data[i];
-                    $.each(eventName, function (k) {
-                        data[k] && $this[k](function (evt) {
-                            $.proxy(data[k], el)(evt, data, me.root);
-                        });
+            var $this = $(this);
+            if (!$this.hasClass("ufui-disabled ufui-divider ufui-dropdown-submenu")) {
+                var data = options.data[i];
+                $.each(eventName, function (k) {
+                    data[k] && $this[k](function (evt) {
+                        $.proxy(data[k], el)(evt, data, me.root);
                     });
-                }
-            });
+                });
+            }
+        });
 
     },
     disabled: function (cb) {
@@ -3058,10 +3082,10 @@ UF.ui.define('menu', {
 //popup 类
 UF.ui.define('popup', {
     tpl: '<div class="ufui-dropdown-menu ufui-popup"' +
-        '<%if(!<%=stopprop%>){%>onmousedown="return false"<%}%>' +
-        '><div class="ufui-popup-body" unselectable="on" onmousedown="return false"><%=subtpl%></div>' +
-        '<div class="ufui-popup-caret"></div>' +
-        '</div>',
+    '<%if(!<%=stopprop%>){%>onmousedown="return false"<%}%>' +
+    '><div class="ufui-popup-body" unselectable="on" onmousedown="return false"><%=subtpl%></div>' +
+    '<div class="ufui-popup-caret"></div>' +
+    '</div>',
     defaultOpt: {
         stopprop: false,
         subtpl: '',
@@ -3150,12 +3174,12 @@ UF.ui.define('separator', {
 
 UF.ui.define('file', {
     tpl: '<div class="ufui-file ufui-file-<%=pers%>" data-path="<%=path%>">' +
-        '<div class="ufui-file-icon">' +
-        '   <i class="ufui-file-icon-<%=type%>"></i>' +
-        '   <span class="ufui-file-pers"></span>' +
-        '</div>' +
-        '<div class="ufui-file-title"><%=title%></div>' +
-        '</div>',
+    '<div class="ufui-file-icon">' +
+    '   <i class="ufui-file-icon-<%=type%>"></i>' +
+    '   <span class="ufui-file-pers"></span>' +
+    '</div>' +
+    '<div class="ufui-file-title"><%=title%></div>' +
+    '</div>',
     defaultOpt: {
         type: '',
         title: '',
@@ -3290,8 +3314,8 @@ UF.ui.define('file', {
 
 UF.ui.define('list', {
     tpl: '<div class="ufui-list">' +
-        '<div class="ufui-list-container"></div>' +
-        '</div>',
+    '<div class="ufui-list-container"></div>' +
+    '</div>',
     defaultOpt: {
         sort: 'title'
     },
@@ -3377,13 +3401,13 @@ UF.ui.define('list', {
 
 UF.ui.define('leaf', {
     tpl: '<li class="ufui-leaf" data-path="<%=path%>">' +
-        '   <div class="ufui-leaf-detail ufui-leaf-detail-closed">' +
-        '       <div class="ufui-leaf-expand"></div>' +
-        '       <div class="ufui-leaf-folder"><i class="ufui-leaf-folder-<%=type%>"></i></div>' +
-        '       <div class="ufui-leaf-title"><%=title%></div>' +
-        '   </div>' +
-        '   <ul class="ufui-tree-branch ufui-tree-branch-closed"></ul>' +
-        '</li>',
+    '   <div class="ufui-leaf-detail ufui-leaf-detail-closed">' +
+    '       <div class="ufui-leaf-expand"></div>' +
+    '       <div class="ufui-leaf-folder"><i class="ufui-leaf-folder-<%=type%>"></i></div>' +
+    '       <div class="ufui-leaf-title"><%=title%></div>' +
+    '   </div>' +
+    '   <ul class="ufui-tree-branch ufui-tree-branch-closed"></ul>' +
+    '</li>',
     defaultOpt: {
         type: 'dir',
         title: '',
@@ -3496,8 +3520,8 @@ UF.ui.define('leaf', {
 
 UF.ui.define('tree', {
     tpl: '<div class="ufui-tree">' +
-        '<ul class="ufui-tree-branch ufui-tree-branch-root"></ul>' +
-        '</div>',
+    '<ul class="ufui-tree-branch ufui-tree-branch-root"></ul>' +
+    '</div>',
     defaultOpt: {
     },
     init: function (options) {
@@ -3612,15 +3636,15 @@ UF.ui.define('panel', {
 
 UF.ui.define('message', {
     tpl: '<div class="ufui-message">' +
-        '   <div class="ufui-message-head"><div class="ufui-message-close"></div></div>' +
-        '   <div class="ufui-message-body">' +
-        '       <div class="ufui-message-icon"><i class="ufui-message-icon-<%=icon%>"></i></div>' +
-        '       <div class="ufui-message-info">' +
-        '           <div class="ufui-message-title"><%=title%></div>' +
-        '           <div class="ufui-message-loadbar"><div class="ufui-message-loadbar-percent"></div></div>' +
-        '       </div>' +
-        '   </div>' +
-        '</div>',
+    '   <div class="ufui-message-head"><div class="ufui-message-close"></div></div>' +
+    '   <div class="ufui-message-body">' +
+    '       <div class="ufui-message-icon"><i class="ufui-message-icon-<%=icon%>"></i></div>' +
+    '       <div class="ufui-message-info">' +
+    '           <div class="ufui-message-title"><%=title%></div>' +
+    '           <div class="ufui-message-loadbar"><div class="ufui-message-loadbar-percent"></div></div>' +
+    '       </div>' +
+    '   </div>' +
+    '</div>',
     defaultOpt: {
         icon: '',
         title: ''
@@ -3707,7 +3731,7 @@ $.extend(UFinder, (function () {
     return {
         registerUI: function (uiname, fn) {
             $.each(uiname.split(/\s+/), function (i, name) {
-                _ufinderUI[ name ] = fn;
+                _ufinderUI[name] = fn;
             });
         },
         _createContainer: function (id) {
@@ -3729,8 +3753,8 @@ $.extend(UFinder, (function () {
                         if (name == '|') {
                             $.ufuiseparator && btns.push($.ufuiseparator());
                         } else {
-                            if (_ufinderUI[ name ]) {
-                                var ui = _ufinderUI[ name ].call(uf, name);
+                            if (_ufinderUI[name]) {
+                                var ui = _ufinderUI[name].call(uf, name);
                                 ui && btns.push(ui);
                             }
                         }
@@ -3791,11 +3815,11 @@ $.extend(UFinder, (function () {
                 uf = this.getFinder($container, options);
 
             uf.$container = $container;
-            uf.on('focus',function () {
+            uf.on('focus', function () {
                 $container.removeClass('ufui-disabled');
             }).on('blur', function () {
-                    $container.addClass('ufui-disabled');
-                });
+                $container.addClass('ufui-disabled');
+            });
 
             this._createToolbar(uf);
             this._createtree(uf);
@@ -3837,7 +3861,7 @@ $.extend(UFinder, (function () {
                     getWidgetCallback: function (widgetName) {
                         var me = this;
                         return function () {
-                            return  _widgetCallBack[widgetName].apply(me, [me, $widget].concat(Array.prototype.slice.call(arguments, 0)));
+                            return _widgetCallBack[widgetName].apply(me, [me, $widget].concat(Array.prototype.slice.call(arguments, 0)));
                         };
                     }
                 });
@@ -3962,10 +3986,10 @@ UF.registerUI('list',
         $list.delegate('.ufui-file', 'click', function (e) {
 
             /* 解决双击单个文件时,不选中问题 */
-            if(singleClickTimer && singleClickTarget == e.target && !(e.shiftKey || e.ctrlKey || e.metaKey)) {
+            if (singleClickTimer && singleClickTarget == e.target && !(e.shiftKey || e.ctrlKey || e.metaKey)) {
                 return;
             } else {
-                singleClickTimer = setTimeout(function(){
+                singleClickTimer = setTimeout(function () {
                     singleClickTimer = 0;
                 }, 500);
                 singleClickTarget = e.target;
@@ -4313,39 +4337,39 @@ UF.registerUI('lookimage lookcode', function (name) {
         $dialog.attr('id', 'ufui-dialog-' + name).addClass('ufui-dialog-' + name)
             .find('.ufui-modal-body').addClass('ufui-dialog-' + name + '-body');
 
-        $dialog.ufui().on('beforehide',function () {
+        $dialog.ufui().on('beforehide', function () {
 
-        }).on('beforeshow',function () {
-                var $root = this.root(),
-                    win = null,
-                    offset = null;
-                if (!$root.parent()[0]) {
-                    me.$container.find('.ufui-dialog-container').append($root);
-                }
+        }).on('beforeshow', function () {
+            var $root = this.root(),
+                win = null,
+                offset = null;
+            if (!$root.parent()[0]) {
+                me.$container.find('.ufui-dialog-container').append($root);
+            }
 
-                /* IE6下 特殊处理, 通过计算进行定位 */
-                if ($.IE6) {
+            /* IE6下 特殊处理, 通过计算进行定位 */
+            if ($.IE6) {
 
-                    win = {
-                        width: $(window).width(),
-                        height: $(window).height()
-                    };
-                    offset = $root.parents(".ufui-toolbar")[0].getBoundingClientRect();
-                    $root.css({
-                        position: 'absolute',
-                        margin: 0,
-                        left: ( win.width - $root.width() ) / 2 - offset.left,
-                        top: 100 - offset.top
-                    });
+                win = {
+                    width: $(window).width(),
+                    height: $(window).height()
+                };
+                offset = $root.parents(".ufui-toolbar")[0].getBoundingClientRect();
+                $root.css({
+                    position: 'absolute',
+                    margin: 0,
+                    left: ( win.width - $root.width() ) / 2 - offset.left,
+                    top: 100 - offset.top
+                });
 
-                }
-                UF.setWidgetBody(name, $dialog, me);
-            }).on('afterbackdrop',function () {
-                this.$backdrop.css('zIndex', me.getOption('zIndex') + 1).appendTo(me.$container.find('.ufui-dialog-container'));
-                $dialog.css('zIndex', me.getOption('zIndex') + 2);
-            }).on('beforeok',function () {
+            }
+            UF.setWidgetBody(name, $dialog, me);
+        }).on('afterbackdrop', function () {
+            this.$backdrop.css('zIndex', me.getOption('zIndex') + 1).appendTo(me.$container.find('.ufui-dialog-container'));
+            $dialog.css('zIndex', me.getOption('zIndex') + 2);
+        }).on('beforeok', function () {
 
-            }).attachTo($btn);
+        }).attachTo($btn);
     });
 
     me.on('selectionchange ready focus blur currentpathchange', function () {
