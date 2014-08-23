@@ -1,6 +1,6 @@
 var Finder = UF.Finder = UF.createClass('Finder', {
     constructor: function (options) {
-        this._options = $.extend(window.UFINDER_CONFIG || {}, options);
+        this._options = $.extend({}, options, window.UFINDER_CONFIG);
         this.setDefaultOptions(UF.defaultOptions);
         this._initEvents();
         this._initSelection();
