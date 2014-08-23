@@ -35,7 +35,7 @@ var Finder = UF.Finder = UF.createClass('Finder', {
         } else {
             obj = key;
         }
-        $.extend(this._options, obj, true);
+        $.extend(this._options, obj, $.extend({}, this._options));
     },
     getOption: function (key) {
         return this._options[key];

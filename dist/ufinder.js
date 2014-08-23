@@ -1,6 +1,6 @@
 /*!
  * ====================================================
- * ufinder - v1.0.0 - 2014-08-21
+ * ufinder - v1.0.0 - 2014-08-24
  * https://github.com/fex-team/ufinder
  * GitHub: https://github.com/fex-team/ufinder.git 
  * Copyright (c) 2014 f-cube @ FEX; Licensed MIT
@@ -643,7 +643,7 @@ var FileNode = UF.FileNode = UF.createClass("FileNode", {
 
 var Finder = UF.Finder = UF.createClass('Finder', {
     constructor: function (options) {
-        this._options = $.extend(window.UFINDER_CONFIG || {}, options);
+        this._options = $.extend({}, options, window.UFINDER_CONFIG);
         this.setDefaultOptions(UF.defaultOptions);
         this._initEvents();
         this._initSelection();
@@ -678,7 +678,7 @@ var Finder = UF.Finder = UF.createClass('Finder', {
         } else {
             obj = key;
         }
-        $.extend(this._options, obj, true);
+        $.extend(this._options, obj, $.extend({}, this._options));
     },
     getOption: function (key) {
         return this._options[key];
