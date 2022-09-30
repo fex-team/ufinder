@@ -23,8 +23,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * @author 徐兴繁
- * yntravelsky
+ * @author xxf
  * 2014-11-17
  * 运行环境windwos
  *
